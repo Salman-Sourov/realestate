@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1> Agent </h1>
+    <h1> Agent Dashboard</h1>
 </body>
 </html>
