@@ -17,7 +17,7 @@
         .authlogin-side-wrapper {
             width: 100%;
             height: 100%;
-            background-image: url({{ asset('upload/login.png')}});
+            background-image: url({{ asset('upload/login.png') }});
         }
     </style>
 
@@ -84,7 +84,7 @@
                                             </div>
                                             <div class="form-check mb-3">
                                                 <input type="checkbox" class="form-check-input" id="authCheck">
-                                                <label class="form-check-label" for="authCheck">
+                                                <label class="for m-check-label" for="authCheck">
                                                     Remember me
                                                 </label>
                                             </div>
