@@ -89,7 +89,6 @@ class AdminController extends Controller
         };
 
         //update the password
-        //isjh
         User::whereId(auth()->user()->id)->update([
             'password' => Hash::make($request->new_password)
         ]);
