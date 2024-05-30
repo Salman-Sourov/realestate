@@ -57,7 +57,8 @@
                             <form method="POST" action="{{ route('admin.update.password') }}" class="forms-sample"
                                 enctype="multipart/form-data">
                                 @csrf
-
+                                
+                                //@error is laravel default method
                                 <div class="mb-3">
                                     <label for="exampleInputUsername1" class="form-label">Old Password</label>
                                     <input type="password" name="old_password"
