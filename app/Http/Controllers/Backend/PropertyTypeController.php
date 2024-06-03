@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Amenities;
 use App\Models\propertyType;
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 
 class PropertyTypeController extends Controller
 {
@@ -72,6 +73,19 @@ class PropertyTypeController extends Controller
         );
 
         return back()->with($notification);
+    }
+
+
+
+    //////// Amenities All Method ///////////
+
+    public function AllAmenitie(){
+        $amenities = Amenities::latest()->get();
+        return view('backend.amenities.all_amenities',compact('amenities'));
+    }
+
+    public function AddAmenitie(){
+        return view('backend.amenities.add_amenities');
     }
 
 }
