@@ -100,7 +100,7 @@ class PropertyTypeController extends Controller
     {
 
         Amenities::insert([
-            'aminities_name' => $request->amenities_name,
+            'aminities_name' => $request->aminities_name,
         ]);
 
         $notification  = array(
@@ -125,7 +125,7 @@ class PropertyTypeController extends Controller
 
         Amenities::findOrFail($ame_id)->update([
 
-            'aminities_name' => $request->amenitis_name,
+            'aminities_name' => $request->aminities_name,
         ]);
 
           $notification = array(

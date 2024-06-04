@@ -24,8 +24,8 @@
 
                                 <div class="form-group mb-3">
                                     <label for="exampleInputEmail1" class="form-label"> Amenities Name </label>
-                                    <input type="text" name="amenities_name" class="form-control"
-                                        value="{{ $amenities->amenities_name }}">
+                                    <input type="text" name="aminities_name" class="form-control"
+                                        value="{{ $amenities->aminities_name }}">
                                 </div>
 
                                 <button type="submit" class="btn btn-primary me-2">Save Changes </button>
