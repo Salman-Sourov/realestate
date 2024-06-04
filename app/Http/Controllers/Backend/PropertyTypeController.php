@@ -10,16 +10,19 @@ use Illuminate\Support\Facades\Auth;
 
 class PropertyTypeController extends Controller
 {
-    public function AllType(){
+    public function AllType()
+    {
         $types = propertyType::latest()->get();
-        return view('backend.type.all_type',compact('types'));
+        return view('backend.type.all_type', compact('types'));
     }
 
-    public function AddType(){
+    public function AddType()
+    {
         return view('backend.type.add_type');
     }
 
-    public function StoreType(Request $request){
+    public function StoreType(Request $request)
+    {
         $request->validate([
             'type_name' => 'required|unique:property_types|max:200',
             'type_icon' => 'required'
@@ -38,14 +41,16 @@ class PropertyTypeController extends Controller
         return redirect()->route('all.type')->with($notification);
     }
 
-    public function EditType($id){
+    public function EditType($id)
+    {
 
         $types = propertyType::findOrFail($id);
-        return view('backend.type.edit_type',compact('types'));
+        return view('backend.type.edit_type', compact('types'));
     }
 
 
-    public function UpdateType(Request $request){
+    public function UpdateType(Request $request)
+    {
 
         $pid = $request->id;
 
@@ -63,7 +68,8 @@ class PropertyTypeController extends Controller
     }
 
 
-    public function DeleteType($id){
+    public function DeleteType($id)
+    {
 
         propertyType::findOrFail($id)->delete();
 
@@ -79,13 +85,72 @@ class PropertyTypeController extends Controller
 
     //////// Amenities All Method ///////////
 
-    public function AllAmenitie(){
+    public function AllAmenitie()
+    {
         $amenities = Amenities::latest()->get();
-        return view('backend.amenities.all_amenities',compact('amenities'));
+        return view('backend.amenities.all_amenities', compact('amenities'));
     }
 
-    public function AddAmenitie(){
+    public function AddAmenitie()
+    {
         return view('backend.amenities.add_amenities');
     }
+
+    public function StoreAmenitie(Request $request)
+    {
+
+        Amenities::insert([
+            'aminities_name' => $request->amenities_name,
+        ]);
+
+        $notification  = array(
+            'message' => 'Aminities Create Successfully',
+            'alert-type' => 'success',
+        );
+
+        return redirect()->route('all.amenitie')->with($notification);
+    }
+
+
+    public function EditAmenitie($id){
+
+        $amenities = Amenities::findOrFail($id);
+        return view('backend.amenities.edit_amenities',compact('amenities'));
+
+    }// End Method
+
+    public function UpdateAmenitie(Request $request){
+
+        $ame_id = $request->id;
+
+        Amenities::findOrFail($ame_id)->update([
+
+            'aminities_name' => $request->amenitis_name,
+        ]);
+
+          $notification = array(
+
+            'message' => 'Amenities Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('all.amenitie')->with($notification);
+
+    }// End Method
+
+
+    public function DeleteAmenitie($id){
+
+        Amenities::findOrFail($id)->delete();
+
+        $notification = array(
+            'message' => 'Amenities Deleted Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+
+    }// End Method
+
 
 }

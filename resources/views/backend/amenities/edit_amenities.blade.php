@@ -15,28 +15,39 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <h6 class="card-title">Add Amenities </h6>
+                            <h6 class="card-title">Edit Amenities </h6>
 
-                            {{-- myForm from below js --}}
-                            <form id="myForm" method="POST" action="{{ route('store.amenitie') }}" class="forms-sample">
+                            <form id="myForm" method="POST" action="{{ route('update.amenitie') }}" class="forms-sample">
                                 @csrf
 
-                                {{-- form-group from below js --}}
+                                <input type="hidden" name="id" value="{{ $amenities->id }}">
+
                                 <div class="form-group mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Amenities Name </label>
-                                    <input type="text" name="amenities_name" class="form-control">
+                                    <label for="exampleInputEmail1" class="form-label"> Amenities Name </label>
+                                    <input type="text" name="amenities_name" class="form-control"
+                                        value="{{ $amenities->amenities_name }}">
                                 </div>
 
                                 <button type="submit" class="btn btn-primary me-2">Save Changes </button>
+
                             </form>
+
                         </div>
                     </div>
+
+
+
+
                 </div>
             </div>
             <!-- middle wrapper end -->
+            <!-- right wrapper start -->
+
+            <!-- right wrapper end -->
         </div>
 
     </div>
+
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -45,6 +56,7 @@
                     amenitis_name: {
                         required: true,
                     },
+
 
                 },
                 messages: {
