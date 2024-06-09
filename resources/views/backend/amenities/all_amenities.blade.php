@@ -27,7 +27,7 @@
                                     @foreach ($amenities as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->aminities_name }}</td>
+                                            <td>{{ $item->amenitis_name }}</td>
                                             <td>
                                                 <a href="{{ route('edit.amenitie', $item->id) }}"
                                                     class="btn btn-inverse-warning"> Edit </a>

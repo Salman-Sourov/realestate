@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('amenities', function (Blueprint $table) {
-            $table->id();
-            $table->string('amenitis_name');
-            $table->timestamps();
+        Schema::table('properties', function (Blueprint $table) {
+            //add new column
+            $table->string('ptype_id', 255)->after('id');
         });
     }
 
@@ -23,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('amenities');
+        Schema::table('properties', function (Blueprint $table) {
+            $table->dropColumn('ptype_id');
+        });
     }
 };

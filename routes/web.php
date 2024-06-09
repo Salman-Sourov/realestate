@@ -86,10 +86,7 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::controller(PropertyController::class)->group(function(){
         Route::get('/all/property','AllProperty')->name('all.property');
         Route::get('/add/property','AddProperty')->name('add.property');
-        Route::post('/store/amenitie','StoreAmenitie')->name('store.amenitie');
-        Route::get('/edit/amenitie/{id}','EditAmenitie')->name('edit.amenitie');
-        Route::post('/update/amenitie/','UpdateAmenitie')->name('update.amenitie');
-        Route::get('/delete/amenitie/{id}','DeleteAmenitie')->name('delete.amenitie');
+       
     });
 
 }); //End Group Admin Middleware
