@@ -9,6 +9,11 @@
             </ol>
         </nav>
 
+        @php
+            $id = Auth::user()->id;
+            $profileData = App\Models\User::find($id);
+        @endphp
+
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
@@ -27,6 +32,7 @@
                                         <th>City</th>
                                         <th>Code</th>
                                         <th>Status</th>
+                                        <th>Update Details</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -49,6 +55,14 @@
                                                     <span class="badge rounded-pill bg-danger">InActive</span>
                                                 @endif
                                             </td>
+                                            <td>
+                                                @if ($item->updated_at != NULL)
+                                                    {{ $item->updated_at }} ({{ $profileData->name }})
+                                                @else
+                                                    Not Updated Yet
+                                                @endif
+                                            </td>
+                                            {{-- <td>{{ $item->updated_at }} (BY {{ $profileData->name }}) </td> --}}
                                             <td>
                                                 <a href="{{ route('edit.property', $item->id) }}"
                                                     class="btn btn-inverse-warning"> Edit </a>
