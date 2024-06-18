@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use App\Models\MultiImage;
 use PHPUnit\Framework\Constraint\Count;
 
+use function PHPUnit\Framework\fileExists;
 
 class PropertyController extends Controller
 {
@@ -48,8 +49,8 @@ class PropertyController extends Controller
             $name_gen = hexdec(uniqid()) . '.' . $request->file('property_thambnail')->getClientOriginalExtension();
             $image = $manager->read($request->file('property_thambnail'));
             $image = $image->resize(370, 250);
-            $image->toJpeg(80)->Save(base_path(('public/upload/property/thambnail/'.$name_gen)));
-            $save_url = 'upload/property/thambnail/'.$name_gen;
+            $image->toJpeg(80)->Save(base_path(('public/upload/property/thambnail/' . $name_gen)));
+            $save_url = 'upload/property/thambnail/' . $name_gen;
         }
 
         // $image = $request->file('property_thambnail');
@@ -139,22 +140,23 @@ class PropertyController extends Controller
     }
 
 
-    public function EditProperty($id){
+    public function EditProperty($id)
+    {
 
-       $property = Property::findOrFail($id);
-       $propertytype = propertyType::latest()->get();
-       $amenities = Amenities::latest()->get();
-       $activeAgent = User::where('status','active')->where('role','agent')->latest()->get();
+        $property = Property::findOrFail($id);
+        $propertytype = propertyType::latest()->get();
+        $amenities = Amenities::latest()->get();
+        $activeAgent = User::where('status', 'active')->where('role', 'agent')->latest()->get();
 
-       $type = $property->amenities_id;
-       $property_ami = explode(',',$type);
+        $type = $property->amenities_id;
+        $property_ami = explode(',', $type);
 
-       return view('backend.property.edit_property',compact('property','propertytype','amenities','activeAgent','property_ami'));
-
+        return view('backend.property.edit_property', compact('property', 'propertytype', 'amenities', 'activeAgent', 'property_ami'));
     }
 
 
-    public function UpdateProperty(Request $request){
+    public function UpdateProperty(Request $request)
+    {
 
         $amen = $request->amenities_id;
         $amenites = implode(",", $amen);
@@ -195,7 +197,7 @@ class PropertyController extends Controller
 
         ]);
 
-         $notification = array(
+        $notification = array(
             'message' => 'Property Updated Successfully',
             'alert-type' => 'success'
         );
@@ -203,6 +205,45 @@ class PropertyController extends Controller
         return redirect()->route('all.property')->with($notification);
     }
 
+    public function UpdatePropertyThambnail(Request $request)
+    {
+
+        $pro_id = $request->id;
+        $oldImage = $request->old_img;
+
+        $manager = new ImageManager(new Driver());
+        $name_gen = hexdec(uniqid()) . '.' . $request->file('property_thambnail')->getClientOriginalExtension();
+        $image = $manager->read($request->file('property_thambnail'));
+        $image = $image->resize(370, 250);
+        $image->toJpeg(80)->Save(base_path(('public/upload/property/thambnail/' . $name_gen)));
+        $save_url = 'upload/property/thambnail/' . $name_gen;
 
 
+        if (fileExists($oldImage)) {
+            unlink($oldImage);
+
+            Property::findOrFail($pro_id)->update([
+
+                'property_thambnail' => $save_url,
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+
+        else{
+
+            Property::findOrFail($pro_id)->update([
+
+                'property_thambnail' => $save_url,
+                'updated_at' => Carbon::now(),
+            ]);
+
+        }
+
+        $notification = array(
+            'message' => 'Property Image Thambnail Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return back()->with($notification);
+    }
 }
