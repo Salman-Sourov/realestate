@@ -151,7 +151,9 @@ class PropertyController extends Controller
         $type = $property->amenities_id;
         $property_ami = explode(',', $type);
 
-        return view('backend.property.edit_property', compact('property', 'propertytype', 'amenities', 'activeAgent', 'property_ami'));
+        $multiImage = MultiImage::where('property_id', $id)->get();
+
+        return view('backend.property.edit_property', compact('property', 'propertytype', 'amenities', 'activeAgent', 'property_ami', 'multiImage'));
     }
 
 
@@ -227,16 +229,13 @@ class PropertyController extends Controller
                 'property_thambnail' => $save_url,
                 'updated_at' => Carbon::now(),
             ]);
-        }
-
-        else{
+        } else {
 
             Property::findOrFail($pro_id)->update([
 
                 'property_thambnail' => $save_url,
                 'updated_at' => Carbon::now(),
             ]);
-
         }
 
         $notification = array(
@@ -245,5 +244,34 @@ class PropertyController extends Controller
         );
 
         return back()->with($notification);
+    }
+
+    public function UpdatePropertyMultiimage(Request $request)
+    {
+
+        $imgs = $request->multi_img;
+        
+        foreach ($imgs as $id => $img) {
+            $imgDel = MultiImage::findOrFail($id);
+            unlink($imgDel->photo_name);
+
+            $manager = new ImageManager(new Driver());
+            $make_name = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
+            $image = $manager->read($img);
+            $image = $image->resize(370, 250);
+            $image->toJpeg(80)->Save(base_path(('public/upload/property/multi-image/' . $make_name)));
+            $uploadPath = 'upload/property/multi-image/' . $make_name;
+
+            MultiImage::where('id', $id)->update([
+                'photo_name' => $uploadPath,
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+
+        $notification = array(
+            'message' => 'Property Multi Image Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
 }
