@@ -391,14 +391,15 @@
                                                 <tr>
                                                     <td>{{ $key + 1 }}</td>
                                                     <td class="py-1">
-                                                        <img src="{{ asset($img->photo_name) }}" alt="image" style="width: 80px"; height="190px">
+                                                        <img src="{{ asset($img->photo_name) }}" alt="image"
+                                                            style="width: 80px"; height="190px">
                                                     </td>
 
                                                     <td><input type="file" class="form-control"
-                                                            name="multi_img[{{ $img->id }}]"></td>  //multiimage id
+                                                            name="multi_img[{{ $img->id }}]"></td> //multiimage id
                                                     <td><input type="submit" class="btn btn-primary px-4"
                                                             value="Update Image">
-                                                        <a href=""
+                                                        <a href="{{ route('property.multiimg.delete', $img->id) }}"
                                                             class="btn btn-danger" id="delete">Delete</a>
                                                     </td>
                                                 </tr>
@@ -410,6 +411,24 @@
 
                                 <br><br>
 
+                            </form>
+
+
+                            <form method="post" action="{{route('store.new.multiimage')}}" id="myForm" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="imageid" value="{{ $property->id }}">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input type="file" class="form-control" name="multi_img">
+                                            </td>
+                                            <td>
+                                                <input type="submit" class="btn btn-info px-4" value="Add Image">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </form>
 
                         </div>
@@ -424,105 +443,105 @@
 
 
 
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('#myForm').validate({
-                    rules: {
-                        property_name: {
-                            required: true,
-                        },
-                        property_status: {
-                            required: true,
-                        },
-                        lowest_price: {
-                            required: true,
-                        },
-                        max_price: {
-                            required: true,
-                        },
-                        ptype_id: {
-                            required: true,
-                        },
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#myForm').validate({
+                rules: {
+                    property_name: {
+                        required: true,
+                    },
+                    property_status: {
+                        required: true,
+                    },
+                    lowest_price: {
+                        required: true,
+                    },
+                    max_price: {
+                        required: true,
+                    },
+                    ptype_id: {
+                        required: true,
+                    },
 
 
+                },
+                messages: {
+                    property_name: {
+                        required: 'Please Enter Property Name',
                     },
-                    messages: {
-                        property_name: {
-                            required: 'Please Enter Property Name',
-                        },
-                        property_status: {
-                            required: 'Please Select Property Status',
-                        },
-                        lowest_price: {
-                            required: 'Please Enter Lowest Price',
-                        },
-                        max_price: {
-                            required: 'Please Enter Max Price',
-                        },
-                        ptype_id: {
-                            required: 'Please Select Property Type',
-                        },
+                    property_status: {
+                        required: 'Please Select Property Status',
+                    },
+                    lowest_price: {
+                        required: 'Please Enter Lowest Price',
+                    },
+                    max_price: {
+                        required: 'Please Enter Max Price',
+                    },
+                    ptype_id: {
+                        required: 'Please Select Property Type',
+                    },
 
 
-                    },
-                    errorElement: 'span',
-                    errorPlacement: function(error, element) {
-                        error.addClass('invalid-feedback');
-                        element.closest('.form-group').append(error);
-                    },
-                    highlight: function(element, errorClass, validClass) {
-                        $(element).addClass('is-invalid');
-                    },
-                    unhighlight: function(element, errorClass, validClass) {
-                        $(element).removeClass('is-invalid');
-                    },
-                });
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                },
             });
-        </script>
+        });
+    </script>
 
 
-        <script type="text/javascript">
-            function mainThamUrl(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $('#mainThmb').attr('src', e.target.result).width(80).height(80);
-                    };
-                    reader.readAsDataURL(input.files[0]);
-                }
+    <script type="text/javascript">
+        function mainThamUrl(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#mainThmb').attr('src', e.target.result).width(80).height(80);
+                };
+                reader.readAsDataURL(input.files[0]);
             }
-        </script>
+        }
+    </script>
 
 
-        <script>
-            $(document).ready(function() {
-                $('#multiImg').on('change', function() { //on file input change
-                    if (window.File && window.FileReader && window.FileList && window
-                        .Blob) //check File API supported browser
-                    {
-                        var data = $(this)[0].files; //this file data
+    <script>
+        $(document).ready(function() {
+            $('#multiImg').on('change', function() { //on file input change
+                if (window.File && window.FileReader && window.FileList && window
+                    .Blob) //check File API supported browser
+                {
+                    var data = $(this)[0].files; //this file data
 
-                        $.each(data, function(index, file) { //loop though each file
-                            if (/(\.|\/)(gif|jpe?g|png|webp)$/i.test(file
-                                    .type)) { //check supported file type
-                                var fRead = new FileReader(); //new filereader
-                                fRead.onload = (function(file) { //trigger function on successful read
-                                    return function(e) {
-                                        var img = $('<img/>').addClass('thumb').attr('src',
-                                                e.target.result).width(100)
-                                            .height(80); //create image element
-                                        $('#preview_img').append(
-                                            img); //append image to output element
-                                    };
-                                })(file);
-                                fRead.readAsDataURL(file); //URL representing the file's data.
-                            }
-                        });
+                    $.each(data, function(index, file) { //loop though each file
+                        if (/(\.|\/)(gif|jpe?g|png|webp)$/i.test(file
+                                .type)) { //check supported file type
+                            var fRead = new FileReader(); //new filereader
+                            fRead.onload = (function(file) { //trigger function on successful read
+                                return function(e) {
+                                    var img = $('<img/>').addClass('thumb').attr('src',
+                                            e.target.result).width(100)
+                                        .height(80); //create image element
+                                    $('#preview_img').append(
+                                        img); //append image to output element
+                                };
+                            })(file);
+                            fRead.readAsDataURL(file); //URL representing the file's data.
+                        }
+                    });
 
-                    } else {
-                        alert("Your browser doesn't support File API!"); //if File API is absent
-                    }
-                });
+                } else {
+                    alert("Your browser doesn't support File API!"); //if File API is absent
+                }
             });
-        </script>
+        });
+    </script>
 @endsection

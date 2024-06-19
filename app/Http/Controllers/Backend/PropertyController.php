@@ -226,14 +226,14 @@ class PropertyController extends Controller
 
             Property::findOrFail($pro_id)->update([
 
-                'property_thambnail' => $save_url,
+                'property_thambnail' => $save_url,       //Property DB table column name => variable of photo path
                 'updated_at' => Carbon::now(),
             ]);
         } else {
 
             Property::findOrFail($pro_id)->update([
 
-                'property_thambnail' => $save_url,
+                'property_thambnail' => $save_url,     //Property DB table column name => variable of photo path
                 'updated_at' => Carbon::now(),
             ]);
         }
@@ -250,8 +250,8 @@ class PropertyController extends Controller
     {
 
         $imgs = $request->multi_img;
-        
-        foreach ($imgs as $id => $img) {
+
+        foreach ($imgs as $id => $img) {    //$id from edit blade   name="multi_img[{{ $img->id }}]"
             $imgDel = MultiImage::findOrFail($id);
             unlink($imgDel->photo_name);
 
@@ -262,8 +262,9 @@ class PropertyController extends Controller
             $image->toJpeg(80)->Save(base_path(('public/upload/property/multi-image/' . $make_name)));
             $uploadPath = 'upload/property/multi-image/' . $make_name;
 
-            MultiImage::where('id', $id)->update([
-                'photo_name' => $uploadPath,
+            MultiImage::where('id', $id)->update([ //where('MultiImage DB table id', Request blade file $id)
+
+                'photo_name' => $uploadPath,        //MultiImage DB table column name => variable of photo path
                 'updated_at' => Carbon::now(),
             ]);
         }
@@ -273,5 +274,48 @@ class PropertyController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+    }
+
+
+    public function PropertyMultiImageDelete($id)
+    {
+
+        $oldImage = MultiImage::findOrFail($id);
+        unlink($oldImage->photo_name);
+        MultiImage::findOrFail($id)->delete();
+
+        $notification = array(
+            'message' => 'Property Multi Image Deleted Successfully',
+            'alert-type' => 'success'
+        );
+
+        return back()->with($notification);
+    }
+
+    public function StoreNewMultiimage(Request $request)
+    {
+        $new_multi = $request->imageid;
+        $img = $request->file('multi_img');
+
+        $manager = new ImageManager(new Driver());
+        $make_name = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
+        $image = $manager->read($img);
+        $image = $image->resize(370, 250);
+        $image->toJpeg(80)->Save(base_path(('public/upload/property/multi-image/' . $make_name)));
+        $uploadPath = 'upload/property/multi-image/' . $make_name;
+
+        MultiImage::insert([
+            'property_id' => $new_multi,
+            'photo_name' => $uploadPath,
+            'created_at' => Carbon::now(),
+        ]);
+
+
+        $notification = array(
+            'message' => 'Property Multi Image Added Successfully',
+            'alert-type' => 'success',
+        );
+
+        return back()->with($notification);
     }
 }
