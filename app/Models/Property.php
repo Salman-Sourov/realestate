@@ -17,5 +17,9 @@ class Property extends Model
         //type will be return to all_property.blade.php view page
     }
 
-    
+    public function user(){
+        return $this->belongsTo(User::class,'agent_id','id');
+    }
+
+
 }
