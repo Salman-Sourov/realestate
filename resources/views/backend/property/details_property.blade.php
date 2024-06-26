@@ -73,27 +73,6 @@
                                                 style="width:100px; height:70px;"></td>
                                     </tr>
 
-                                    <tr>
-                                        <td>Multi Image</td>
-                                        @foreach ($multiImage as $img)
-                                        <td>
-                                            <img src="{{ asset($img->photo_name) }}" alt=""
-                                            style="width:80px; height:50px;">
-                                        </td>
-                                        @endforeach
-                                    </tr>
-
-                                    <tr>
-                                        <td>Status </td>
-                                        <td>
-                                            @if ($property->status == 1)
-                                                <span class="badge rounded-pill bg-success">Active</span>
-                                            @else
-                                                <span class="badge rounded-pill bg-danger">InActive</span>
-                                            @endif
-                                        </td>
-                                    </tr>
-
                                 </tbody>
                             </table>
                         </div>
@@ -109,6 +88,18 @@
                             <table class="table table-striped">
 
                                 <tbody>
+
+                                    <tr>
+                                        <td>Status </td>
+                                        <td>
+                                            @if ($property->status == 1)
+                                                <span class="badge rounded-pill bg-success">Active</span>
+                                            @else
+                                                <span class="badge rounded-pill bg-danger">InActive</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+
                                     <tr>
                                         <td>Property Code </td>
                                         <td><code>{{ $property->property_code }}</code></td>
@@ -145,7 +136,7 @@
                                         <td>Property Type </td>
                                         <td><code>{{ $property['type']['type_name'] }}</code></td>
                                         {{-- $property['type' is a function of property model] and ['type_name' from PT DB Field name] --}}
-                                        {{-- Connection between priorities and property_types table and collect type name from property_types--}}
+                                        {{-- Connection between priorities and property_types table and collect type name from property_types --}}
                                     </tr>
 
                                     <tr>
@@ -166,18 +157,29 @@
 
                                     <tr>
                                         <td>Agent </td>
-                                        <td>
-                                            @if ($property->agent_id == null)
-                                        <td><code> Admin </code></td>
-                                    @else
-                                        <td><code> {{ $property['user']['name'] }} </code></td>
+                                        @if ($property->agent_id == null)
+                                            <td><code> Admin </code></td>
+                                        @else
+                                            <td><code> {{ $property['user']['name'] }} </code></td>
+                                            {{-- ['user is a function of Property model']['name is user DB column'] --}}
                                         @endif
-                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Multi Image</td>
+                                        @foreach ($multiImage as $img)
+                                            <td>
+                                                <img src="{{ asset($img->photo_name) }}" alt=""
+                                                    style="width:80px; height:50px;">
+                                            </td>
+                                        @endforeach
                                     </tr>
 
                                 </tbody>
 
                             </table>
+
+
                         </div>
                     </div>
 
@@ -189,4 +191,61 @@
 
 
             </div>
-        @endsection
+
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td>Short Description </td>
+                                        <td><code>{{ $property->short_descp }}</code></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Long Description </td>
+                                        <td><code>{!! $property->long_descp !!}</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Action </td>
+                                    <td style=" padding-left: 455px; padding-top: 14px;">
+                                        <a href="{{ route('edit.property', $property->id) }}"
+                                            class="btn btn-inverse-warning" title="Edit"> <i data-feather="edit"></i>
+                                        </a>
+
+                                        <a href="{{ route('delete.property', $property->id) }}"
+                                            class="btn btn-inverse-danger" id="delete" title="Delete"> <i
+                                                data-feather="trash-2"></i>
+                                        </a>
+                                    </td>
+                                    <td style=" padding-left: 3px; padding-top: 16px;">
+                                        @if ($property->status == 1)
+                                            <form method="post" action="{{ route('inactive.property') }}">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $property->id }}">
+                                                <button type="submit" class="btn btn-danger">InActive</button>
+                                            </form>
+                                        @else
+                                        <form method="post" action=" {{route('active.property')}} ">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{$property->id}}">
+                                            <button type="submit" class="btn btn-success">Active</button>
+
+                                        </form>
+                                        @endif
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

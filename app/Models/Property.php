@@ -18,7 +18,7 @@ class Property extends Model
     }
 
     public function user(){
-        return $this->belongsTo(User::class,'agent_id','id');
+        return $this->belongsTo(User::class,'agent_id','id'); //'agent_id','id' will be match and same data then we will get data from user
     }
 
 

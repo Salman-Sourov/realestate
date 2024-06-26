@@ -7,6 +7,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\Backend\PropertyController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Backend\PropertyTypeController;
+use App\Http\Middleware\RedirectIfAuthenticated;
 
 
 // Route::get('/', function () {
@@ -55,7 +56,7 @@ Route::middleware(['auth','role:agent'])->group(function(){
 
 }); //End Group Agent Middleware
 
-Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
+Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login')->middleware(RedirectIfAuthenticated::class);;
 
 
 //Admin Group Middleware
@@ -96,6 +97,9 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::post('/update/property/facilities', 'UpdatePropertyFacilities')->name('update.property.facilities');
         Route::get('/delete/property/{id}','DeleteProperty')->name('delete.property');
         Route::get('/details/property/{id}', 'DetailsProperty')->name('details.property');
+        Route::post('/details/property', 'InactiveProperty')->name('inactive.property');
+        Route::post('/details/property', 'ActiveProperty')->name('active.property');
+
 
     });
 
