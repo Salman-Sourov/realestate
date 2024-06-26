@@ -74,6 +74,16 @@
                                     </tr>
 
                                     <tr>
+                                        <td>Multi Image</td>
+                                        @foreach ($multiImage as $img)
+                                        <td>
+                                            <img src="{{ asset($img->photo_name) }}" alt=""
+                                            style="width:80px; height:50px;">
+                                        </td>
+                                        @endforeach
+                                    </tr>
+
+                                    <tr>
                                         <td>Status </td>
                                         <td>
                                             @if ($property->status == 1)
@@ -134,6 +144,8 @@
                                     <tr>
                                         <td>Property Type </td>
                                         <td><code>{{ $property['type']['type_name'] }}</code></td>
+                                        {{-- $property['type' is a function of property model] and ['type_name' from PT DB Field name] --}}
+                                        {{-- Connection between priorities and property_types table and collect type name from property_types--}}
                                     </tr>
 
                                     <tr>
