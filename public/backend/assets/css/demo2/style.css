@@ -19474,7 +19474,6 @@ body {
   padding: 0;
   border: 0;
   color: #7987a1;
-  background: #0c1427;
 }
 .navbar .search-form .input-group .input-group-text svg {
   width: 20px;
@@ -21686,8 +21685,8 @@ div.apexcharts-canvas .apexcharts-yaxistooltip-left:after {
 }
 div.apexcharts-canvas .apexcharts-tooltip-marker {
   /*rtl:raw:
-  margin-right: 0; 
-  margin-left: 10px; 
+  margin-right: 0;
+  margin-left: 10px;
   */
 }
 
@@ -22546,7 +22545,7 @@ div.tox .tox-dialog__body {
 
 .wizard > .actions {
   /*rtl:raw:
-    text-align: left; 
+    text-align: left;
   */
 }
 
