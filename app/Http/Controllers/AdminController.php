@@ -122,7 +122,7 @@ class AdminController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'address' => $request->address,
-            'password' => Hash::make($request->new_password),
+            'password' => Hash::make($request->password),
             'status' => 'active',
             'role' => 'agent',
             ]);
@@ -133,6 +133,42 @@ class AdminController extends Controller
             );
 
             return redirect()->route('all.agent')->with($notification);
+    }
+
+    public function EditAgent($id){
+        $allagent = User::findOrFail($id);
+        return view('backend.agentuser.edit_agent',compact('allagent'));
+    }
+
+    public function UpdateAgent(Request $request){
+
+        $user_id = $request->id;
+
+        User::findOrFail($user_id)->update([
+            'name'=> $request->name,
+            'email'=> $request->email,
+            'phone'=> $request->phone,
+            'address'=> $request->address,
+        ]);
+
+        $notification = array(
+            'message' => 'Admin Profile Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('all.agent')->with($notification);
+    }
+
+
+    public function DeleteAgent(Request $request){
+        $user_id = $request->id;
+        User::findOrFail($user_id)->delete();
+        $notification = array(
+            'message' => 'Admin Profile Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return back()->with($notification);
     }
 
 
