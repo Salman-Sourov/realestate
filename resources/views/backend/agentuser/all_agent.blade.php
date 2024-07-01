@@ -1,5 +1,8 @@
 @extends('admin.admin_dashboard')
 @section('admin')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
     <div class="page-content">
 
         <nav class="page-breadcrumb">
@@ -35,20 +38,30 @@
                                                     style="width:70px; height:40px;"> </td>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->role }}</td>
-                                            <td>
+                                            {{-- <td>
                                                 @if ($item->status == 'active')
                                                     <span class="badge rounded-pill bg-success">Active</span>
                                                 @else
                                                     <span class="badge rounded-pill bg-danger">InActive</span>
                                                 @endif
-                                            </td>
-
-                                            <td>Change </td>
-
+                                            </td> --}}
 
                                             <td>
+                                                <span
+                                                    class="badge rounded-pill toggle-class {{ $item->status == 'active' ? 'bg-success' : 'bg-danger' }}"
+                                                    data-id="{{ $item->id }}" style="cursor:pointer">
+                                                    {{ $item->status == 'active' ? 'Active' : 'Inactive' }}
+                                                </span>
+                                            </td>
 
+                                            <td>
+                                                <input data-id="{{ $item->id }}" class="toggle-class" type="checkbox"
+                                                    data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
+                                                    data-on="Active" data-off="Inactive"
+                                                    {{ $item->status == 'active' ? 'checked' : '' }}>
+                                            </td>
 
+                                            <td>
                                                 <a href="{{ route('edit.agent', $item->id) }}"
                                                     class="btn btn-inverse-warning" title="Edit"> <i
                                                         data-feather="edit"></i> </a>
@@ -66,6 +79,50 @@
                 </div>
             </div>
         </div>
-
     </div>
+
+    <script type="text/javascript">
+        $(function() {
+            $('.toggle-class').change(function() {
+                var status = $(this).prop('checked') == true ? 1 : 0;
+                var user_id = $(this).data('id');
+
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: '/changeStatus',
+                    data: {
+                        'status': status,
+                        'user_id': user_id
+                    },
+                    success: function(data) {
+                        // console.log(data.success)
+                        // Start Message
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                        if ($.isEmptyObject(data.error)) {
+
+                            Toast.fire({
+                                type: 'success',
+                                title: data.success,
+                            })
+                        } else {
+
+                            Toast.fire({
+                                type: 'error',
+                                title: data.error,
+                            })
+                        }
+                        // End Message
+                    }
+                });
+            })
+        })
+    </script>
+
 @endsection
