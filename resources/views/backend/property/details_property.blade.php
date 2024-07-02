@@ -226,15 +226,15 @@
                                     </td>
                                     <td style=" padding-left: 3px; padding-top: 16px;">
                                         @if ($property->status == 1)
-                                            <form method="post" action="{{ route('inactive.property') }}">
+                                            <form method="post" action=" {{ route('inactive.property') }} ">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{ $property->id }}">
                                                 <button type="submit" class="btn btn-danger">InActive</button>
                                             </form>
                                         @else
-                                        <form method="post" action=" {{route('active.property')}} ">
+                                        <form method="post" action=" {{ route('active.property') }} ">
                                             @csrf
-                                            <input type="hidden" name="id" value="{{$property->id}}">
+                                            <input type="hidden" name="id" value="{{ $property->id }}">
                                             <button type="submit" class="btn btn-success">Active</button>
 
                                         </form>

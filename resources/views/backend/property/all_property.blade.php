@@ -27,6 +27,7 @@
                                         <th>Sl</th>
                                         <th>Image</th>
                                         <th>Name</th>
+                                        <th>Agent</th>
                                         <th>P Type</th>
                                         <th>Status Type</th>
                                         <th>City</th>
@@ -43,8 +44,11 @@
                                             <td><img src="{{ asset($item->property_thambnail) }}"
                                                     style="width:70px; height:40px;"> </td>
                                             <td>{{ $item->property_name }}</td>
-                                            {{-- type(here property type details stored) return from property model --}}
+                                            <td>{{ $item['user']['name'] }}</td>
+
                                             <td>{{ $item['type']['type_name'] }}</td>
+                                            {{-- ['type is a function of Property MODEL']['type_name is property_types column name'] --}}
+
                                             <td>{{ $item->property_status }}</td>
                                             <td>{{ $item->city }}</td>
                                             <td>{{ $item->property_code }}</td>

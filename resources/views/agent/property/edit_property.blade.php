@@ -6,9 +6,6 @@
 
 
         <div class="row profile-body">
-            <!-- left wrapper start -->
-
-            <!-- left wrapper end -->
             <!-- middle wrapper start -->
             <div class="col-md-12 col-xl-12 middle-wrapper">
                 <div class="row">
@@ -17,8 +14,7 @@
                         <div class="card-body">
                             <h6 class="card-title">Edit Property </h6>
 
-
-                            <form method="post" action="{{ route('update.property') }}" id="myForm"
+                            <form method="post" action="{{ route('agent.update.property') }}" id="myForm"
                                 enctype="multipart/form-data">
                                 @csrf
 
@@ -200,7 +196,7 @@
                                                 @foreach ($propertytype as $ptype)
                                                     <option value="{{ $ptype->id }}"
                                                         {{ $ptype->id == $property->ptype_id ? 'selected' : '' }}>
-                             {{-- $propertytype DB id == $Property DB ptype_id --need to be match the name will show below--}}
+                                                        {{-- $propertytype DB id == $Property DB ptype_id --need to be match the name will show below --}}
 
                                                         {{ $ptype->type_name }}</option>
                                                 @endforeach
@@ -216,30 +212,12 @@
                                                 @foreach ($amenities as $ameni)
                                                     <option value="{{ $ameni->id }}"
                                                         {{ in_array($ameni->id, $property_ami) ? 'selected' : '' }}>
-                             
                                                         {{ $ameni->amenitis_name }}</option>
                                                 @endforeach
 
                                             </select>
                                         </div>
                                     </div><!-- Col -->
-                                    <div class="col-sm-4">
-                                        <div class="mb-3">
-                                            <label class="form-label"> Agent </label>
-                                            <select name="agent_id" class="form-select" id="exampleFormControlSelect1">
-                                                <option selected="" disabled="">Select Agent</option>
-                                                @foreach ($activeAgent as $agent)
-                                                    <option value="{{ $agent->id }}"
-                                                        {{ $agent->id == $property->agent_id ? 'selected' : '' }}>
-                                     {{-- $activeAgent = User::where('status', 'active')->where('role', 'agent')->latest()->get();
-                                                        == $Property DB ptype_id --need to be match the name will show below --}}
-
-                                                        {{ $agent->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div><!-- Col -->
-
 
                                 </div><!-- Row -->
 
@@ -247,9 +225,7 @@
                                 <div class="col-sm-12">
                                     <div class="mb-3">
                                         <label class="form-label">Short Description</label>
-                                        <textarea name="short_descp" class="form-control" id="exampleFormControlTextarea1" rows="3">
- {{ $property->short_descp }}
-          </textarea>
+                                        <textarea name="short_descp" class="form-control" id="exampleFormControlTextarea1" rows="3"> {{ $property->short_descp }} </textarea>
 
                                     </div>
                                 </div><!-- Col -->
@@ -260,9 +236,7 @@
                                     <div class="mb-3">
                                         <label class="form-label">Long Description</label>
 
-                                        <textarea name="long_descp" class="form-control" name="tinymce" id="tinymceExample" rows="10">
-           {!! $property->long_descp !!}
-                </textarea>
+                                        <textarea name="long_descp" class="form-control" name="tinymce" id="tinymceExample" rows="10"> {!! $property->long_descp !!} </textarea>
 
                                     </div>
                                 </div><!-- Col -->
@@ -299,35 +273,23 @@
 
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
-            <!-- middle wrapper end -->
-            <!-- right wrapper start -->
-
-            <!-- right wrapper end -->
         </div>
-
     </div>
-
 
 
     <!--  /// Property Main Thambnail Image Update //// -->
 
     <div class="page-content" style="margin-top: -35px;">
-
         <div class="row profile-body">
             <div class="col-md-12 col-xl-12 middle-wrapper">
                 <div class="row">
-
                     <div class="card">
                         <div class="card-body">
                             <h6 class="card-title">Edit Main Thambnail Image </h6>
 
-
-                            <form method="post" action="{{ route('update.property.thambnail') }}" id="myForm"
+                            <form method="post" action="{{ route('agent.update.property.thambnail') }}" id="myForm"
                                 enctype="multipart/form-data">
                                 @csrf
 
@@ -339,7 +301,6 @@
                                         <label class="form-label">Main Thambnail </label>
                                         <input type="file" name="property_thambnail" class="form-control"
                                             onChange="mainThamUrl(this)">
-
                                         <img src="" id="mainThmb">
 
                                     </div>
@@ -372,16 +333,13 @@
         <div class="row profile-body">
             <div class="col-md-12 col-xl-12 middle-wrapper">
                 <div class="row">
-
                     <div class="card">
-
-
                         <div class="card-body">
                             <h6 class="card-title">Edit Multi Image</h6>
-                            <form method="post" action="{{ route('update.property.multiimage') }}" id="myForm"
+
+                            <form method="post" action="{{ route('agent.update.property.multiimage') }}" id="myForm"
                                 enctype="multipart/form-data">
                                 @csrf
-
 
                                 <div class="table-responsive">
                                     <table class="table table-striped">
@@ -441,6 +399,7 @@
 
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

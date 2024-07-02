@@ -39,10 +39,12 @@ class PropertyController extends Controller
     {
 
         $amen = $request->amenities_id;
-        $amenities = implode(",", $amen);
-        // dd($amenities);
-        $pcode = IdGenerator::generate(['table' => 'properties', 'field' => 'property_code', 'length' => 5, 'prefix' => 'PC']);
+        $amenities = implode(",", $amen); //implode works on making single data to string data ("4,5,6,7 no are amenities_id", $amen)
+        // dd($amenities); for show draft amenities_id on view page
 
+        $pcode = IdGenerator::generate(['table' => 'properties', 'field' => 'property_code', 'length' => 5, 'prefix' => 'PC']);
+        //composer require haruncpi/laravel-id-generator (need to install for this IdGenerator)
+        //use Haruncpi\LaravelIdGenerator\IdGenerator;
 
         if ($request->file('property_thambnail')) {
             $manager = new ImageManager(new Driver());
@@ -144,6 +146,7 @@ class PropertyController extends Controller
     {
         $facilities = Facility::where('property_id', $id)->get();
         $property = Property::findOrFail($id);
+
         $propertytype = propertyType::latest()->get();
         $amenities = Amenities::latest()->get();
         $activeAgent = User::where('status', 'active')->where('role', 'agent')->latest()->get();
@@ -428,6 +431,5 @@ class PropertyController extends Controller
         return redirect()->route('all.property')->with('$notification');
 
     }
-
 
 }
