@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Auth;
+use PHPUnit\Framework\Constraint\Count;
 
 class AgentPropertyController extends Controller
 {
@@ -41,7 +42,7 @@ class AgentPropertyController extends Controller
         $amen = $request->amenities_id; //amenities_id column of Properties DB
         $amenities = implode(",", $amen);
 
-        $pcode = IdGenerator::generate(['table' => 'properties','field' => 'property_code','length' => 5, 'prefix' => 'PC']);
+        $pcode = IdGenerator::generate(['table' => 'properties', 'field' => 'property_code', 'length' => 5, 'prefix' => 'PC']);
 
         if ($request->file('property_thambnail')) {
             $manager = new ImageManager(new Driver());
@@ -128,7 +129,8 @@ class AgentPropertyController extends Controller
     }
 
 
-    public function AgentEditProperty($id){
+    public function AgentEditProperty($id)
+    {
 
         $property = Property::findOrFail($id);
 
@@ -138,14 +140,15 @@ class AgentPropertyController extends Controller
         $propertytype = PropertyType::latest()->get();
         $amenities = Amenities::latest()->get();
 
-        $multiImage = MultiImage::where('property_id',$id)->get();
+        $multiImage = MultiImage::where('property_id', $id)->get();
 
-        $facilities = Facility::where('property_id',$id)->get();
+        $facilities = Facility::where('property_id', $id)->get();
 
-        return view('agent.property.edit_property', compact('property','propertytype','amenities','property_ami','multiImage','facilities'));
+        return view('agent.property.edit_property', compact('property', 'propertytype', 'amenities', 'property_ami', 'multiImage', 'facilities'));
     }
 
-    public function AgentUpdateProperty(Request $request){
+    public function AgentUpdateProperty(Request $request)
+    {
 
         $property_id = $request->id;
 
@@ -194,7 +197,8 @@ class AgentPropertyController extends Controller
         return redirect()->route('agent.all.property')->with($notification);
     }
 
-    public function AgentUpdatePropertyThambnail(Request $request){
+    public function AgentUpdatePropertyThambnail(Request $request)
+    {
         $pro_id = $request->id;
         $oldImage = $request->old_img;
 
@@ -207,7 +211,7 @@ class AgentPropertyController extends Controller
             $save_url = 'upload/property/thambnail/' . $name_gen;
         }
 
-        if(file_exists($oldImage)){
+        if (file_exists($oldImage)) {
             unlink($oldImage);
         }
 
@@ -225,11 +229,13 @@ class AgentPropertyController extends Controller
         return back()->with($notification);
     }
 
-    public function AgentUpdatePropertyMultiimage(Request $request){
+    public function AgentUpdatePropertyMultiimage(Request $request)
+    {
 
         $imgs = $request->multi_img;
 
         foreach ($imgs as $id => $img) {    //$id from edit blade   name="multi_img[{{ $img->id }}]"
+
             $imgDel = MultiImage::findOrFail($id);
             unlink($imgDel->photo_name);
 
@@ -252,5 +258,135 @@ class AgentPropertyController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+    }
+
+    public function AgentPropertyMultiimgDelete($id)
+    {
+
+        $oldImg = MultiImage::findOrFail($id);
+        unlink($oldImg->photo_name);
+
+        MultiImage::findOrFail($id)->delete();
+
+        $notification = array(
+            'message' => 'Property Multi Image Deleted Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function AgentStoreNewMultiimage(Request $request)
+    {
+
+        $new_multi = $request->imageid;
+
+        $img = $request->file('multi_img');
+
+        $manager = new ImageManager(new Driver());
+        $make_name = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
+        $image = $manager->read($img);
+        $image = $image->resize(370, 250);
+        $image->toJpeg(80)->Save(base_path(('public/upload/property/multi-image/' . $make_name)));
+        $uploadPath = 'upload/property/multi-image/' . $make_name;
+
+        MultiImage::insert([
+            'property_id' => $new_multi,
+            'photo_name' => $uploadPath,
+            'created_at' => Carbon::now(),
+        ]);
+
+        $notification = array(
+            'message' => 'Property Multi Image Added Successfully',
+            'alert-type' => 'success',
+        );
+
+        return back()->with($notification);
+    }
+
+    public function AgentUpdatePropertyFacilities(Request $request)
+    {
+
+        $pid = $request->id;
+        $facility = $request->facility_name;
+
+        if ($facility == NULL) {
+
+            $notification = array(
+                'message' => 'Property Facility not updated',
+                'alert-type' => 'warning'
+            );
+            return back()->with($notification);
+        } else {
+
+            Facility::where('property_id', $pid)->delete();
+
+            $facilities = Count($facility);
+
+            for ($i = 0; $i < $facilities; $i++) {
+                $fcount = new Facility();
+                $fcount->property_id = $pid;
+                $fcount->facility_name = $facility[$i];
+                $fcount->distance = $request->distance[$i];
+                $fcount->save();
+            }
+
+
+            $notification = array(
+                'message' => 'Property Facility Updated Successfully',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    public function AgentDetailsProperty($id)
+    {
+
+        $facilities = Facility::where('property_id', $id)->get();
+        $property = Property::findOrFail($id);
+
+        $type = $property->amenities_id;
+        $property_ami = explode(',', $type);
+
+        $multiImage = MultiImage::where('property_id', $id)->get();
+
+        $propertytype = PropertyType::latest()->get();
+        $amenities = Amenities::latest()->get();
+
+
+        return view('agent.property.details_property', compact('property', 'propertytype', 'amenities', 'property_ami', 'multiImage', 'facilities'));
+    }
+
+    public function AgentDeleteProperty($id)
+    {
+
+        $property = Property::findOrFail($id);
+        unlink($property->property_thambnail);
+
+        Property::findOrFail($id)->delete();
+
+
+        $Image = MultiImage::where('property_id',$id)->get();
+        foreach ($Image as $img) {
+            unlink($img->photo_name);
+            MultiImage::where('property_id',$id)->delete();
+        }
+
+
+        $facilitiesData = Facility::where('property_id', $id)->get();
+        foreach ($facilitiesData as $item) {
+            Facility::where('property_id',$id)->delete();
+        }
+
+
+        $notification = array(
+            'message' => 'Property Deleted Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+
     }
 }

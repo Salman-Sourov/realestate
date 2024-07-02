@@ -372,6 +372,7 @@ class PropertyController extends Controller
         $facilitiesData = Facility::where('property_id',$id)->get();
         foreach($facilitiesData as $item){
             $item->facility_name;
+            Facility::where('property_id',$id)->delete();
         }
 
         $notification = array(
