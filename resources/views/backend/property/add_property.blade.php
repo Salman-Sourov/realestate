@@ -122,7 +122,7 @@
                                             <input type="text" name="city" class="form-control">
                                         </div>
                                     </div><!-- Col -->
-                                    
+
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">State</label>
@@ -203,7 +203,7 @@
                                                 multiple="multiple" data-width="100%">
 
                                                 @foreach ($amenities as $ameni)
-                                                    <option value="{{ $ameni->id }}">{{ $ameni->amenitis_name }}
+                                                    <option value="{{ $ameni->amenitis_name }}">{{ $ameni->amenitis_name }}
                                                     </option>
                                                 @endforeach
 

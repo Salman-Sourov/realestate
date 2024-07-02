@@ -200,7 +200,7 @@
                                                 @foreach ($propertytype as $ptype)
                                                     <option value="{{ $ptype->id }}"
                                                         {{ $ptype->id == $property->ptype_id ? 'selected' : '' }}>
-                             {{-- $propertytype DB id == $Property DB ptype_id --need to be match the name will show below--}}
+                                                        {{-- $propertytype DB id == $Property DB ptype_id --need to be match the name will show below --}}
 
                                                         {{ $ptype->type_name }}</option>
                                                 @endforeach
@@ -214,9 +214,8 @@
                                                 multiple="multiple" data-width="100%">
 
                                                 @foreach ($amenities as $ameni)
-                                                    <option value="{{ $ameni->id }}"
-                                                        {{ in_array($ameni->id, $property_ami) ? 'selected' : '' }}>
-                             
+                                                    <option value="{{ $ameni->amenitis_name }}"
+                                                        {{ in_array($ameni->amenitis_name, $property_ami) ? 'selected' : '' }}>
                                                         {{ $ameni->amenitis_name }}</option>
                                                 @endforeach
 
@@ -231,7 +230,7 @@
                                                 @foreach ($activeAgent as $agent)
                                                     <option value="{{ $agent->id }}"
                                                         {{ $agent->id == $property->agent_id ? 'selected' : '' }}>
-                                     {{-- $activeAgent = User::where('status', 'active')->where('role', 'agent')->latest()->get();
+                                                        {{-- $activeAgent = User::where('status', 'active')->where('role', 'agent')->latest()->get();
                                                         == $Property DB ptype_id --need to be match the name will show below --}}
 
                                                         {{ $agent->name }}</option>
