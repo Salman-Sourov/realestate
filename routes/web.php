@@ -101,8 +101,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/update/property/facilities', 'UpdatePropertyFacilities')->name('update.property.facilities');
         Route::get('/delete/property/{id}', 'DeleteProperty')->name('delete.property');
         Route::get('/details/property/{id}', 'DetailsProperty')->name('details.property');
-        Route::post('/details/property', 'InactiveProperty')->name('inactive.property');
-        Route::post('/details/property', 'ActiveProperty')->name('active.property');
+        Route::post('/details/property/inactive', 'InactiveProperty')->name('inactive.property');
+        Route::post('/details/property/active', 'ActiveProperty')->name('active.property');
+        Route::get('/changePropertyStatus', 'changePropertyStatus');
     });
 
     // Agent All Route from admin

@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use App\Models\MultiImage;
 use PHPUnit\Framework\Constraint\Count;
 
+
 use function PHPUnit\Framework\fileExists;
 
 class PropertyController extends Controller
@@ -432,5 +433,15 @@ class PropertyController extends Controller
         return redirect()->route('all.property')->with('$notification');
 
     }
+
+    public function changePropertyStatus(Request $request){
+
+        $pro = Property::find($request->user_id);
+        $pro->status = $request->status;
+        $pro->save();
+
+        return response()->json(['success'=>'Status Change Successfully']);
+
+      }// End Method
 
 }

@@ -1,6 +1,8 @@
 @extends('admin.admin_dashboard')
 @section('admin')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
 
     <div class="page-content">
 
@@ -147,7 +149,7 @@
 
                                                 @foreach ($amenities as $ameni)
                                                     <option value="{{ $ameni->id }}"
-                                                        {{ in_array($ameni->id, $property_ami) ? 'selected' : '' }}>
+                                                        {{ in_array($ameni->amenitis_name, $property_ami) ? 'selected' : '' }}>
                                                         {{ $ameni->amenitis_name }}</option>
                                                 @endforeach
 
@@ -214,7 +216,7 @@
                             <tbody>
                                 <tr>
                                     <td>Action </td>
-                                    <td style=" padding-left: 455px; padding-top: 14px;">
+                                    <td style=" padding-left: 600px; padding-top: 14px;">
                                         <a href="{{ route('edit.property', $property->id) }}"
                                             class="btn btn-inverse-warning" title="Edit"> <i data-feather="edit"></i>
                                         </a>
@@ -232,14 +234,22 @@
                                                 <button type="submit" class="btn btn-danger">InActive</button>
                                             </form>
                                         @else
-                                        <form method="post" action=" {{ route('active.property') }} ">
-                                            @csrf
-                                            <input type="hidden" name="id" value="{{ $property->id }}">
-                                            <button type="submit" class="btn btn-success">Active</button>
+                                            <form method="post" action=" {{ route('active.property') }} ">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $property->id }}">
+                                                <button type="submit" class="btn btn-success">Active</button>
 
-                                        </form>
+                                            </form>
                                         @endif
                                     </td>
+
+                                    <td style=" padding-left: 3px; padding-top: 16px;">
+                                        <input data-id="{{ $property->id }}" class="toggle-class" type="checkbox"
+                                            data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
+                                            data-on="Active" data-off="Inactive"
+                                            {{ $property->status == '1' ? 'checked' : '' }}>
+                                    </td>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -248,4 +258,48 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(function() {
+            $('.toggle-class').change(function() {
+                var status = $(this).prop('checked') == true ? 1 : 0;
+                var pro_id = $(this).data('id');
+
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: '/changePropertyStatus',
+                    data: {
+                        'status': status,
+                        'user_id': pro_id
+                    },
+                    success: function(data) {
+                        // console.log(data.success)
+                        // Start Message
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                        if ($.isEmptyObject(data.error)) {
+
+                            Toast.fire({
+                                type: 'success',
+                                title: data.success,
+                            })
+                        } else {
+
+                            Toast.fire({
+                                type: 'error',
+                                title: data.error,
+                            })
+                        }
+                        // End Message
+                    }
+                });
+            })
+        })
+    </script>
 @endsection
