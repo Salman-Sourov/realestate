@@ -17,6 +17,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Auth;
 use PHPUnit\Framework\Constraint\Count;
+use Illuminate\Support\Facades\DB;
 
 class AgentPropertyController extends Controller
 {
@@ -39,6 +40,11 @@ class AgentPropertyController extends Controller
 
     public function AgentStoreProperty(Request $request)
     {
+
+        $id = Auth::User()->id;
+        $uid = User::findOrFail($id);
+        $nid = $uid->credit;
+
         $amen = $request->amenities_id; //amenities_id column of Properties DB
         $amenities = implode(",", $amen);
 
@@ -121,6 +127,11 @@ class AgentPropertyController extends Controller
             }
         }
         // Facilities Ends From Here
+
+        User::where('id',$id)->update([
+            'credit' => DB::raw('1 + '.$nid),
+        ]);
+
         $notification = array(
             'message' => 'Property Inserted Successfully',
             'alert-type' => 'success'
@@ -368,16 +379,16 @@ class AgentPropertyController extends Controller
         Property::findOrFail($id)->delete();
 
 
-        $Image = MultiImage::where('property_id',$id)->get();
+        $Image = MultiImage::where('property_id', $id)->get();
         foreach ($Image as $img) {
             unlink($img->photo_name);
-            MultiImage::where('property_id',$id)->delete();
+            MultiImage::where('property_id', $id)->delete();
         }
 
 
         $facilitiesData = Facility::where('property_id', $id)->get();
         foreach ($facilitiesData as $item) {
-            Facility::where('property_id',$id)->delete();
+            Facility::where('property_id', $id)->delete();
         }
 
 
@@ -387,6 +398,10 @@ class AgentPropertyController extends Controller
         );
 
         return redirect()->back()->with($notification);
+    }
 
+    public function BuyPackage()
+    {
+        return view('agent.package.buy_package');
     }
 }
