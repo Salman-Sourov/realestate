@@ -174,7 +174,8 @@ Route::middleware(['auth', 'role:agent'])->group(function () {
     Route::controller(AgentPropertyController::class)->group(function () {
 
         Route::get('/buy/package', 'BuyPackage')->name('buy.package');
-        
+        Route::get('/buy/business/plan', 'BuyBusinessPlan')->name('buy.business.plan');
+
 
     });
 }); // End Group Admin Middleware

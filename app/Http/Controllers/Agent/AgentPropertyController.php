@@ -35,7 +35,20 @@ class AgentPropertyController extends Controller
         $propertytype = PropertyType::latest()->get();
         $amenities = Amenities::latest()->get();
 
-        return view('agent.property.add_property', compact('propertytype', 'amenities'));
+        $id = Auth::User()->id;
+        $property = User::where('id', $id)->where('role', 'agent')->first();
+        $pcount = $property->credit;
+        //    dd($pcount);
+
+        if ($pcount == 1) {
+            $notification = array(
+                'message' => 'Buy a package first',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('buy.package')->with($notification);
+        } else {
+            return view('agent.property.add_property', compact('propertytype', 'amenities'));
+        }
     }
 
     public function AgentStoreProperty(Request $request)
@@ -128,8 +141,8 @@ class AgentPropertyController extends Controller
         }
         // Facilities Ends From Here
 
-        User::where('id',$id)->update([
-            'credit' => DB::raw('1 + '.$nid),
+        User::where('id', $id)->update([
+            'credit' => DB::raw('1 + ' . $nid),
         ]);
 
         $notification = array(
@@ -403,5 +416,11 @@ class AgentPropertyController extends Controller
     public function BuyPackage()
     {
         return view('agent.package.buy_package');
+    }
+
+
+    public function BuyBusinessPlan(){
+       $id = Auth::User()->id;
+       return view ('agent.package.business_plan',compact('id'));
     }
 }
