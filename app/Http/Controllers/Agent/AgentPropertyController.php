@@ -420,7 +420,13 @@ class AgentPropertyController extends Controller
 
 
     public function BuyBusinessPlan(){
+
        $id = Auth::User()->id;
-       return view ('agent.package.business_plan',compact('id'));
+       $user = User::find($id);
+       return view ('agent.package.business_plan',compact('user'));
+    }
+
+    public function StoreBusinessPlan(Request $request){
+        
     }
 }
