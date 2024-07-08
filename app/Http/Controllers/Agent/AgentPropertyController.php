@@ -41,7 +41,7 @@ class AgentPropertyController extends Controller
         $pcount = $property->credit;
         //    dd($pcount);
 
-        if ($pcount == 1 || $pcount == 7) {
+        if ($pcount == 1) {
             $notification = array(
                 'message' => 'Buy a package first',
                 'alert-type' => 'error'
@@ -143,7 +143,8 @@ class AgentPropertyController extends Controller
         // Facilities Ends From Here
 
         User::where('id', $id)->update([
-            'credit' => DB::raw('1 + ' . $nid),
+            // 'credit' => DB::raw('1 + ' . $nid),
+            'credit' => DB::raw($nid . '-1'),
         ]);
 
         $notification = array(
@@ -446,13 +447,51 @@ class AgentPropertyController extends Controller
         ]);
 
 
-        User::where('id',$id)->update([
-            'credit' => DB::raw('3+ '.$nid),
+        User::where('id', $id)->update([
+            'credit' => DB::raw('3+ ' . $nid),
         ]);
 
 
         $notification = array(
             'message' => 'You have purchase Basic Package Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('agent.all.property')->with($notification);
+    }
+
+    public function BuyProfessionalPlan()
+    {
+
+        $id = Auth::User()->id;
+        $data = User::find($id);
+
+        return view('agent.package.professional_plan', compact('data'));
+    }
+
+    public function StoreProfessionalPlan(Request $request)
+    {
+
+        $id = Auth::user()->id;
+        $uid = User::findOrFail($id);
+        $nid = $uid->credit;
+
+        PackagePlan::insert([
+
+            'user_id' => $id,
+            'package_name' => 'Professional',
+            'package_credits' => '10',
+            'invoice' => 'RS' . mt_rand(10000000, 99999999),
+            'package_amount' => '50',
+            'created_at' => Carbon::now(),
+        ]);
+
+        User::where('id', $id)->update([
+            'credit' => DB::raw('10 + ' .$nid),
+        ]);
+
+        $notification = array(
+            'message' => 'You have purchase Professional Package Successfully',
             'alert-type' => 'success'
         );
 
