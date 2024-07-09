@@ -19,6 +19,8 @@ use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Auth;
 use PHPUnit\Framework\Constraint\Count;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class AgentPropertyController extends Controller
 {
@@ -487,7 +489,7 @@ class AgentPropertyController extends Controller
         ]);
 
         User::where('id', $id)->update([
-            'credit' => DB::raw('10 + ' .$nid),
+            'credit' => DB::raw('10 + ' . $nid),
         ]);
 
         $notification = array(
@@ -496,5 +498,28 @@ class AgentPropertyController extends Controller
         );
 
         return redirect()->route('agent.all.property')->with($notification);
+    }
+
+    public function PackageHistory()
+    {
+
+        $id = Auth::user()->id;
+        $packagehistory = PackagePlan::where('user_id', $id)->get();
+        // dd($packagehistory);
+
+        return view('agent.package.package_history', compact('packagehistory'));
+    }
+
+    public function AgentPackageInvoice($id)
+    {
+
+        $packagehistory = PackagePlan::where('id', $id)->first();
+
+        $pdf = Pdf::loadView('agent.package.package_history_invoice', compact('packagehistory'))->setPaper('a4')->setOption([
+
+            'tempDir'=> public_path(),
+            'chroot' => public_path(),
+        ]);
+        return $pdf->download('invoice.pdf');
     }
 }

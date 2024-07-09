@@ -50,8 +50,15 @@
 
                 <li class="nav-item">
                     <a href="{{ route('buy.package') }}" class="nav-link">
-                        <i class="link-icon" data-feather="calendar"></i>
+                        <i class="link-icon" data-feather="unlock"></i>
                         <span class="link-title">Buy Package</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('package.history') }}" class="nav-link">
+                        <i class="link-icon" data-feather="package"></i>
+                        <span class="link-title">Package History</span>
                     </a>
                 </li>
 
