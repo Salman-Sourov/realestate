@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Amenities;
+use App\Models\PackagePlan;
 use App\Models\propertyType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PropertyTypeController extends Controller
 {
@@ -112,14 +114,15 @@ class PropertyTypeController extends Controller
     }
 
 
-    public function EditAmenitie($id){
+    public function EditAmenitie($id)
+    {
 
         $amenities = Amenities::findOrFail($id);
-        return view('backend.amenities.edit_amenities',compact('amenities'));
+        return view('backend.amenities.edit_amenities', compact('amenities'));
+    } // End Method
 
-    }// End Method
-
-    public function UpdateAmenitie(Request $request){
+    public function UpdateAmenitie(Request $request)
+    {
 
         $ame_id = $request->id;
 
@@ -128,18 +131,18 @@ class PropertyTypeController extends Controller
             'amenitis_name' => $request->amenitis_name,
         ]);
 
-          $notification = array(
+        $notification = array(
 
             'message' => 'Amenities Updated Successfully',
             'alert-type' => 'success'
         );
 
         return redirect()->route('all.amenitie')->with($notification);
+    } // End Method
 
-    }// End Method
 
-
-    public function DeleteAmenitie($id){
+    public function DeleteAmenitie($id)
+    {
 
         Amenities::findOrFail($id)->delete();
 
@@ -149,8 +152,29 @@ class PropertyTypeController extends Controller
         );
 
         return redirect()->back()->with($notification);
+    } // End Method
 
-    }// End Method
 
+    public function AdminPackageHistory()
+    {
 
+        $packagehistory = PackagePlan::latest()->get();
+
+        return view('backend.package.package_history', compact('packagehistory'));
+    }
+
+    public function PackageInvoice($id)
+    {
+
+        $packagehistory = PackagePlan::where('id', $id)->first();
+
+        $pdf = Pdf::loadView('backend.package.package_history_invoice', compact('packagehistory'))->setPaper('a4')->setOption([
+
+            'tempDir' => public_path(),
+            'chroot' => public_path(),
+
+        ]);
+
+        return $pdf->download('invoice.pdf');
+    }
 }

@@ -84,6 +84,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/edit/amenitie/{id}', 'EditAmenitie')->name('edit.amenitie');
         Route::post('/update/amenitie/', 'UpdateAmenitie')->name('update.amenitie');
         Route::get('/delete/amenitie/{id}', 'DeleteAmenitie')->name('delete.amenitie');
+        Route::get('/admin/package/history', 'AdminPackageHistory')->name('admin.package.history');
+        Route::get('/package/invoice/{id}', 'PackageInvoice')->name('package.invoice');
     });
 
 
