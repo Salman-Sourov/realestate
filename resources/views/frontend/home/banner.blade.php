@@ -2,8 +2,11 @@
     <div class="auto-container">
         <div class="inner-container">
             <div class="content-box centred">
-                <h2>Create Lasting Wealth Through Realshed</h2>
-                <p>Amet consectetur adipisicing elit sed do eiusmod.</p>
+                <h2>BROADEN
+                    LIFE
+                    BOUNDARIES
+                </h2>
+                <p>Our real estate portfolio is a mark of distinction.</p>
             </div>
             <div class="search-field">
                 <div class="tabs-box">
