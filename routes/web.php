@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Backend\PropertyTypeController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Controllers\Agent\AgentPropertyController;
+use App\Http\Controllers\Frontend\IndexController;
 
 
 // Route::get('/', function () {
@@ -184,3 +185,7 @@ Route::middleware(['auth', 'role:agent'])->group(function () {
         Route::get('/agent/package/invoice/{id}', 'AgentPackageInvoice')->name('agent.package.invoice');
     });
 }); // End Group Admin Middleware
+
+
+//Frontend Property Details All Route
+Route::get('/property/details/{id}/{slug}', [IndexController::class, 'PropertyDetails']);
