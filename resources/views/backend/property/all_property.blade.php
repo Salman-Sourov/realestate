@@ -44,13 +44,13 @@
                                             <td><img src="{{ asset($item->property_thambnail) }}"
                                                     style="width:70px; height:40px;"> </td>
                                             <td>{{ $item->property_name }}</td>
-                                            <td>{{ $item['user']['name'] }}</td>
+                                            <td>{{ $item['user']['name'] ?? 'No Agent' }}</td>
 
                                             <td>{{ $item['type']['type_name'] }}</td>
                                             {{-- ['type is a function of Property MODEL']['type_name is property_types column name'] --}}
 
                                             <td>{{ $item->property_status }}</td>
-                                            <td>{{ $item->city }}</td>
+                                            <td>{{ $item->city ?? 'No City' }}</td>
                                             <td>{{ $item->property_code }}</td>
                                             <td>
                                                 @if ($item->status == 1)

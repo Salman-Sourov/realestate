@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Facility;
 use App\Models\MultiImage;
 use App\Models\Property;
 use Illuminate\Http\Request;
@@ -14,7 +15,15 @@ class IndexController extends Controller
 
         $property = Property::findOrFail($id);
         $multiImage = MultiImage::where('property_id', $id)->get();
-        return view('frontend.property.property_details',compact('property','multiImage'));
+        $facility = Facility::where('property_id', $id)->get();
+
+        $amenities = $property->amenities_id;
+        $property_amen = explode(',', $amenities);
+
+        $property_type = $property->ptype_id;
+        $relatedProperty = Property::where('ptype_id',$property_type)->where('id', '!=', $id)->orderBy('id','DESC')->limit(3)->get();
+
+        return view('frontend.property.property_details',compact('property','multiImage','property_amen','facility','relatedProperty'));
 
     } // End Method
 }
