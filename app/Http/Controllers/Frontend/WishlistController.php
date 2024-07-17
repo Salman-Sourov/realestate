@@ -38,4 +38,16 @@ class WishlistController extends Controller
         return response()->json(['error' => 'Please Login First']);
     }
 }
+
+public function UserWishlist(){
+
+    $id = Auth::user()->id;
+    $userData = User::find($id);
+
+    return view('frontend.dashboard.wishlist',compact('userData'));
+
+}// End Method
+
+
+
 }
