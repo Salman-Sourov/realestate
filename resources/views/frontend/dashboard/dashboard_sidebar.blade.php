@@ -1,7 +1,7 @@
 <div class="widget-content">
     <ul class="category-list ">
 
-        <li class="current"> <a href="blog-details.html"><i class="fab fa fa-envelope "></i>
+        <li class="current"> <a href="{{ route('dashboard') }}"><i class="fab fa fa-envelope "></i>
                 Dashboard </a></li>
 
 

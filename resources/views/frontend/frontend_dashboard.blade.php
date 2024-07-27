@@ -33,6 +33,7 @@
     <link href="{{ asset('frontend') }}/assets/css/responsive.css" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/assets/css/toastr.css""> --}}
 
 
 </head>
@@ -135,19 +136,19 @@
 
     <script type="text/javascript">
         $.ajaxSetup({
-            headers:{
+            headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         })
 
         //Add To Wishlist
-        function addToWishList(property_id){
+        function addToWishList(property_id) {
             $.ajax({
                 type: "POST",
                 dataType: 'json',
-                url: "/add-to-wishList/"+property_id,
+                url: "/add-to-wishList/" + property_id,
 
-                success: function(data){
+                success: function(data) {
                     // Start Message
                     console.log('success');
                     const Toast = Swal.mixin({
@@ -177,7 +178,72 @@
 
             })
         }
+    </script>
 
+
+    <!-- // start load Wishlist Data  -->
+    <script type="text/javascript">
+
+        function wishlist() {
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                url: "/get-wishlist-property/",
+
+                success: function(response) {
+
+                    $('#wishQty').text(response.wishQty);
+
+                    var rows = ""
+                    $.each(response.wishlist, function(key,value) {
+
+                        rows += ` <div class="deals-block-one">
+                                    <div class="inner-box">
+                                        <div class="image-box">
+                                            <figure class="image"><img src="/${value.property.property_thambnail}"
+                                                    alt=""></figure>
+                                            <div class="batch"><i class="icon-11"></i></div>
+                                            <span class="category">Featured</span>
+                                            <div class="buy-btn"><a href="#">For ${value.property.property_status}</a></div>
+                                        </div>
+                                        <div class="lower-content">
+                                            <div class="title-text">
+                                                <h4><a href="#">${value.property.property_name}</a></h4>
+                                            </div>
+                                            <div class="price-box clearfix">
+                                                <div class="price-info pull-left">
+                                                    <h6>Start From</h6>
+                                                    <h4>$${value.property.lowest_price}</h4>
+                                                </div>
+
+                                            </div>
+
+                                            <ul class="more-details clearfix">
+                                                <li><i class="icon-14"></i>${value.property.bedrooms} Beds</li>
+                                                <li><i class="icon-15"></i>${value.property.bathrooms} Baths</li>
+                                                <li><i class="icon-16"></i>${value.property.property_size} Sq Ft</li>
+                                            </ul>
+                                            <div class="other-info-box clearfix">
+
+                                                <ul class="other-option pull-right clearfix">
+
+                                                    <li><a href="property-details.html"><i class="fa fa-trash"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        `
+                    });
+
+                    $('#wishlist').html(rows);
+
+                }
+
+            })
+        }
+
+        wishlist();
     </script>
 
 

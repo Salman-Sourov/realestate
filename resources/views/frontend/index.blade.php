@@ -16,7 +16,7 @@
     <!-- feature-section end -->
 
 
-    {{-- <!-- video-section -->
+    <!-- video-section -->
     @include('frontend.home.video')
     <!-- video-section end -->
 
@@ -58,6 +58,6 @@
 
     <!-- download-section -->
     @include('frontend.home.download')
-    <!-- download-section end --> --}}
+    <!-- download-section end -->
 
 @endsection
