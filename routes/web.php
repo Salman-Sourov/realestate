@@ -209,6 +209,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
         Route::get('/user/wishlist', 'UserWishlist')->name('user.wishlist');
         Route::get('/get-wishlist-property', 'GetWishlistProperty');
+        Route::get('/wishlist-remove/{id}', 'WishlistRemove');
 
     });
 }); // End Group Admin Middleware
