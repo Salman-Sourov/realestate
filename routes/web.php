@@ -11,6 +11,7 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Controllers\Agent\AgentPropertyController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishlistController;
+use App\Http\Controllers\Frontend\CompareController;
 
 
 
@@ -213,3 +214,11 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
     });
 }); // End Group Admin Middleware
+
+
+// User Property Compare Route
+  Route::post('/add-to-compare/{property_id}', [CompareController::class, 'AddToCompare']);
+
+  
+
+
