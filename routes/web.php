@@ -219,6 +219,18 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 // User Property Compare Route
   Route::post('/add-to-compare/{property_id}', [CompareController::class, 'AddToCompare']);
 
-  
+  // User Compare Route
+Route::middleware(['auth', 'role:user'])->group(function () {
+
+    Route::controller(CompareController::class)->group(function(){
+
+        Route::get('/user/compare', 'UserCompare')->name('user.compare');
+        Route::get('/get-compare-property', 'GetCompareProperty');
+        Route::get('/compare-remove/{id}', 'CompareRemove');
+
+    });
+}); // End Group Admin Middleware
+
+
 
 
