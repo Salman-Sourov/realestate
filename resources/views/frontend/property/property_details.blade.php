@@ -271,16 +271,87 @@
                                     </div>
                                 @endif
                             </div>
+
+                            @auth
+
+                                @php
+                                    $id = Auth::user()->id;
+                                    $userData = App\Models\User::find($id);
+                                @endphp
+
+                                <div class="form-inner">
+                                    <form action="{{ route('property.message') }}" method="post" class="default-form">
+                                        @csrf
+
+                                        <input type="hidden" name="property_id" value="{{ $property->id }}">
+
+                                        @if ($property->agent_id == null)
+                                            <input type="hidden" name="agent_id" value="">
+                                        @else
+                                            <input type="hidden" name="agent_id" value="{{ $property->agent_id }}">
+                                        @endif
+
+                                        <div class="form-group">
+                                            <input type="text" name="msg_name" placeholder="Your name" value="{{ $userData->name }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" name="msg_email" placeholder="Your Email" value="{{ $userData->email }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="msg_phone" placeholder="Phone" value="{{ $userData->phone }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea name="message" placeholder="Message"></textarea>
+                                        </div>
+                                        <div class="form-group message-btn">
+                                            <button type="submit" class="theme-btn btn-one">Send Message</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            @else
+                                <div class="form-inner">
+                                    <form action="{{ route('property.message') }}" method="post" class="default-form">
+                                        @csrf
+
+                                        <input type="hidden" name="property_id" value="{{ $property->id }}">
+
+                                        @if ($property->agent_id == null)
+                                            <input type="hidden" name="agent_id" value="">
+                                        @else
+                                            <input type="hidden" name="agent_id" value="{{ $property->agent_id }}">
+                                        @endif
+
+                                        <div class="form-group">
+                                            <input type="text" name="msg_name" placeholder="Your name" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" name="msg_email" placeholder="Your Email" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="msg_phone" placeholder="Phone" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea name="message" placeholder="Message"></textarea>
+                                        </div>
+                                        <div class="form-group message-btn">
+                                            <button type="submit" class="theme-btn btn-one">Send Message</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            @endauth
+
                             <div class="form-inner">
                                 <form action="property-details.html" method="post" class="default-form">
+                                    @csrf
                                     <div class="form-group">
-                                        <input type="text" name="name" placeholder="Your name" required="">
+                                        <input type="text" name="msg_name" placeholder="Your name" required="">
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" name="email" placeholder="Your Email" required="">
+                                        <input type="email" name="msg_email" placeholder="Your Email" required="">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="phone" placeholder="Phone" required="">
+                                        <input type="text" name="msg_phone" placeholder="Phone" required="">
                                     </div>
                                     <div class="form-group">
                                         <textarea name="message" placeholder="Message"></textarea>
@@ -290,7 +361,10 @@
                                     </div>
                                 </form>
                             </div>
+
+
                         </div>
+
                         <div class="calculator-widget sidebar-widget">
                             <div class="calculate-inner">
                                 <div class="widget-title">
@@ -351,7 +425,8 @@
                                             <div class="author pull-left">
                                                 @if ($item->agent_id == null)
                                                     <figure class="author-thumb"><img
-                                                            src="{{ url('upload/salman_sourov.png') }}" alt=""></figure>
+                                                            src="{{ url('upload/salman_sourov.png') }}" alt="">
+                                                    </figure>
                                                     <h6>Admin </h6>
                                                 @else
                                                     <figure class="author-thumb"><img

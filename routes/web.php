@@ -232,5 +232,9 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 }); // End Group Admin Middleware
 
 
+//Send Message from Property Details Page
+Route::post('/property/message',[IndexController::class,'propertyMessage'])->name('property.message');
+
+
 
 
