@@ -272,14 +272,15 @@
                                 @endif
                             </div>
 
-                            @auth
+                            <div class="form-inner">
+                                @auth
 
-                                @php
-                                    $id = Auth::user()->id;
-                                    $userData = App\Models\User::find($id);
-                                @endphp
+                                    @php
+                                        $id = Auth::user()->id;
+                                        $userData = App\Models\User::find($id);
+                                    @endphp
 
-                                <div class="form-inner">
+
                                     <form action="{{ route('property.message') }}" method="post" class="default-form">
                                         @csrf
 
@@ -292,13 +293,16 @@
                                         @endif
 
                                         <div class="form-group">
-                                            <input type="text" name="msg_name" placeholder="Your name" value="{{ $userData->name }}">
+                                            <input type="text" name="msg_name" placeholder="Your name"
+                                                value="{{ $userData->name }}">
                                         </div>
                                         <div class="form-group">
-                                            <input type="email" name="msg_email" placeholder="Your Email" value="{{ $userData->email }}">
+                                            <input type="email" name="msg_email" placeholder="Your Email"
+                                                value="{{ $userData->email }}">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="msg_phone" placeholder="Phone" value="{{ $userData->phone }}">
+                                            <input type="text" name="msg_phone" placeholder="Phone"
+                                                value="{{ $userData->phone }}">
                                         </div>
                                         <div class="form-group">
                                             <textarea name="message" placeholder="Message"></textarea>
@@ -307,9 +311,7 @@
                                             <button type="submit" class="theme-btn btn-one">Send Message</button>
                                         </div>
                                     </form>
-                                </div>
-                            @else
-                                <div class="form-inner">
+                                @else
                                     <form action="{{ route('property.message') }}" method="post" class="default-form">
                                         @csrf
 
@@ -337,31 +339,10 @@
                                             <button type="submit" class="theme-btn btn-one">Send Message</button>
                                         </div>
                                     </form>
-                                </div>
 
-                            @endauth
+                                @endauth
 
-                            <div class="form-inner">
-                                <form action="property-details.html" method="post" class="default-form">
-                                    @csrf
-                                    <div class="form-group">
-                                        <input type="text" name="msg_name" placeholder="Your name" required="">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="email" name="msg_email" placeholder="Your Email" required="">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" name="msg_phone" placeholder="Phone" required="">
-                                    </div>
-                                    <div class="form-group">
-                                        <textarea name="message" placeholder="Message"></textarea>
-                                    </div>
-                                    <div class="form-group message-btn">
-                                        <button type="submit" class="theme-btn btn-one">Send Message</button>
-                                    </div>
-                                </form>
                             </div>
-
 
                         </div>
 
