@@ -172,6 +172,8 @@ Route::middleware(['auth', 'role:agent'])->group(function () {
 
         Route::post('/agent/update/property/facilities', 'AgentUpdatePropertyFacilities')->name('agent.update.property.facilities');
         Route::get('/agent/delete/property/{id}', 'AgentDeleteProperty')->name('agent.delete.property');
+        Route::get('/agent/property/message', 'AgentPropertyMessage')->name('agent.property.message');
+        Route::get('/agent/message/details/{id}', 'AgentMessageDetails')->name('agent.message.details');
     });
 
 
@@ -234,7 +236,6 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
 //Send Message from Property Details Page
 Route::post('/property/message',[IndexController::class,'propertyMessage'])->name('property.message');
-
 
 
 

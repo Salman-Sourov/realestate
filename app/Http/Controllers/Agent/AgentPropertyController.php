@@ -9,6 +9,7 @@ use App\Models\MultiImage;
 use App\Models\Facility;
 use App\Models\Amenities;
 use App\Models\PackagePlan;
+use App\Models\PropertyMessage;
 use App\Models\PropertyType;
 use App\Models\User;
 use Intervention\Image\Facades\Image;
@@ -517,9 +518,26 @@ class AgentPropertyController extends Controller
 
         $pdf = Pdf::loadView('agent.package.package_history_invoice', compact('packagehistory'))->setPaper('a4')->setOption([
 
-            'tempDir'=> public_path(),
+            'tempDir' => public_path(),
             'chroot' => public_path(),
         ]);
         return $pdf->download('invoice.pdf');
+    }
+
+
+    public function AgentPropertyMessage()
+    {
+        $id = Auth::user()->id;
+        $usermsg = PropertyMessage::where('agent_id', $id)->get();
+        return view('agent.message.all_message', compact('usermsg'));
+    }
+
+    public function AgentMessageDetails($id)
+    {
+        $authid = Auth::user()->id;
+        $usermsg = PropertyMessage::where('user_id',$authid)->get();
+        $msgdetails = PropertyMessage::findOrFail($id);
+
+        return view('agent.message.message_details',compact('usermsg','msgdetails'));
     }
 }

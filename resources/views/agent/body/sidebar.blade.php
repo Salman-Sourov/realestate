@@ -32,7 +32,7 @@
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#property" role="button" aria-expanded="false"
                         aria-controls="emails">
-                        <i class="link-icon" data-feather="mail"></i>
+                        <i class="link-icon" data-feather="home"></i>
                         <span class="link-title">Property</span>
                         <i class="link-arrow" data-feather="chevron-down"></i>
                     </a>
@@ -59,6 +59,13 @@
                     <a href="{{ route('package.history') }}" class="nav-link">
                         <i class="link-icon" data-feather="package"></i>
                         <span class="link-title">Package History</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('agent.property.message') }}" class="nav-link">
+                        <i class="link-icon" data-feather="mail"></i>
+                        <span class="link-title">Property Message</span>
                     </a>
                 </li>
 
