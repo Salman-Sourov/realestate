@@ -15,6 +15,7 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Carbon\Carbon;
 use App\Models\MultiImage;
 use PHPUnit\Framework\Constraint\Count;
+use App\Models\PropertyMessage;
 
 
 use function PHPUnit\Framework\fileExists;
@@ -357,23 +358,24 @@ class PropertyController extends Controller
         }
     } // End Method
 
-    public function DeleteProperty($id){
+    public function DeleteProperty($id)
+    {
 
         $property = Property::findOrFail($id);
         unlink($property->property_thambnail);
 
         Property::findOrFail($id)->delete();
 
-        $image = MultiImage::where('property_id',$id)->get();
-        foreach($image as $img){
+        $image = MultiImage::where('property_id', $id)->get();
+        foreach ($image as $img) {
             unlink($img->photo_name);
-            MultiImage::where('property_id',$id)->delete();
+            MultiImage::where('property_id', $id)->delete();
         }
 
-        $facilitiesData = Facility::where('property_id',$id)->get();
-        foreach($facilitiesData as $item){
+        $facilitiesData = Facility::where('property_id', $id)->get();
+        foreach ($facilitiesData as $item) {
             $item->facility_name;
-            Facility::where('property_id',$id)->delete();
+            Facility::where('property_id', $id)->delete();
         }
 
         $notification = array(
@@ -384,25 +386,26 @@ class PropertyController extends Controller
         return back()->with('$notification');
     }
 
-    public function DetailsProperty($id){
+    public function DetailsProperty($id)
+    {
 
-        $facilities = Facility::where('property_id',$id)->get();
+        $facilities = Facility::where('property_id', $id)->get();
         $property = Property::findOrFail($id);
 
         $type = $property->amenities_id;
         $property_ami = explode(',', $type);
 
-        $multiImage = MultiImage::where('property_id',$id)->get();
+        $multiImage = MultiImage::where('property_id', $id)->get();
 
         $propertytype = PropertyType::latest()->get();
         $amenities = Amenities::latest()->get();
-        $activeAgent = User::where('status','active')->where('role','agent')->latest()->get();
+        $activeAgent = User::where('status', 'active')->where('role', 'agent')->latest()->get();
 
-        return view('backend.property.details_property',compact('property','propertytype','amenities','activeAgent','property_ami','multiImage','facilities'));
-
+        return view('backend.property.details_property', compact('property', 'propertytype', 'amenities', 'activeAgent', 'property_ami', 'multiImage', 'facilities'));
     }
 
-    public function InactiveProperty(Request $request){
+    public function InactiveProperty(Request $request)
+    {
 
         $pid = $request->id;
         Property::findOrFail($pid)->Update([
@@ -415,10 +418,10 @@ class PropertyController extends Controller
         );
 
         return redirect()->route('all.property')->with('$notification');
+    } // End Method
 
-    }
-
-    public function ActiveProperty(Request $request){
+    public function ActiveProperty(Request $request)
+    {
 
         $pid = $request->id;
         Property::findOrFail($pid)->Update([
@@ -431,17 +434,27 @@ class PropertyController extends Controller
         );
 
         return redirect()->route('all.property')->with('$notification');
+    } // End Method
 
-    }
-
-    public function changePropertyStatus(Request $request){
+    public function changePropertyStatus(Request $request)
+    {
 
         $pro = Property::find($request->user_id);
         $pro->status = $request->status;
         $pro->save();
 
-        return response()->json(['success'=>'Status Change Successfully']);
+        return response()->json(['success' => 'Status Change Successfully']);
+    } // End Method
 
-      }// End Method
+    public function AdminPropertyMessage(){
 
+        $usermsg = PropertyMessage::latest()->get()->sortDesc();
+        return view('backend.message.all_message',compact('usermsg'));
+
+    }// End Method
+
+    public function AdminMessageDetails($id){
+        $msgdetails = PropertyMessage::findOrFail($id);
+        return view('backend.message.message_details', compact('msgdetails'));
+    } // End Method
 }

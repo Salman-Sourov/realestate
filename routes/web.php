@@ -110,6 +110,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/details/property/inactive', 'InactiveProperty')->name('inactive.property');
         Route::post('/details/property/active', 'ActiveProperty')->name('active.property');
         Route::get('/changePropertyStatus', 'changePropertyStatus');
+        Route::get('/admin/property/message', 'AdminPropertyMessage')->name('admin.property.message');
+        Route::get('/admin/message/details/{id}', 'AdminMessageDetails')->name('admin.message.details');
     });
 
     // Agent All Route from admin

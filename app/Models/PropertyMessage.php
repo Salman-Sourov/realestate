@@ -17,4 +17,8 @@ class PropertyMessage extends Model
     public function property(){
         return $this->belongsTo(Property::class,'property_id','id');
     }
+
+    public function agent(){
+        return $this->belongsTo(User::class,'agent_id','id');
+    }
 }
