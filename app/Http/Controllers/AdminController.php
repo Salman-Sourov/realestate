@@ -6,6 +6,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Carbon\Carbon;
+use function PHPUnit\Framework\fileExists;
 
 class AdminController extends Controller
 {
@@ -117,11 +121,23 @@ class AdminController extends Controller
 
     public function StoreAgent(Request $request){
 
+        $save_url = null; // Initialize the $save_url variable
+
+        if ($request->file('photo')) {
+            $manager = new ImageManager(new Driver());
+            $name_gen = hexdec(uniqid()) . '.' . $request->file('photo')->getClientOriginalExtension();
+            $image = $manager->read($request->file('photo'));
+            $image = $image->resize(370, 250);
+            $image->toJpeg(80)->Save(base_path(('public/upload/agent_images/' . $name_gen)));
+            $save_url = 'upload/agent_images/' . $name_gen;
+        }
+
         User::insert([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
             'address' => $request->address,
+            'photo' => $save_url,
             'password' => Hash::make($request->password),
             'status' => 'active',
             'role' => 'agent',
@@ -149,7 +165,36 @@ class AdminController extends Controller
             'email'=> $request->email,
             'phone'=> $request->phone,
             'address'=> $request->address,
+            'updated_at' => Carbon::now(),
         ]);
+
+        $oldImage = $request->old_img;
+
+        $manager = new ImageManager(new Driver());
+        $name_gen = hexdec(uniqid()) . '.' . $request->file('photo')->getClientOriginalExtension();
+        $image = $manager->read($request->file('photo'));
+        $image = $image->resize(370, 250);
+        $image->toJpeg(80)->Save(base_path(('public/upload/agent_images/' . $name_gen)));
+        $save_url = 'public/upload/agent_images/' . $name_gen;
+
+
+        if (fileExists($oldImage)) {
+            unlink($oldImage);
+
+            User::findOrFail($user_id)->update([
+
+                'photo' => $save_url,
+                'updated_at' => Carbon::now(),
+            ]);
+        } else {
+
+            User::findOrFail($user_id)->update([
+
+                'photo' => $save_url,
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+
 
         $notification = array(
             'message' => 'Admin Profile Updated Successfully',
@@ -179,7 +224,9 @@ class AdminController extends Controller
 
         return response()->json(['success'=>'Status Change Successfully']);
 
-      }// End Method
+    }// End Method
+
+
 
 
 }

@@ -29,17 +29,32 @@
 
                                 <div class="form-group mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Agent Email </label>
-                                    <input type="email" name="email" class="form-control" value="{{ $allagent->email }}">
+                                    <input type="email" name="email" class="form-control"
+                                        value="{{ $allagent->email }}">
                                 </div>
 
                                 <div class="form-group mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Agent Phone </label>
-                                    <input type="text" name="phone" class="form-control" value="{{ $allagent->phone }}">
+                                    <input type="text" name="phone" class="form-control"
+                                        value="{{ $allagent->phone }}">
                                 </div>
 
                                 <div class="form-group mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Agent Address </label>
-                                    <input type="text" name="address" class="form-control" value="{{ $allagent->address }}">
+                                    <input type="text" name="address" class="form-control"
+                                        value="{{ $allagent->address }}">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="formFile">Upload Photo</label>
+                                    <input class="form-control" name="photo" type="file" id="image">
+                                </div>
+
+                                <div>
+                                    <img class="wd-100 rounded-circle"
+                                        src="{{ !empty($allagent->photo) ? url('upload/agent_images/' . $$allagent->photo) : url('upload/no_image.jpg') }}"
+                                        alt="profile">
+                                    <span class="h4 ms-3 ">{{ $allagent->username }}</span>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary me-2">Save Changes </button>
@@ -48,21 +63,10 @@
 
                         </div>
                     </div>
-
-
-
-
                 </div>
             </div>
-            <!-- middle wrapper end -->
-            <!-- right wrapper start -->
-
-            <!-- right wrapper end -->
         </div>
-
     </div>
-
-
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -111,4 +115,17 @@
             });
         });
     </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#image').change(function(e) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#showImage').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(e.target.files['0']);
+            });
+        });
+    </script>
+    
 @endsection

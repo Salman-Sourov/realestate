@@ -57,11 +57,6 @@ class PropertyController extends Controller
             $save_url = 'upload/property/thambnail/' . $name_gen;
         }
 
-        // $image = $request->file('property_thambnail');
-        // $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-        // Image::make($image)->resize(370, 250)->save('upload/property/thambnail/' . $name_gen);
-        // $save_url = 'upload/property/thambnail/'.$name_gen;
-
         $property_id = Property::insertGetId([
             'ptype_id' => $request->ptype_id,
             'amenities_id' => $amenities,

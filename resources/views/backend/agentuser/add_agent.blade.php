@@ -45,28 +45,20 @@
                                     <input type="password" name="password" class="form-control">
                                 </div>
 
+                                <div class="form-group mb-3">
+                                    <label for="agentImage" class="form-label">Agent Image</label>
+                                    <input type="file" name="photo" class="form-control" onChange="agentImage(this)">
+                                    <img src="" id="agentImg">
+                                </div>
 
                                 <button type="submit" class="btn btn-primary me-2">Save Changes </button>
-
                             </form>
-
                         </div>
                     </div>
-
-
-
-
                 </div>
             </div>
-            <!-- middle wrapper end -->
-            <!-- right wrapper start -->
-
-            <!-- right wrapper end -->
         </div>
-
     </div>
-
-
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -115,4 +107,16 @@
             });
         });
     </script>
+
+<script type="text/javascript">
+    function agentImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#agentImg').attr(v 'src', e.target.result).width(80).height(80);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 @endsection
