@@ -3,13 +3,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
     <div class="page-content">
-
-
         <div class="row profile-body">
-            <!-- left wrapper start -->
-
-            <!-- left wrapper end -->
-            <!-- middle wrapper start -->
             <div class="col-md-8 col-xl-8 middle-wrapper">
                 <div class="row">
                     <div class="card">
@@ -17,7 +11,7 @@
 
                             <h6 class="card-title">Update Agent Information</h6>
 
-                            <form id="myForm" method="POST" action="{{ route('update.agent') }}" class="forms-sample">
+                            <form id="myForm" method="POST" action="{{ route('update.agent') }}" enctype="multipart/form-data" class="forms-sample">
                                 @csrf
 
                                 <input type="hidden" name="id" value="{{ $allagent->id }}">
@@ -50,17 +44,17 @@
                                     <input class="form-control" name="photo" type="file" id="image">
                                 </div>
 
-                                <div>
-                                    <img class="wd-100 rounded-circle"
-                                        src="{{ !empty($allagent->photo) ? url('upload/agent_images/' . $$allagent->photo) : url('upload/no_image.jpg') }}"
-                                        alt="profile">
-                                    <span class="h4 ms-3 ">{{ $allagent->username }}</span>
+                                <div class="mb-3">
+                                    <div>
+                                        <img id="showImage" class="wd-100 rounded-circle"
+                                            src="{{ !empty($allagent->photo) ? url('upload/agent_images/' . $allagent->photo) : url('upload/no_image.jpg') }}"
+                                            alt="profile">
+                                    </div>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary me-2">Save Changes </button>
 
                             </form>
-
                         </div>
                     </div>
                 </div>
@@ -127,5 +121,5 @@
             });
         });
     </script>
-    
+
 @endsection

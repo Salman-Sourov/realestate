@@ -10,6 +10,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Carbon\Carbon;
 use function PHPUnit\Framework\fileExists;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -32,7 +33,6 @@ class AdminController extends Controller
 
         return redirect('/admin/login')->with($notification);
     }// End Method
-
 
     public function AdminLogin(){
         return view('admin.admin_login');
@@ -119,20 +119,36 @@ class AdminController extends Controller
         return view('backend.agentuser.add_agent');
     }
 
-    public function StoreAgent(Request $request){
+    public function StoreAgent(Request $request) {
+        // Validate the incoming request
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|string|max:15',
+            'address' => 'required|string|max:255',
+            'password' => 'required|string',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-        $save_url = null; // Initialize the $save_url variable
+        // Initialize $save_url variable
+        $save_url = null;
 
-        if ($request->file('photo')) {
-            $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()) . '.' . $request->file('photo')->getClientOriginalExtension();
-            $image = $manager->read($request->file('photo'));
-            $image = $image->resize(370, 250);
-            $image->toJpeg(80)->Save(base_path(('public/upload/agent_images/' . $name_gen)));
-            $save_url = 'upload/agent_images/' . $name_gen;
+        // Check if a photo file is uploaded
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+
+            // Generate a unique filename with the original extension
+            $filename = hexdec(uniqid()) . '.' . $file->getClientOriginalExtension();
+
+            // Move the uploaded file to the desired directory
+            $file->move(public_path('upload/agent_images'), $filename);
+
+            // Set the save URL to store in the database
+            $save_url = 'upload/agent_images/' . $filename;
         }
 
-        User::insert([
+        // Create a new agent record
+        User::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -141,80 +157,107 @@ class AdminController extends Controller
             'password' => Hash::make($request->password),
             'status' => 'active',
             'role' => 'agent',
-            ]);
+        ]);
 
-            $notification = array(
-                'message' => 'Agent Successfully Created',
-                'alert-type' => 'success'
-            );
+        // Prepare a success notification
+        $notification = array(
+            'message' => 'Agent Successfully Created',
+            'alert-type' => 'success'
+        );
 
-            return redirect()->route('all.agent')->with($notification);
+        // Redirect to the agents list page with notification
+        return redirect()->route('all.agent')->with($notification);
     }
+
 
     public function EditAgent($id){
         $allagent = User::findOrFail($id);
         return view('backend.agentuser.edit_agent',compact('allagent'));
     }
 
-    public function UpdateAgent(Request $request){
-
+    public function UpdateAgent(Request $request) {
         $user_id = $request->id;
+        $user = User::findOrFail($user_id); // Retrieve the user by ID
 
-        User::findOrFail($user_id)->update([
-            'name'=> $request->name,
-            'email'=> $request->email,
-            'phone'=> $request->phone,
-            'address'=> $request->address,
-            'updated_at' => Carbon::now(),
-        ]);
+        // Check if a new photo was uploaded
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
 
-        $oldImage = $request->old_img;
+            // Generate a unique filename with the original extension
+            $filename = date('YmdHi') . '.' . $file->getClientOriginalExtension();
 
-        $manager = new ImageManager(new Driver());
-        $name_gen = hexdec(uniqid()) . '.' . $request->file('photo')->getClientOriginalExtension();
-        $image = $manager->read($request->file('photo'));
-        $image = $image->resize(370, 250);
-        $image->toJpeg(80)->Save(base_path(('public/upload/agent_images/' . $name_gen)));
-        $save_url = 'public/upload/agent_images/' . $name_gen;
+            // Move the uploaded file to the desired directory
+            $file->move(public_path('upload/agent_images'), $filename);
 
+            // Delete the old photo if it exists
+            if ($user->photo && file_exists(public_path('upload/agent_images/' . $user->photo))) {
+                @unlink(public_path('upload/agent_images/' . $user->photo));
+            }
 
-        if (fileExists($oldImage)) {
-            unlink($oldImage);
-
-            User::findOrFail($user_id)->update([
-
-                'photo' => $save_url,
-                'updated_at' => Carbon::now(),
-            ]);
-        } else {
-
-            User::findOrFail($user_id)->update([
-
-                'photo' => $save_url,
-                'updated_at' => Carbon::now(),
-            ]);
+            // Update the user's photo attribute
+            $user->photo = $filename;
         }
 
+        // Update the user's other attributes
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->updated_at = Carbon::now();
 
-        $notification = array(
-            'message' => 'Admin Profile Updated Successfully',
+        // Save the changes to the database
+        $user->save();
+
+        $notification = [
+            'message' => 'Agent Profile Updated Successfully',
             'alert-type' => 'success'
-        );
+        ];
+
 
         return redirect()->route('all.agent')->with($notification);
     }
 
-
-    public function DeleteAgent(Request $request){
+    public function DeleteAgent(Request $request) {
         $user_id = $request->id;
-        User::findOrFail($user_id)->delete();
+        $user = User::findOrFail($user_id);
+
+        // Check if the user has a photo
+        if ($user->photo) {
+            // Get the photo path
+            $photo_path = public_path($user->photo);
+
+            // Debugging: Log the photo path
+            Log::info('Photo path: ' . $photo_path);
+
+            // Check if the file exists and delete it
+            if (file_exists($photo_path)) {
+                // Debugging: Log the file exists
+                Log::info('File exists, attempting to delete: ' . $photo_path);
+
+                if (unlink($photo_path)) {
+                    // Debugging: Log successful deletion
+                    Log::info('File successfully deleted: ' . $photo_path);
+                } else {
+                    // Debugging: Log failure to delete
+                    Log::warning('Failed to delete file: ' . $photo_path);
+                }
+            } else {
+                // Debugging: Log file does not exist
+                Log::warning('File does not exist: ' . $photo_path);
+            }
+        }
+
+        // Delete the user from the database
+        $user->delete();
+
         $notification = array(
-            'message' => 'Admin Profile Updated Successfully',
+            'message' => 'Agent Successfully Deleted',
             'alert-type' => 'success'
         );
 
         return back()->with($notification);
     }
+
 
     public function changeStatus(Request $request){
 
@@ -225,8 +268,5 @@ class AdminController extends Controller
         return response()->json(['success'=>'Status Change Successfully']);
 
     }// End Method
-
-
-
 
 }
