@@ -7,6 +7,7 @@ use App\Models\Facility;
 use App\Models\MultiImage;
 use App\Models\Property;
 use App\Models\PropertyMessage;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -29,7 +30,7 @@ class IndexController extends Controller
         return view('frontend.property.property_details', compact('property', 'multiImage', 'property_amen', 'facility', 'relatedProperty'));
     } // End Method
 
-    public function propertyMessage(Request $request)
+    public function PropertyMessage(Request $request)
     {
 
         if (Auth::check()) {
@@ -63,5 +64,12 @@ class IndexController extends Controller
 
             return redirect()->back()->with($notification);
         }
-    }
+    }// End Method
+
+    public function AgentDetails($id){
+
+       $agent = User::findOrFail($id);
+       return view('frontend.agent.agent_details',compact('agent'));
+
+    }// End Method
 }

@@ -237,7 +237,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
 
 //Send Message from Property Details Page
-Route::post('/property/message',[IndexController::class,'propertyMessage'])->name('property.message');
+Route::post('/property/message',[IndexController::class,'PropertyMessage'])->name('property.message');
 
 // Agent Details Page in Frontend
 Route::get('/agent/details/{id}', [IndexController::class, 'AgentDetails'])->name('agent.details');
