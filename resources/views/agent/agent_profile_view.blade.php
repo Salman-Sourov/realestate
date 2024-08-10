@@ -1,6 +1,6 @@
 @extends('agent.agent_dashboard')
 @section('agent')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <div class="page-content">
         <div class="row profile-body">
@@ -54,7 +54,8 @@
 
                             <h6 class="card-title">Update Agent Profile</h6>
 
-                            <form method="POST" action="{{route('agent.profile.store')}}" class="forms-sample" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('agent.profile.store') }}" class="forms-sample"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="exampleInputUsername1" class="form-label">User Name</label>
@@ -82,6 +83,13 @@
                                         autocomplete="off" value="{{ $profileData->address }}">
                                 </div>
                                 <div class="mb-3">
+                                    <label for="exampleInputUsername1" class="form-label">Address</label>
+                                    {{-- <input type="text" name="address" class="form-control" id="exampleInputUsername1"
+                                        autocomplete="off" value="{{ $profileData->description }}"> --}}
+                                    <textarea type="text" name="description" class="form-control"
+                                    rows="5"> {{ $profileData->description }} </textarea>
+                                </div>
+                                <div class="mb-3">
                                     <label class="form-label" for="formFile">Upload Photo</label>
                                     <input class="form-control" name="photo" type="file" id="image">
                                 </div>
@@ -101,16 +109,15 @@
         </div>
     </div>
 
-<script type="text/javascript">
-    $(document).ready(function(){
-       $('#image').change(function(e){
-        var reader = new FileReader();
-        reader.onload = function(e){
-            $('#showImage').attr('src',e.target.result);
-        }
-        reader.readAsDataURL(e.target.files['0']);
-       });
-    });
-</script>
-
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#image').change(function(e) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#showImage').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(e.target.files['0']);
+            });
+        });
+    </script>
 @endsection

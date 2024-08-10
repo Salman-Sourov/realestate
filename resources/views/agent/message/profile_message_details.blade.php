@@ -7,7 +7,6 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-
                             <div class="col-lg-3 border-end-lg">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <button class="navbar-toggle btn btn-icon border d-block d-lg-none"
@@ -19,55 +18,28 @@
                                         <p class="text-muted">support@empobd.com</p>
                                     </div>
                                 </div>
-
                                 <div class="d-grid my-3">
                                     <a class="btn btn-primary" href="./compose.html">Compose Email</a>
                                 </div>
-
                                 <div class="email-aside-nav collapse">
                                     <ul class="nav flex-column">
                                         <li class="nav-item active">
                                             <a class="nav-link d-flex align-items-center"
-                                                href="{{ route('agent.property.message') }}">
+                                                href="{{ route('agent.profile.message.details') }}">
                                                 <i data-feather="inbox" class="icon-lg me-2"></i>
                                                 Inbox
-                                                <span class="badge bg-danger fw-bolder ms-auto">{{ count($usermsg) }}
                                             </a>
                                         </li>
-
-                                        @isset($promsg)
-                                        <li class="nav-item">
-                                            <a class="nav-link d-flex align-items-center"
-                                                href="{{ route('agent.profile.message.details') }}">
-                                                <i data-feather="mail" class="icon-lg me-2"></i>
-                                                Agent Profile Message
-                                                <span class="badge bg-danger fw-bolder ms-auto">{{ $promsg->count() }}</span>
-                                            </a>
-                                        </li>
-                                    @else
-                                        <li class="nav-item">
-                                            <a class="nav-link d-flex align-items-center" href="#">
-                                                <i data-feather="mail" class="icon-lg me-2"></i>
-                                                Agent Profile Message
-                                                <span class="badge bg-danger fw-bolder ms-auto">0</span>
-                                            </a>
-                                        </li>
-                                    @endisset
-
-
-
                                     </ul>
                                 </div>
                             </div>
-
                             <div class="col-lg-9">
                                 <div class="p-3 border-bottom">
                                     <div class="row align-items-center">
                                         <div class="col-lg-6">
                                             <div class="d-flex align-items-end mb-2 mb-md-0">
                                                 <i data-feather="inbox" class="text-muted me-2"></i>
-                                                <h4 class="me-1">Inbox</h4>
-                                                <span class="text-muted">({{ count($usermsg) }} new messages)</span>
+                                                <h4 class="me-1">Agent Profile Message</h4>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -81,24 +53,41 @@
                                 </div>
 
                                 <div class="email-list">
-
                                     <!-- email list item -->
-                                    @foreach ($usermsg as $msg)
-                                        <div class="email-list-item">
-                                            <a href="{{ route('agent.message.details', $msg->id) }}"
-                                                class="email-list-detail">
-                                                <div class="content">
-                                                    <span class="from">{{ $msg['user']['name'] }}</span>
-                                                    <p class="msg">{{ $msg->message }}</p>
-                                                </div>
-                                                <span class="date">
-                                                    {{ $msg->created_at->format('l m d') }}
-                                                </span>
-                                            </a>
-                                        </div>
-                                    @endforeach
-                                </div>
+                                    <div class="table-responsive">
+                                        <table class="table">
 
+                                            <tbody>
+                                                <tr>
+                                                    <th>Customer Name : </th>
+                                                    <td>{{ $promsgdetails['user']['name'] }}</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>Customer Email : </th>
+                                                    <td>{{ $promsgdetails['user']['email'] }}</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>Customer Phone : </th>
+                                                    <td>{{ $promsgdetails['user']['phone'] }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Message : </th>
+                                                    <td>{{ $promsgdetails->message }}</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>Sending Time : </th>
+                                                    <td>{{ $promsgdetails->created_at->format('l M d') }}</td>
+                                                </tr>
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>

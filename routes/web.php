@@ -28,6 +28,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'role:user', 'verified'])->name('dashboard');
 
 
+//User Management Group Middleware
 Route::middleware(['auth', 'role:user'])->group(function () {
 
     Route::get('/user/profile', [UserController::class, 'UserProfile'])->name('user.profile');
@@ -51,7 +52,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 }); //End Group Admin Middleware
 
 
-
 ///Agent Group Middleware
 Route::middleware(['auth', 'role:agent'])->group(function () {
     Route::get('/agent/dashboard', [AgentController::class, 'AgentDashboard'])->name('agent.dashboard');
@@ -63,10 +63,10 @@ Route::middleware(['auth', 'role:agent'])->group(function () {
 }); //End Group Agent Middleware
 
 
-
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login')->middleware(RedirectIfAuthenticated::class);;
 Route::get('/agent/login', [AgentController::class, 'AgentLogin'])->name('agent.login')->middleware(RedirectIfAuthenticated::class);;
 Route::post('/agent/register', [AgentController::class, 'AgentRegister'])->name('agent.register');
+
 //Admin Group Middleware
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
@@ -91,7 +91,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/admin/package/history', 'AdminPackageHistory')->name('admin.package.history');
         Route::get('/package/invoice/{id}', 'PackageInvoice')->name('package.invoice');
     });
-
 
     //Properties All route
     Route::controller(PropertyController::class)->group(function () {
@@ -176,6 +175,8 @@ Route::middleware(['auth', 'role:agent'])->group(function () {
         Route::get('/agent/delete/property/{id}', 'AgentDeleteProperty')->name('agent.delete.property');
         Route::get('/agent/property/message', 'AgentPropertyMessage')->name('agent.property.message');
         Route::get('/agent/message/details/{id}', 'AgentMessageDetails')->name('agent.message.details');
+        Route::get('/agent/profile/message', 'AgentProfileMessage')->name('agent.profile.message');
+        Route::get('/agent/profile/message/details/{id}', 'AgentProfileMessageDetails')->name('agent.profile.message.details');
     });
 
 
@@ -201,11 +202,6 @@ Route::get('/property/details/{id}/{slug}', [IndexController::class, 'PropertyDe
 //Frontend Wishlist Add Route
 Route::post('/add-to-wishList/{property_id}', [WishlistController::class, 'AddToWishList']);
 
-//  // User WishlistAll Route
-//  Route::controller(WishlistController::class)->group(function(){
-
-//     Route::get('/user/wishlist', 'UserWishlist')->name('user.wishlist');
-// });
 
  // User WishlistAll Route
 Route::middleware(['auth', 'role:user'])->group(function () {
@@ -241,6 +237,11 @@ Route::post('/property/message',[IndexController::class,'PropertyMessage'])->nam
 
 // Agent Details Page in Frontend
 Route::get('/agent/details/{id}', [IndexController::class, 'AgentDetails'])->name('agent.details');
+
+ // Send Message from Agent Details Page
+ Route::post('/agent/details/message', [IndexController::class, 'AgentDetailsMessage'])->name('agent.details.message');
+
+
 
 
 

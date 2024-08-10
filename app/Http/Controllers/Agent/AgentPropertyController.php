@@ -528,16 +528,39 @@ class AgentPropertyController extends Controller
     public function AgentPropertyMessage()
     {
         $id = Auth::user()->id;
-        $usermsg = PropertyMessage::where('agent_id', $id)->latest()->get();
+        $usermsg = PropertyMessage::where('agent_id', $id)->whereNotNull('property_id')->latest()->get();
         return view('agent.message.all_message', compact('usermsg'));
     }
 
     public function AgentMessageDetails($id)
     {
         $authid = Auth::user()->id;
-        $usermsg = PropertyMessage::where('user_id',$authid)->get();
+        $usermsg = PropertyMessage::where('user_id', $authid)->get();
         $msgdetails = PropertyMessage::findOrFail($id);
 
-        return view('agent.message.message_details',compact('usermsg','msgdetails'));
+        return view('agent.message.message_details', compact('usermsg', 'msgdetails'));
+    }
+
+    public function AgentProfileMessage()
+    {
+        $id = Auth::user()->id;
+
+        // Fetch messages where 'agent_id' matches the logged-in user's ID and 'property_id' is NULL
+        $promsg = PropertyMessage::where('agent_id', $id)
+            ->whereNull('property_id')
+            ->get();
+
+        return view('agent.message.all_message', compact('promsg'));
+    }
+
+
+
+    public function AgentProfileMessageDetails($id)
+    {
+        $authid = Auth::user()->id;
+        $promsg = PropertyMessage::where('user_id', $authid)->whereNull('property_id')->get();
+        $promsgdetails = PropertyMessage::findOrFail($id);
+
+        return view('agent.message.profile_message_details', compact('promsg', 'promsgdetails'));
     }
 }
