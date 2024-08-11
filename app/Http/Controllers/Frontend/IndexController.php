@@ -54,9 +54,7 @@ class IndexController extends Controller
             );
 
             return redirect()->back()->with($notification);
-        }
-
-        else{
+        } else {
             $notification = array(
                 'message' => 'Plz Login Your Account First',
                 'alert-type' => 'error'
@@ -64,55 +62,64 @@ class IndexController extends Controller
 
             return redirect()->back()->with($notification);
         }
-    }// End Method
+    } // End Method
 
-    public function AgentDetails($id){
+    public function AgentDetails($id)
+    {
 
-       $agent = User::findOrFail($id);
-       $property = Property::where('agent_id',$id)->get();
-       $featured = Property::where('featured','1')->orderBy('id', 'DESC')->limit(3)->get();
+        $agent = User::findOrFail($id);
+        $property = Property::where('agent_id', $id)->get();
+        $featured = Property::where('featured', '1')->orderBy('id', 'DESC')->limit(3)->get();
+        $rentproperty = Property::where('property_status', 'rent')->get();
+        $buyproperty = Property::where('property_status', 'buy')->get();
 
-       return view('frontend.agent.agent_details',compact('agent','property','featured'));
+        return view('frontend.agent.agent_details', compact('agent', 'property', 'featured', 'rentproperty', 'buyproperty'));
+    } // End Method
 
-    }// End Method
-
-    public function AgentDetailsMessage(Request $request){
+    public function AgentDetailsMessage(Request $request)
+    {
 
         $aid = $request->agent_id;
 
         if (Auth::check()) {
 
-        PropertyMessage::insert([
+            PropertyMessage::insert([
 
-            'user_id' => Auth::user()->id,
-            'agent_id' => $aid,
-            'msg_name' => $request->msg_name,
-            'msg_email' => $request->msg_email,
-            'msg_phone' => $request->msg_phone,
-            'message' => $request->message,
-            'created_at' => Carbon::now(),
+                'user_id' => Auth::user()->id,
+                'agent_id' => $aid,
+                'msg_name' => $request->msg_name,
+                'msg_email' => $request->msg_email,
+                'msg_phone' => $request->msg_phone,
+                'message' => $request->message,
+                'created_at' => Carbon::now(),
 
-        ]);
-
-        $notification = array(
-            'message' => 'Send Message Successfully',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->back()->with($notification);
-
-
-
-        }else{
+            ]);
 
             $notification = array(
-            'message' => 'Plz Login Your Account First',
-            'alert-type' => 'error'
-        );
+                'message' => 'Send Message Successfully',
+                'alert-type' => 'success'
+            );
 
-        return redirect()->back()->with($notification);
+            return redirect()->back()->with($notification);
+        } else {
+
+            $notification = array(
+                'message' => 'Plz Login Your Account First',
+                'alert-type' => 'error'
+            );
+
+            return redirect()->back()->with($notification);
         }
+    } // End Method
 
-    }// End Method
+    public function RentProperty()
+    {
+
+        $property = Property::where('status', '1')->where('property_status', 'rent')->get();
+        $rentproperty = Property::where('property_status', 'rent')->get();
+        $buyproperty = Property::where('property_status', 'buy')->get();
+
+        return view('agent.property.rent_property', compact('property', 'rentproperty', 'buyproperty'));
+    } //End Method
 
 }
