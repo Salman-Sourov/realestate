@@ -10,10 +10,10 @@
         </div>
         <div class="auto-container">
             <div class="content-box clearfix">
-                <h1>Rent Property </h1>
+                <h1>Buy Property </h1>
                 <ul class="bread-crumb clearfix">
-                    <li><a href="{{ url('/') }}">Home</a></li>
-                    <li>Rent Property List</li>
+                    <li><a href="{{ route('rent.property') }}">Home</a></li>
+                    <li>Buy Property List</li>
                 </ul>
             </div>
         </div>
@@ -143,7 +143,7 @@
                                                 @endif
 
 
-                                                <div class="buy-btn"><a href="{{ route('rent.property') }}">For
+                                                <div class="buy-btn"><a href="{{ route('buy.property') }}">For
                                                         {{ $item->property_status }}</a></div>
                                             </div>
                                             <div class="lower-content">

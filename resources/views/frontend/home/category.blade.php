@@ -1,6 +1,6 @@
 @php
 
-   $ptype = App\Models\PropertyType::latest()->limit(5)->get();
+   $ptype = App\Models\propertyType::latest()->limit(5)->get();
 
 @endphp
 <section class="category-section centred">
@@ -20,7 +20,8 @@
                     <div class="category-block-one">
                         <div class="inner-box">
                             <div class="icon-box"><i class="{{ $item->type_icon }}"></i></div>
-                            <h5><a href="property-details.html"> {{ $item->type_name }} </a></h5>
+                            <h5><a href="{{route('property.type',$item->id)}}">{{$item->type_name}}</a></h5>
+
                             <span>{{ count($property) }}</span>
                         </div>
                     </div>

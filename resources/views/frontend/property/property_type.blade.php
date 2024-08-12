@@ -10,20 +10,22 @@
         </div>
         <div class="auto-container">
             <div class="content-box clearfix">
-                <h1>Rent Property </h1>
+                <h1>{{ $pbread->type_name }} Type Property</h1>
                 <ul class="bread-crumb clearfix">
                     <li><a href="{{ url('/') }}">Home</a></li>
-                    <li>Rent Property List</li>
+                    <li>{{ $pbread->type_name }}</li>
                 </ul>
             </div>
         </div>
     </section>
     <!--End Page Title-->
 
+
     <!-- property-page-section -->
     <section class="property-page-section property-list">
         <div class="auto-container">
             <div class="row clearfix">
+
                 <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
                     <div class="default-sidebar property-sidebar">
                         <div class="filter-widget sidebar-widget">
@@ -106,13 +108,15 @@
                                 <h5>Status Of Property</h5>
                             </div>
                             <ul class="category-list clearfix">
-                                <li><a href="{{ route('rent.property') }}">For Rent <span>({{ count($rentproperty) }})</span></a></li>
-                                <li><a href="{{ route('buy.property') }}">For Buy <span>({{ count($buyproperty) }})</span></a></li>
+                                <li><a href="property-details.html">For Rent <span>{{ count($rentproperty) }}</span></a>
+                                </li>
+                                <li><a href="property-details.html">For Buy <span>{{ count($buyproperty) }}</span></a></li>
                             </ul>
                         </div>
 
                     </div>
                 </div>
+
                 <div class="col-lg-8 col-md-12 col-sm-12 content-side">
                     <div class="property-content-side">
                         <div class="item-shorting clearfix">
@@ -127,15 +131,14 @@
                         <div class="wrapper list">
                             <div class="deals-list-content list-item">
 
-
-
                                 @foreach ($property as $item)
                                     <div class="deals-block-one">
                                         <div class="inner-box">
                                             <div class="image-box">
                                                 <figure class="image"><img src="{{ asset($item->property_thambnail) }}"
-                                                        alt="" style="width:300px; height:350px;"></figure>
+                                                        alt="" style="width: 300px; height: 350px;"></figure>
                                                 <div class="batch"><i class="icon-11"></i></div>
+
                                                 @if ($item->featured == 1)
                                                     <span class="category">Featured</span>
                                                 @else
@@ -143,7 +146,7 @@
                                                 @endif
 
 
-                                                <div class="buy-btn"><a href="{{ route('rent.property') }}">For
+                                                <div class="buy-btn"><a href="property-details.html">For
                                                         {{ $item->property_status }}</a></div>
                                             </div>
                                             <div class="lower-content">
@@ -155,7 +158,7 @@
                                                 <div class="price-box clearfix">
                                                     <div class="price-info pull-left">
                                                         <h6>Start From</h6>
-                                                        <h4>${{ $item->lowest_price }}</h4>
+                                                        <h4>{{ $item->lowest_price }}</h4>
                                                     </div>
 
                                                     @if ($item->agent_id == null)
@@ -174,6 +177,13 @@
                                                             </figure>
                                                         </div>
                                                     @endif
+
+
+
+
+
+
+
                                                 </div>
                                                 <p>{{ $item->short_descp }}</p>
                                                 <ul class="more-details clearfix">
@@ -190,7 +200,6 @@
                                                                 id="{{ $item->id }}"
                                                                 onclick="addToCompare(this.id)"><i
                                                                     class="icon-12"></i></a></li>
-
                                                         <li><a aria-label="Add To Wishlist" class="action-btn"
                                                                 id="{{ $item->id }}"
                                                                 onclick="addToWishList(this.id)"><i
@@ -218,6 +227,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>

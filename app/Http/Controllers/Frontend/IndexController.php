@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Models\propertyType;
 
 class IndexController extends Controller
 {
@@ -121,5 +122,27 @@ class IndexController extends Controller
 
         return view('agent.property.rent_property', compact('property', 'rentproperty', 'buyproperty'));
     } //End Method
+
+    public function BuyProperty()
+    {
+
+        $property = Property::where('status', '1')->where('property_status', 'buy')->get();
+        $rentproperty = Property::where('property_status', 'rent')->get();
+        $buyproperty = Property::where('property_status', 'buy')->get();
+
+        return view('agent.property.buy_property', compact('property', 'rentproperty', 'buyproperty'));
+    } //End Method
+
+    public function PropertyType($id){
+        $property= Property::where('status','1')->where('ptype_id',$id)->get();
+        $rentproperty= property::where('property_status','rent')->get();
+        $buyproperty= property::where('property_status','buy')->get();
+        $pbread = PropertyType::where('id',$id)->first();
+        return view('frontend.property.property_type',compact('property','rentproperty','buyproperty','pbread'));
+
+
+    } //End Method
+
+
 
 }
