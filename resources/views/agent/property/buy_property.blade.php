@@ -12,7 +12,7 @@
             <div class="content-box clearfix">
                 <h1>Buy Property </h1>
                 <ul class="bread-crumb clearfix">
-                    <li><a href="{{ route('rent.property') }}">Home</a></li>
+                    <li><a href="{{ url('/') }}">Home</a></li>
                     <li>Buy Property List</li>
                 </ul>
             </div>
@@ -106,8 +106,10 @@
                                 <h5>Status Of Property</h5>
                             </div>
                             <ul class="category-list clearfix">
-                                <li><a href="{{ route('rent.property') }}">For Rent <span>({{ count($rentproperty) }})</span></a></li>
-                                <li><a href="{{ route('buy.property') }}">For Buy <span>({{ count($buyproperty) }})</span></a></li>
+                                <li><a href="{{ route('rent.property') }}">For Rent
+                                        <span>({{ count($rentproperty) }})</span></a></li>
+                                <li><a href="{{ route('buy.property') }}">For Buy
+                                        <span>({{ count($buyproperty) }})</span></a></li>
                             </ul>
                         </div>
 
@@ -126,8 +128,6 @@
                         </div>
                         <div class="wrapper list">
                             <div class="deals-list-content list-item">
-
-
 
                                 @foreach ($property as $item)
                                     <div class="deals-block-one">
@@ -161,7 +161,8 @@
                                                     @if ($item->agent_id == null)
                                                         <div class="author-box pull-right">
                                                             <figure class="author-thumb">
-                                                                <img src="{{ url('upload/salman_sourov.png') }}" alt="">
+                                                                <img src="{{ url('upload/salman_sourov.png') }}"
+                                                                    alt="">
                                                                 <span>Admin</span>
                                                             </figure>
                                                         </div>
@@ -202,20 +203,13 @@
                                     </div>
                                 @endforeach
 
-
-
-
                             </div>
+                        </div>
 
-                        </div>
                         <div class="pagination-wrapper">
-                            <ul class="pagination clearfix">
-                                <li><a href="property-list.html" class="current">1</a></li>
-                                <li><a href="property-list.html">2</a></li>
-                                <li><a href="property-list.html">3</a></li>
-                                <li><a href="property-list.html"><i class="fas fa-angle-right"></i></a></li>
-                            </ul>
+                            {{ $property->links('vendor.pagination.custom') }}
                         </div>
+
                     </div>
                 </div>
             </div>

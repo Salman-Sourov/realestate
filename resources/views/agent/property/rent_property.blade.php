@@ -106,8 +106,10 @@
                                 <h5>Status Of Property</h5>
                             </div>
                             <ul class="category-list clearfix">
-                                <li><a href="{{ route('rent.property') }}">For Rent <span>({{ count($rentproperty) }})</span></a></li>
-                                <li><a href="{{ route('buy.property') }}">For Buy <span>({{ count($buyproperty) }})</span></a></li>
+                                <li><a href="{{ route('rent.property') }}">For Rent
+                                        <span>({{ count($rentproperty) }})</span></a></li>
+                                <li><a href="{{ route('buy.property') }}">For Buy
+                                        <span>({{ count($buyproperty) }})</span></a></li>
                             </ul>
                         </div>
 
@@ -159,7 +161,8 @@
                                                     @if ($item->agent_id == null)
                                                         <div class="author-box pull-right">
                                                             <figure class="author-thumb">
-                                                                <img src="{{ url('upload/salman_sourov.png') }}" alt="">
+                                                                <img src="{{ url('upload/salman_sourov.png') }}"
+                                                                    alt="">
                                                                 <span>Admin</span>
                                                             </figure>
                                                         </div>
@@ -201,7 +204,6 @@
                                 @endforeach
 
                             </div>
-
                         </div>
                         <div class="pagination-wrapper">
                             {{ $property->links('vendor.pagination.custom') }}

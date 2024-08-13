@@ -63,7 +63,7 @@
                                         <li><a aria-label="Add To Wishlist" class="action-btn" id="{{ $item->id }}" onclick="addToWishList(this.id)"><i class="icon-13"></i></a></li>
                                     </ul>
                                 </div>
-                                <p>{{ $item->short_descp }}</p>
+                                <p class="two-line-text">{{ $item->short_descp }}</p>
                                 <ul class="more-details clearfix">
                                     <li><i class="icon-14"></i>{{ $item->bedrooms }} Beds</li>
                                     <li><i class="icon-15"></i>{{ $item->bathrooms }} Baths</li>

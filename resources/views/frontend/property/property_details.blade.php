@@ -40,9 +40,8 @@
                                         alt=""></figure>
                                 <h6>{{ $property->user->name }}</h6>
                             @endif
-
-
                         </div>
+
                         <ul class="rating clearfix pull-left">
                             <li><i class="icon-39"></i></li>
                             <li><i class="icon-39"></i></li>
@@ -75,7 +74,6 @@
                     <div class="property-details-content">
                         <div class="carousel-inner">
                             <div class="single-item-carousel owl-carousel owl-theme owl-dots-none">
-
                                 @foreach ($multiImage as $img)
                                     <figure class="image-box"><img src="{{ asset($img->photo_name) }}" alt="">
                                     </figure>
@@ -248,11 +246,16 @@
                                         <h4>Admin</h4>
                                         <ul class="info clearfix">
                                             <li><i class="fas fa-map-marker-alt"></i>EMPO Tech BD Office, Dhanmondi,
-                                                DHaka-1206</li>
-                                            <li><i class="fas fa-phone"></i><a href="tel:03030571965">01521 406205</a>
+                                                Dhaka-1206</li>
+                                            <li><i class="fas fa-phone"></i><a href="tel:01521406205">01521 406205</a>
                                             </li>
                                         </ul>
-                                        <div class="btn-box"><a href="agents-details.html">View Listing</a></div>
+                                        @if (!is_null($property->agent_id))
+                                            <div class="btn-box"><a
+                                                    href="{{ route('agent.details', $property->agent_id) }}">View
+                                                    Listing</a></div>
+                                        @endif
+
                                     </div>
                                 @else
                                     <figure class="author-thumb"><img
@@ -267,7 +270,9 @@
                                                     href="tel:03030571965">{{ $property->user->phone }}</a>
                                             </li>
                                         </ul>
-                                        <div class="btn-box"><a href="agents-details.html">View Listing</a></div>
+                                        <div class="btn-box"><a
+                                                href="{{ route('agent.details', $property->agent_id) }}">View Listing</a>
+                                        </div>
                                     </div>
                                 @endif
                             </div>
