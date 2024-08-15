@@ -33,8 +33,28 @@
                             <a href="{{ route('all.type') }}" class="nav-link">All Type</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('add.type')}}" class="nav-link">Add Type</a>
+                            <a href="{{ route('add.type') }}" class="nav-link">Add Type</a>
                         </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#state" role="button" aria-expanded="false"
+                    aria-controls="emails">
+                    <i class="link-icon" data-feather="mail"></i>
+                    <span class="link-title">Property State </span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="state">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('all.state') }}" class="nav-link">All State</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/email/read.html" class="nav-link">Add State</a>
+                        </li>
+
                     </ul>
                 </div>
             </li>
@@ -53,7 +73,7 @@
                             <a href="{{ route('all.amenitie') }}" class="nav-link">All Amenitie</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('add.amenitie')}}" class="nav-link">Add Amenitie</a>
+                            <a href="{{ route('add.amenitie') }}" class="nav-link">Add Amenitie</a>
                         </li>
                     </ul>
                 </div>
@@ -95,8 +115,8 @@
 
             <li class="nav-item nav-category">User All Function</li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents" role="button" aria-expanded="false"
-                    aria-controls="uiComponents">
+                <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents" role="button"
+                    aria-expanded="false" aria-controls="uiComponents">
                     <i class="link-icon" data-feather="feather"></i>
                     <span class="link-title">Manage Agent</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
@@ -114,8 +134,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#advancedUI" role="button" aria-expanded="false"
-                    aria-controls="advancedUI">
+                <a class="nav-link" data-bs-toggle="collapse" href="#advancedUI" role="button"
+                    aria-expanded="false" aria-controls="advancedUI">
                     <i class="link-icon" data-feather="anchor"></i>
                     <span class="link-title">Advanced UI</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>

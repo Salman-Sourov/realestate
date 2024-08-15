@@ -12,6 +12,7 @@ use App\Http\Controllers\Agent\AgentPropertyController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\Frontend\CompareController;
+use App\Http\Controllers\Backend\StateController;
 
 
 
@@ -203,42 +204,40 @@ Route::get('/property/details/{id}/{slug}', [IndexController::class, 'PropertyDe
 Route::post('/add-to-wishList/{property_id}', [WishlistController::class, 'AddToWishList']);
 
 
- // User WishlistAll Route
+// User WishlistAll Route
 Route::middleware(['auth', 'role:user'])->group(function () {
 
-    Route::controller(WishlistController::class)->group(function(){
+    Route::controller(WishlistController::class)->group(function () {
 
         Route::get('/user/wishlist', 'UserWishlist')->name('user.wishlist');
         Route::get('/get-wishlist-property', 'GetWishlistProperty');
         Route::get('/wishlist-remove/{id}', 'WishlistRemove');
-
     });
 }); // End Group Admin Middleware
 
 
 // User Property Compare Route
-  Route::post('/add-to-compare/{property_id}', [CompareController::class, 'AddToCompare']);
+Route::post('/add-to-compare/{property_id}', [CompareController::class, 'AddToCompare']);
 
-  // User Compare Route
+// User Compare Route
 Route::middleware(['auth', 'role:user'])->group(function () {
 
-    Route::controller(CompareController::class)->group(function(){
+    Route::controller(CompareController::class)->group(function () {
 
         Route::get('/user/compare', 'UserCompare')->name('user.compare');
         Route::get('/get-compare-property', 'GetCompareProperty');
         Route::get('/compare-remove/{id}', 'CompareRemove');
-
     });
 }); // End Group Admin Middleware
 
 
 //Send Message from Property Details Page
-Route::post('/property/message',[IndexController::class,'PropertyMessage'])->name('property.message');
+Route::post('/property/message', [IndexController::class, 'PropertyMessage'])->name('property.message');
 
 // Agent Details Page in Frontend
 Route::get('/agent/details/{id}', [IndexController::class, 'AgentDetails'])->name('agent.details');
 
- // Send Message from Agent Details Page
+// Send Message from Agent Details Page
 Route::post('/agent/details/message', [IndexController::class, 'AgentDetailsMessage'])->name('agent.details.message');
 
 //Get all Rent property
@@ -251,4 +250,13 @@ Route::get('/buy/property', [IndexController::class, 'BuyProperty'])->name('buy.
 Route::get('/property/type/{id}', [IndexController::class, 'PropertyType'])->name('property.type');
 
 
+// State  All Route
+Route::controller(StateController::class)->group(function () {
 
+    Route::get('/all/state', 'AllState')->name('all.state');
+    Route::get('/add/type', 'AddType')->name('add.type');
+    Route::post('/store/type', 'StoreType')->name('store.type');
+    Route::get('/edit/type/{id}', 'EditType')->name('edit.type');
+    Route::post('/update/type', 'UpdateType')->name('update.type');
+    Route::get('/delete/type/{id}', 'DeleteType')->name('delete.type');
+});
