@@ -23,7 +23,7 @@
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false"
                     aria-controls="emails">
-                    <i class="link-icon" data-feather="mail"></i>
+                    <i class="link-icon" data-feather="home"></i>
                     <span class="link-title">Property Type</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
@@ -42,7 +42,7 @@
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#state" role="button" aria-expanded="false"
                     aria-controls="emails">
-                    <i class="link-icon" data-feather="mail"></i>
+                    <i class="link-icon" data-feather="map"></i>
                     <span class="link-title">Property State </span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
@@ -52,7 +52,7 @@
                             <a href="{{ route('all.state') }}" class="nav-link">All State</a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/email/read.html" class="nav-link">Add State</a>
+                            <a href="{{ route('add.state') }}" class="nav-link">Add State</a>
                         </li>
 
                     </ul>
@@ -63,7 +63,7 @@
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#aminitie" role="button" aria-expanded="false"
                     aria-controls="emails">
-                    <i class="link-icon" data-feather="mail"></i>
+                    <i class="link-icon" data-feather="info"></i>
                     <span class="link-title">Aminitie</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
