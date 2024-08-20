@@ -116,11 +116,18 @@
                                                 value="{{ $property->city }}">
                                         </div>
                                     </div><!-- Col -->
+
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">State</label>
-                                            <input type="text" name="state" class="form-control"
-                                                value="{{ $property->state }}">
+                                            <select name="state" class="form-select" id="exampleFormControlSelect1">
+                                                <option selected="" disabled="">Select State</option>
+                                                @foreach ($pstate as $state)
+                                                    <option value="{{ $state->id }}"
+                                                        {{ $state->id == $property->state ? 'selected' : '' }}>
+                                                        {{ $state->state_name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div><!-- Col -->
 
@@ -211,7 +218,7 @@
 
                                                 @foreach ($amenities as $ameni)
                                                     <option value="{{ $ameni->amenitis_name }}"
-                                                        {{ ( in_array($ameni->amenitis_name, $property_ami)) ? 'selected' : '' }}>
+                                                        {{ in_array($ameni->amenitis_name, $property_ami) ? 'selected' : '' }}>
                                                         {{ $ameni->amenitis_name }}</option>
                                                 @endforeach
 

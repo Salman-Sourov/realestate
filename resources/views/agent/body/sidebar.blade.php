@@ -6,7 +6,7 @@
 
 <nav class="sidebar">
     <div class="sidebar-header" style="background: #011b39;">
-        <a href="#" class="sidebar-brand">
+        <a href="{{ route('agent.dashboard') }}" class="sidebar-brand">
             Real<span>Agent</span>
         </a>
         <div class="sidebar-toggler not-active">

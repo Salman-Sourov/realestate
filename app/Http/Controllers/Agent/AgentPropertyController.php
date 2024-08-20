@@ -11,6 +11,7 @@ use App\Models\Amenities;
 use App\Models\PackagePlan;
 use App\Models\PropertyMessage;
 use App\Models\PropertyType;
+use App\Models\State;
 use App\Models\User;
 use Intervention\Image\Facades\Image;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -42,6 +43,7 @@ class AgentPropertyController extends Controller
         $id = Auth::User()->id;
         $property = User::where('id', $id)->where('role', 'agent')->first();
         $pcount = $property->credit;
+        $pstate = State::latest()->get();
         //    dd($pcount);
 
         if ($pcount == 1) {
@@ -51,7 +53,7 @@ class AgentPropertyController extends Controller
             );
             return redirect()->route('buy.package')->with($notification);
         } else {
-            return view('agent.property.add_property', compact('propertytype', 'amenities'));
+            return view('agent.property.add_property', compact('propertytype', 'amenities','pstate'));
         }
     }
 
@@ -165,6 +167,7 @@ class AgentPropertyController extends Controller
 
         $type = $property->amenities_id;
         $property_ami = explode(',', $type);
+        $pstate = State::latest()->get();
 
         $propertytype = PropertyType::latest()->get();
         $amenities = Amenities::latest()->get();
@@ -173,7 +176,7 @@ class AgentPropertyController extends Controller
 
         $facilities = Facility::where('property_id', $id)->get();
 
-        return view('agent.property.edit_property', compact('property', 'propertytype', 'amenities', 'property_ami', 'multiImage', 'facilities'));
+        return view('agent.property.edit_property', compact('property', 'propertytype', 'amenities', 'property_ami', 'multiImage', 'facilities', 'pstate'));
     }
 
     public function AgentUpdateProperty(Request $request)

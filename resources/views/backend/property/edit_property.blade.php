@@ -120,6 +120,7 @@
                                                 value="{{ $property->city }}">
                                         </div>
                                     </div><!-- Col -->
+
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">State</label>
@@ -133,7 +134,6 @@
                                             </select>
                                         </div>
                                     </div><!-- Col -->
-
 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
