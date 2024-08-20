@@ -61,7 +61,11 @@
                                     </tr>
                                     <tr>
                                         <td>State </td>
-                                        <td><code>{{ $property->state }}</code></td>
+                                        <td>
+                                            <code>
+                                                {{ $property['pstate'] ? $property['pstate']['state_name'] : 'N/A' }}
+                                            </code>
+                                        </td>
                                     </tr>
 
                                     <tr>
@@ -142,20 +146,18 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Property Amenities </td>
+                                        <td>Property Amenities</td>
                                         <td>
-                                            <select name="amenities_id[]" class="js-example-basic-multiple form-select"
-                                                multiple="multiple" data-width="100%">
-
+                                            <div class="amenities-view">
                                                 @foreach ($amenities as $ameni)
-                                                    <option value="{{ $ameni->id }}"
-                                                        {{ in_array($ameni->amenitis_name, $property_ami) ? 'selected' : '' }}>
-                                                        {{ $ameni->amenitis_name }}</option>
+                                                    @if (in_array($ameni->amenitis_name, $property_ami))
+                                                        <span class="badge bg-primary">{{ $ameni->amenitis_name }}</span>
+                                                    @endif
                                                 @endforeach
-
-                                            </select>
+                                            </div>
                                         </td>
                                     </tr>
+
 
                                     <tr>
                                         <td>Agent </td>

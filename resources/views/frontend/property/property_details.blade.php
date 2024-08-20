@@ -120,7 +120,11 @@
                             </div>
                             <ul class="info clearfix">
                                 <li><span>Address:</span> {{ $property->address }}</li>
-                                <li><span>State/county:</span> {{ $property->state }}</li>
+                                <li>
+                                    <span>State/county:</span>
+                                    {{ is_array($property['state']) && isset($property['state']['state_name']) ? $property['state']['state_name'] : 'N/A' }}
+                                </li>
+
                                 <li><span>Neighborhood:</span> {{ $property->neighborhood }}</li>
                                 <li><span>Zip/Postal Code:</span> {{ $property->postal_code }}</li>
                                 <li><span>City:</span> {{ $property->city }}</li>

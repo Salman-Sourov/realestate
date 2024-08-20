@@ -21,5 +21,9 @@ class Property extends Model
         return $this->belongsTo(User::class,'agent_id','id'); //'agent_id','id' will be match and same data then we will get data from user
     }
 
+    public function pstate(){
+        return $this->belongsTo(State::class,'state','id');
+    }
+
 
 }

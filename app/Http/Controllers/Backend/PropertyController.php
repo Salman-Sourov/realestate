@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use App\Models\MultiImage;
 use PHPUnit\Framework\Constraint\Count;
 use App\Models\PropertyMessage;
+use App\Models\State;
 
 
 use function PHPUnit\Framework\fileExists;
@@ -33,8 +34,9 @@ class PropertyController extends Controller
     {
         $propertytype = propertyType::latest()->get();
         $amenities = Amenities::latest()->get();
+        $pstate = State::latest()->get();
         $activeAgent = User::where('role', 'agent')->where('status', 'active')->latest()->get();
-        return view('backend.property.add_property', compact('propertytype', 'amenities', 'activeAgent'));
+        return view('backend.property.add_property', compact('propertytype', 'amenities', 'activeAgent', 'pstate'));
     }
 
     public function StoreProperty(Request $request)
@@ -146,6 +148,7 @@ class PropertyController extends Controller
 
         $propertytype = propertyType::latest()->get();
         $amenities = Amenities::latest()->get();
+        $pstate = State::latest()->get();
         $activeAgent = User::where('status', 'active')->where('role', 'agent')->latest()->get();
 
         $type = $property->amenities_id;
@@ -153,7 +156,7 @@ class PropertyController extends Controller
 
         $multiImage = MultiImage::where('property_id', $id)->get();
 
-        return view('backend.property.edit_property', compact('property', 'propertytype', 'amenities', 'activeAgent', 'property_ami', 'multiImage', 'facilities'));
+        return view('backend.property.edit_property', compact('property', 'propertytype', 'amenities', 'activeAgent', 'property_ami', 'multiImage', 'facilities', 'pstate'));
     }
 
 
