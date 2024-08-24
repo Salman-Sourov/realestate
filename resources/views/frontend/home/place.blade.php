@@ -29,11 +29,11 @@
                     class="col-lg-4 col-md-6 col-sm-12 masonry-item small-column all illustration brand marketing software">
                     <div class="place-block-one">
                         <div class="inner-box">
-                            <figure class="image-box"><img src="{{ asset($skip_state_0->state_image) }} " alt=""
+                            <figure class="image-box"><img src="{{ asset($skip_state_0->state_image) }}" alt=""
                                     style="width:370px; height:580px;">
                             </figure>
                             <div class="text">
-                                <h4><a href="#">{{ $skip_state_0->state_name }}</a></h4>
+                                <h4><a href="{{ route('state.details',$skip_state_0->id) }}">{{ $skip_state_0->state_name }}</a></h4>
                                 <p>{{ count($property_0) }} Properties</p>
                             </div>
                         </div>
@@ -45,11 +45,11 @@
                     <div class="place-block-one">
                         <div class="inner-box">
                             <figure class="image-box"><img
-                                    src="{{ asset('frontend') }}/assets/images/resource/place-2.jpg" alt="">
+                                    src="{{ asset($skip_state_1->state_image) }}" alt="" style="width:370px; height:275px;">
                             </figure>
                             <div class="text">
-                                <h4><a href="categories.html">San Francisco</a></h4>
-                                <p>08 Properties</p>
+                                <h4><a href="{{ route('state.details',$skip_state_1->id) }}">{{ $skip_state_1->state_name }}</a></h4>
+                                <p>{{ count($property_1) }} Properties</p>
                             </div>
                         </div>
                     </div>
@@ -59,11 +59,11 @@
                     <div class="place-block-one">
                         <div class="inner-box">
                             <figure class="image-box"><img
-                                    src="{{ asset('frontend') }}/assets/images/resource/place-3.jpg" alt="">
+                                    src="{{ asset($skip_state_2->state_image) }}" alt="" style="width:370px; height:275px;">
                             </figure>
                             <div class="text">
-                                <h4><a href="categories.html">Las Vegas</a></h4>
-                                <p>29 Properties</p>
+                                <h4><a href="{{ route('state.details',$skip_state_2->id) }}">{{ $skip_state_2->state_name }}</a></h4>
+                                <p>{{ count($property_2) }} Properties</p>
                             </div>
                         </div>
                     </div>
@@ -73,11 +73,11 @@
                     <div class="place-block-one">
                         <div class="inner-box">
                             <figure class="image-box"><img
-                                    src="{{ asset('frontend') }}/assets/images/resource/place-4.jpg" alt="">
+                                    src="{{ asset($skip_state_3->state_image) }}" alt="" style="width:770px; height:275px;">
                             </figure>
                             <div class="text">
-                                <h4><a href="categories.html">New York City</a></h4>
-                                <p>05 Properties</p>
+                                <h4><a href="{{ route('state.details',$skip_state_3->id) }}">{{ $skip_state_3->state_name }}</a></h4>
+                                <p>{{ count($property_3) }} Properties</p>
                             </div>
                         </div>
                     </div>

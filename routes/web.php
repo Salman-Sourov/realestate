@@ -260,3 +260,6 @@ Route::controller(StateController::class)->group(function () {
     Route::post('/update/state', 'UpdateState')->name('update.state');
     Route::get('/delete/state/{id}', 'DeleteState')->name('delete.state');
 });
+
+// Get State Details Data
+Route::get('/state/details/{id}', [IndexController::class, 'StateDetails'])->name('state.details');

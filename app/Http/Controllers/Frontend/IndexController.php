@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\propertyType;
+use App\Models\State;
 
 class IndexController extends Controller
 {
@@ -142,6 +143,15 @@ class IndexController extends Controller
 
 
     } //End Method
+
+    public function StateDetails($id){
+
+        $property = Property::where('status','1')->where('state',$id)->get();
+
+        $bstate = State::where('id',$id)->first();
+         return view('frontend.property.state_property',compact('property','bstate'));
+
+     }// End Method
 
 
 
