@@ -153,6 +153,12 @@ class IndexController extends Controller
 
      }// End Method
 
+     public function BuyPropertySearch(Request $request){
+
+        
+
+     }
+
 
 
 }
