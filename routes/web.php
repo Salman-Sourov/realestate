@@ -265,9 +265,10 @@ Route::controller(StateController::class)->group(function () {
 Route::get('/state/details/{id}', [IndexController::class, 'StateDetails'])->name('state.details');
 
 // Home Page Buy Search Option
-Route::get('/buy/property/search', [IndexController::class, 'BuyPropertySearch'])->name('buy.property.search');
+Route::post('/buy/property/search', [IndexController::class, 'BuyPropertySearch'])->name('buy.property.search');
 
 // Home Page Rent Search Option
-Route::get('/rent/property/search', [IndexController::class, 'RentPropertySearch'])->name('rent.property.search');
+Route::post('/rent/property/search', [IndexController::class, 'RentPropertySearch'])->name('rent.property.search');
+
 
 

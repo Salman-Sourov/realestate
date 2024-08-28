@@ -10,10 +10,16 @@
         </div>
         <div class="auto-container">
             <div class="content-box clearfix">
-                <h1>{{ $pbread->type_name }} Type Property</h1>
+                <h1>
+                    @if ($property->isNotEmpty())
+                        {{ ucfirst($property->first()->property_status) }} Property Search
+                    @else
+                        Empty Property Search
+                    @endif
+                </h1>
                 <ul class="bread-crumb clearfix">
                     <li><a href="{{ url('/') }}">Home</a></li>
-                    <li>{{ $pbread->type_name }}</li>
+                    <li>Property Search</li>
                 </ul>
             </div>
         </div>
@@ -25,7 +31,6 @@
     <section class="property-page-section property-list">
         <div class="auto-container">
             <div class="row clearfix">
-
                 <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
                     <div class="default-sidebar property-sidebar">
                         <div class="filter-widget sidebar-widget">
@@ -108,15 +113,15 @@
                                 <h5>Status Of Property</h5>
                             </div>
                             <ul class="category-list clearfix">
-                                <li><a href="property-details.html">For Rent <span>{{ count($rentproperty) }}</span></a>
-                                </li>
-                                <li><a href="property-details.html">For Buy <span>{{ count($buyproperty) }}</span></a></li>
+                                <li><a href="{{ route('rent.property') }}">For Rent
+                                        <span>({{ count($rentproperty) }})</span></a></li>
+                                <li><a href="{{ route('buy.property') }}">For Buy
+                                        <span>({{ count($buyproperty) }})</span></a></li>
                             </ul>
                         </div>
 
                     </div>
                 </div>
-
                 <div class="col-lg-8 col-md-12 col-sm-12 content-side">
                     <div class="property-content-side">
                         <div class="item-shorting clearfix">
@@ -124,8 +129,6 @@
                                 <h5>Search Reasults: <span>Showing {{ count($property) }} Listings</span></h5>
                             </div>
                             <div class="right-column pull-right clearfix">
-
-
                             </div>
                         </div>
                         <div class="wrapper list">
@@ -136,9 +139,8 @@
                                         <div class="inner-box">
                                             <div class="image-box">
                                                 <figure class="image"><img src="{{ asset($item->property_thambnail) }}"
-                                                        alt="" style="width: 300px; height: 350px;"></figure>
+                                                        alt="" style="width:300px; height:350px;"></figure>
                                                 <div class="batch"><i class="icon-11"></i></div>
-
                                                 @if ($item->featured == 1)
                                                     <span class="category">Featured</span>
                                                 @else
@@ -146,7 +148,8 @@
                                                 @endif
 
 
-                                                <div class="buy-btn"><a href="property-details.html">For
+                                                <div class="buy-btn"><a
+                                                        href="{{ url('property/details/' . $item->id . '/' . $item->property_slug) }}">For
                                                         {{ $item->property_status }}</a></div>
                                             </div>
                                             <div class="lower-content">
@@ -158,7 +161,7 @@
                                                 <div class="price-box clearfix">
                                                     <div class="price-info pull-left">
                                                         <h6>Start From</h6>
-                                                        <h4>{{ $item->lowest_price }}</h4>
+                                                        <h4>${{ $item->lowest_price }}</h4>
                                                     </div>
 
                                                     @if ($item->agent_id == null)
@@ -178,13 +181,6 @@
                                                             </figure>
                                                         </div>
                                                     @endif
-
-
-
-
-
-
-
                                                 </div>
                                                 <p>{{ $item->short_descp }}</p>
                                                 <ul class="more-details clearfix">
@@ -201,6 +197,7 @@
                                                                 id="{{ $item->id }}"
                                                                 onclick="addToCompare(this.id)"><i
                                                                     class="icon-12"></i></a></li>
+
                                                         <li><a aria-label="Add To Wishlist" class="action-btn"
                                                                 id="{{ $item->id }}"
                                                                 onclick="addToWishList(this.id)"><i
@@ -211,24 +208,17 @@
                                         </div>
                                     </div>
                                 @endforeach
-
-
-
-
                             </div>
 
                         </div>
                         <div class="pagination-wrapper">
                             <ul class="pagination clearfix">
                                 <li><a href="property-list.html" class="current">1</a></li>
-                                <li><a href="property-list.html">2</a></li>
-                                <li><a href="property-list.html">3</a></li>
                                 <li><a href="property-list.html"><i class="fas fa-angle-right"></i></a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
