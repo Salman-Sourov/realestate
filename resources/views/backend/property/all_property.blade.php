@@ -25,13 +25,14 @@
                                 <thead>
                                     <tr>
                                         <th>Sl</th>
+                                        <th>Code</th>
                                         <th>Image</th>
                                         <th>Name</th>
                                         <th>Agent</th>
                                         <th>P Type</th>
-                                        <th>Status Type</th>
+                                        <th>S Type</th>
                                         <th>City</th>
-                                        <th>Code</th>
+                                        <th>State</th>
                                         <th>Status</th>
                                         <th>Update Details</th>
                                         <th>Action</th>
@@ -41,17 +42,18 @@
                                     @foreach ($property as $key => $item)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
+                                            <td>{{ $item->property_code }}</td>
                                             <td><img src="{{ asset($item->property_thambnail) }}"
                                                     style="width:70px; height:40px;"> </td>
                                             <td>{{ $item->property_name }}</td>
-                                            <td>{{ $item['user']['name'] ?? 'No Agent' }}</td>
+                                            <td>{{ $item['user']['name'] ?? 'N/A' }}</td>
 
                                             <td>{{ $item['type']['type_name'] }}</td>
                                             {{-- ['type is a function of Property MODEL']['type_name is property_types column name'] --}}
 
                                             <td>{{ $item->property_status }}</td>
-                                            <td>{{ $item->city ?? 'No City' }}</td>
-                                            <td>{{ $item->property_code }}</td>
+                                            <td>{{ $item->city ?? 'N/A' }}</td>
+                                            <td>{{ $item['pstate']['state_name'] ?? 'N/A' }}</td>
                                             <td>
                                                 @if ($item->status == 1)
                                                     <span class="badge rounded-pill bg-success">Active</span>

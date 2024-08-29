@@ -17,28 +17,30 @@
                             <table id="dataTableExample" class="table">
                                 <thead>
                                     <tr>
-                                        <th>Sl </th>
-                                        <th>Image </th>
-                                        <th>Name </th>
-                                        <th>P Type </th>
-                                        <th>Status Type </th>
-                                        <th>City </th>
-                                        <th>Code </th>
-                                        <th>Status </th>
-                                        <th>Action </th>
+                                        <th>Sl</th>
+                                        <th>Code</th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>P Type</th>
+                                        <th>S Type</th>
+                                        <th>City</th>
+                                        <th>State</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($property as $key => $item)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
+                                            <td>{{ $item->property_code }}</td>
                                             <td><img src="{{ asset($item->property_thambnail) }}"
                                                     style="width:70px; height:40px;"> </td>
                                             <td>{{ $item->property_name }}</td>
-                                            <td>{{ $item['type']['type_name'] }}</td>
+                                            <td>{{ $item['type']['type_name'] ?? 'N/A' }}</td>
                                             <td>{{ $item->property_status }}</td>
-                                            <td>{{ $item->city }}</td>
-                                            <td>{{ $item->property_code }}</td>
+                                            <td>{{ $item->city ?? 'N/A'}}</td>
+                                            <td>{{ $item['pstate']['state_name'] ?? 'N/A' }}</td>
                                             <td>
                                                 @if ($item->status == 1)
                                                     <span class="badge rounded-pill bg-success">Active</span>
