@@ -159,7 +159,7 @@ class IndexController extends Controller
         $sstate = $request->state;
         $stype = $request->ptype_id;
 
-        $property = Property::where('property_name', 'like', '%' . $item . '%')
+        $property = Property::where('status', '1')->where('property_name', 'like', '%' . $item . '%')
             ->where('property_status', 'buy')
             ->with('pstate', 'type')
             ->whereHas('pstate', function ($q) use ($sstate) {
@@ -183,7 +183,7 @@ class IndexController extends Controller
         $sstate = $request->state;
         $stype = $request->ptype_id;
 
-        $property = Property::where('property_name', 'like', '%' . $item . '%')
+        $property = Property::where('status', '1')->where('property_name', 'like', '%' . $item . '%')
             ->where('property_status', 'rent')
             ->with('pstate', 'type')
             ->whereHas('pstate', function ($q) use ($sstate) {
@@ -193,6 +193,29 @@ class IndexController extends Controller
                 $q->where('type_name', 'like', '%' . $stype . '%');
             })
             ->get();
+
+        $rentproperty = property::where('property_status', 'rent')->get();
+        $buyproperty = property::where('property_status', 'buy')->get();
+
+        return view('frontend.property.property_search', compact('property', 'rentproperty', 'buyproperty'));
+    }
+
+    public function AllPropertySearch(Request $request)
+    {
+        $property_status = $request->property_status;
+        $stype = $request->ptype_id;
+        $sstate = $request->state;
+        $bedrooms = $request->bedrooms;
+        $bathrooms = $request->bathrooms;
+
+        $property = Property::where('status','1')->where('property_status', $property_status)->where('bedrooms', $bedrooms)->where('bathrooms', $bathrooms)
+        ->with('type', 'pstate')
+            ->whereHas('type', function ($q) use ($stype) {
+                $q->where('type_name','like', '%' . $stype . '%');
+            })
+            ->whereHas('pstate', function ($q) use ($sstate) {
+                $q->where('state_name','like', '%' . $sstate . '%');
+            })->get();
 
         $rentproperty = property::where('property_status', 'rent')->get();
         $buyproperty = property::where('property_status', 'buy')->get();

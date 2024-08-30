@@ -12,7 +12,7 @@
             <div class="content-box clearfix">
                 <h1>{{ $property->property_name }} Details</h1>
                 <ul class="bread-crumb clearfix">
-                    <li><a href="">Home</a></li>
+                    <li><a href="{{ url('/') }}">Home</a></li>
                     <li>{{ $property->property_name }} Details</li>
                 </ul>
             </div>
@@ -64,8 +64,11 @@
                     <ul class="other-option pull-right clearfix">
                         <li><a href="property-details.html"><i class="icon-37"></i></a></li>
                         <li><a href="property-details.html"><i class="icon-38"></i></a></li>
-                        <li><a href="property-details.html"><i class="icon-12"></i></a></li>
-                        <li><a href="property-details.html"><i class="icon-13"></i></a></li>
+                        <li><a aria-label="Compare" class="action-btn" id="{{ $property->id }}"
+                                onclick="addToCompare(this.id)"><i class="icon-12"></i></a></li>
+                        <li><a aria-label="Add To Wishlist" class="action-btn" id="{{ $property->id }}"
+                                onclick="addToWishList(this.id)"><i class="icon-13"></i></a></li>
+
                     </ul>
                 </div>
             </div>
@@ -121,13 +124,14 @@
                             <ul class="info clearfix">
                                 <li><span>Address:</span> {{ $property->address }}</li>
                                 <li>
-                                    <span>State/county:</span>
-                                    {{ is_array($property['state']) && isset($property['state']['state_name']) ? $property['state']['state_name'] : 'N/A' }}
+                                    <span>State:</span>
+                                    {{ $property['pstate']['state_name'] ?? 'N/A' }}
                                 </li>
 
                                 <li><span>Neighborhood:</span> {{ $property->neighborhood }}</li>
                                 <li><span>Zip/Postal Code:</span> {{ $property->postal_code }}</li>
                                 <li><span>City:</span> {{ $property->city }}</li>
+                                <li><span>Property Type:</span> {{ $property['type']['type_name'] ?? 'N/A' }}</li>
                             </ul>
                             <div class="google-map-area">
                                 <div class="google-map" id="contact-google-map" data-map-lat="{{ $property->latitude }}"
@@ -176,11 +180,11 @@
                             </div>
 
                             <figure class="image-box">
-                                <iframe width="700" height="415" src="{{ $property->property_video }}"
+                                <iframe width="700" height="415"
+                                    src="https://www.youtube.com/embed/3NfsmieDdXU?si=Jrx0bbsiO9ztv_rF"
                                     title="YouTube video player" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowfullscreen></iframe>
-                            </figure>
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div>
                         <div class="schedule-box content-widget">
                             <div class="title-box">
@@ -443,7 +447,7 @@
                                                 <li><a href="property-details.html"><i class="icon-13"></i></a></li>
                                             </ul>
                                         </div>
-                                        <p>{{ $item->short_descp }}</p>
+                                        <p class="two-line-text">{{ $item->short_descp }}</p>
                                         <ul class="more-details clearfix">
                                             <li><i class="icon-14"></i>{{ $item->bedrooms }} Beds</li>
                                             <li><i class="icon-15"></i>{{ $item->bathrooms }} Baths</li>

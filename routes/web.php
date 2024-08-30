@@ -270,5 +270,5 @@ Route::post('/buy/property/search', [IndexController::class, 'BuyPropertySearch'
 // Home Page Rent Search Option
 Route::post('/rent/property/search', [IndexController::class, 'RentPropertySearch'])->name('rent.property.search');
 
-
-
+//All Property Search Option
+Route::post('/all/property/search', [IndexController::class, 'AllPropertySearch'])->name('all.property.search');
