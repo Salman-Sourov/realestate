@@ -1,3 +1,8 @@
+@php
+    $sstates = App\Models\State::latest()->get();
+    $ptypes = App\Models\PropertyType::latest()->get();
+@endphp
+
 @extends('frontend.frontend_dashboard')
 @section('main')
     <!--Page Title-->
@@ -28,65 +33,68 @@
                     <div class="default-sidebar property-sidebar">
                         <div class="filter-widget sidebar-widget">
                             <div class="widget-title">
-                                <h5>Property</h5>
+                                <h5>Property Search</h5>
                             </div>
-                            <div class="widget-content">
-                                <div class="select-box">
-                                    <select class="wide">
-                                        <option data-display="All Type">All Type</option>
-                                        <option value="1">Villa</option>
-                                        <option value="2">Commercial</option>
-                                        <option value="3">Residential</option>
-                                    </select>
+
+                            <form action="{{ route('all.property.search') }}" method="post" class="search-form">
+                                @csrf
+
+                                <div class="widget-content">
+                                    <div class="select-box">
+                                        <select name="property_status" class="wide">
+                                            <option data-display="Propertry Status">Select Status</option>
+                                            <option value="buy">Buy</option>
+                                            <option value="rent">Rent</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="select-box">
+                                        <select name="ptype_id" class="wide">
+                                            <option data-display="Type" selected="" disabled="">Select Type</option>
+                                            @foreach ($ptypes as $type)
+                                                <option value="{{ $type->type_name }}">{{ $type->type_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="select-box">
+                                        <select name="state" class="wide">
+                                            <option data-display="State" selected="" disabled="">This Area Only
+                                            </option>
+                                            @foreach ($sstates as $state)
+                                                <option value="{{ $state->state_name }}">{{ $state->state_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="select-box">
+                                        <select name="bedrooms" class="wide">
+                                            <option data-display="Rooms">Max Rooms</option>
+                                            <option value="1">1 Rooms</option>
+                                            <option value="2">2 Rooms</option>
+                                            <option value="3">3 Rooms</option>
+                                            <option value="4">4 Rooms</option>
+                                            <option value="4">5 Rooms</option>
+                                        </select>
+                                    </div>
+                                    <div class="select-box">
+                                        <select name="bathrooms" class="wide">
+                                            <option data-display="Bathrooms">Max BathRooms</option>
+                                            <option value="1">1 BathRooms</option>
+                                            <option value="2">2 BathRooms</option>
+                                            <option value="3">3 BathRooms</option>
+                                            <option value="4">4 BathRooms</option>
+                                            <option value="5">5 BathRooms</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="filter-btn">
+                                        <button type="submit" class="theme-btn btn-one"><i
+                                                class="fas fa-filter"></i>&nbsp;Filter</button>
+                                    </div>
                                 </div>
-                                <div class="select-box">
-                                    <select class="wide">
-                                        <option data-display="Select Location">Select Location</option>
-                                        <option value="1">New York</option>
-                                        <option value="2">California</option>
-                                        <option value="3">London</option>
-                                        <option value="4">Maxico</option>
-                                    </select>
-                                </div>
-                                <div class="select-box">
-                                    <select class="wide">
-                                        <option data-display="This Area Only">This Area Only</option>
-                                        <option value="1">New York</option>
-                                        <option value="2">California</option>
-                                        <option value="3">London</option>
-                                        <option value="4">Maxico</option>
-                                    </select>
-                                </div>
-                                <div class="select-box">
-                                    <select class="wide">
-                                        <option data-display="All Type">Max Rooms</option>
-                                        <option value="1">2+ Rooms</option>
-                                        <option value="2">3+ Rooms</option>
-                                        <option value="3">4+ Rooms</option>
-                                        <option value="4">5+ Rooms</option>
-                                    </select>
-                                </div>
-                                <div class="select-box">
-                                    <select class="wide">
-                                        <option data-display="Most Popular">Most Popular</option>
-                                        <option value="1">Villa</option>
-                                        <option value="2">Commercial</option>
-                                        <option value="3">Residential</option>
-                                    </select>
-                                </div>
-                                <div class="select-box">
-                                    <select class="wide">
-                                        <option data-display="All Type">Select Floor</option>
-                                        <option value="1">2x Floor</option>
-                                        <option value="2">3x Floor</option>
-                                        <option value="3">4x Floor</option>
-                                    </select>
-                                </div>
-                                <div class="filter-btn">
-                                    <button type="submit" class="theme-btn btn-one"><i
-                                            class="fas fa-filter"></i>&nbsp;Filter</button>
-                                </div>
-                            </div>
+                            </form>
+
                         </div>
                         <div class="price-filter sidebar-widget">
                             <div class="widget-title">
@@ -121,9 +129,8 @@
                             <div class="left-column pull-left">
                                 <h5>Search Reasults: <span>Showing {{ count($property) }} Listings</span></h5>
                             </div>
-                            <div class="right-column pull-right clearfix">
-
-
+                            <div class="left-column pull-right">
+                                <h5>Total Property: <span>{{ count($rentproperty) }}</span></h5>
                             </div>
                         </div>
                         <div class="wrapper list">

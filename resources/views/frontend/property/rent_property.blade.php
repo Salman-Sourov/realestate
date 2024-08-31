@@ -126,11 +126,9 @@
                     <div class="property-content-side">
                         <div class="item-shorting clearfix">
                             <div class="left-column pull-left">
-                                <h5>Search Reasults: <span>Showing {{ count($property) }} Listings</span></h5>
-                            </div>
-                            <div class="right-column pull-right clearfix">
-
-
+                                <h5>Search Reasults: <span>Showing {{ count($property) }} Listings</span></h5>                            </div>
+                            <div class="left-column pull-right">
+                                <h5>Total Property: <span>{{ count($rentproperty) }}</span></h5>
                             </div>
                         </div>
                         <div class="wrapper list">
