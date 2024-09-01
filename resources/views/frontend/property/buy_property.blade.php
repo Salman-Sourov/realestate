@@ -130,7 +130,7 @@
                                 <h5>Search Reasults: <span>Showing {{ count($property) }} Listings</span></h5>
                             </div>
                             <div class="left-column pull-right">
-                                <h5>Total Property: <span>{{ count($rentproperty) }}</span></h5>
+                                <h5>Total Property: <span>{{ count($buyproperty) }}</span></h5>
                             </div>
                         </div>
                         <div class="wrapper list">

@@ -13,8 +13,7 @@ use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\Frontend\CompareController;
 use App\Http\Controllers\Backend\StateController;
-
-
+use App\Http\Controllers\Backend\TestimonialController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -272,3 +271,5 @@ Route::post('/rent/property/search', [IndexController::class, 'RentPropertySearc
 
 //All Property Search Option
 Route::post('/all/property/search', [IndexController::class, 'AllPropertySearch'])->name('all.property.search');
+
+

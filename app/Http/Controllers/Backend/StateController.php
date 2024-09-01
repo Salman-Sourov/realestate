@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Models\PropertyType;
 use App\Models\State;
 use Intervention\Image\ImageManager;
@@ -33,6 +34,8 @@ class StateController extends Controller
             $image = $image->resize(370, 275);
             $image->toJpeg(80)->Save(base_path(('public/upload/state/' . $name_gen)));
             $save_url = 'upload/state/' . $name_gen;
+        } else {
+            $save_url = '';
         }
 
         State::insert([
@@ -65,7 +68,7 @@ class StateController extends Controller
 
             // Unlink the old image
             $old_image = $state->state_image;
-            if (file_exists(public_path($old_image))) {
+            if (!empty($old_image) && file_exists(public_path($old_image))) {
                 unlink(public_path($old_image));
             }
 
@@ -82,38 +85,53 @@ class StateController extends Controller
                 'state_name' => $request->state_name,
                 'state_image' => $save_url,
             ]);
-
-            $notification = array(
-                'message' => 'State Updated Successfully',
-                'alert-type' => 'success'
-            );
         } else {
             // Update the state without changing the image
             $state->update([
                 'state_name' => $request->state_name,
             ]);
-
-            $notification = array(
-                'message' => 'State Updated Successfully',
-                'alert-type' => 'success'
-            );
         }
+
+        $notification = array(
+            'message' => 'State Updated Successfully',
+            'alert-type' => 'success'
+        );
 
         return redirect()->route('all.state')->with($notification);
     }
 
     public function DeleteState($id)
     {
+        // Find the state by ID or fail
         $state = State::findOrFail($id);
         $old_image = $state->state_image;
-        if (file_exists(public_path($old_image))) {
-            unlink(public_path($old_image));
+
+        // Attempt to delete the state and the old image
+        try {
+            // Check if the old image exists and delete it
+            if (!empty($old_image) && file_exists(public_path($old_image))) {
+                unlink(public_path($old_image));
+            }
+
+            // Delete the state from the database
+            $state->delete();
+
+            // Prepare success notification
+            $notification = [
+                'message' => 'State deleted successfully.',
+                'alert-type' => 'success'
+            ];
+        } catch (Exception $e) {
+            // Log the error and prepare error notification
+            Log::error("Error deleting state: " . $e->getMessage());
+            return redirect()->route('all.state')->with([
+                'message' => 'Failed to delete state: ' . $e->getMessage(),
+                'alert-type' => 'error'
+            ]);
         }
-        $state->delete();
-        $notification = array(
-            'message' => 'State Deleted Successfully',
-            'alert-type' => 'success'
-        );
+
+        // Redirect with success notification
         return redirect()->route('all.state')->with($notification);
     }
+    
 }

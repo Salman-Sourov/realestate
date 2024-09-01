@@ -35,6 +35,7 @@
             </div>
         </div>
     </div>
+
     <!-- header-lower -->
     <div class="header-lower">
         <div class="outer-box">
@@ -64,12 +65,10 @@
 
                                     </ul>
                                 </li>
-                                <li><a href="{{ url('/') }}"><span>Agent </span></a> </li>
 
-                                <li><a href="{{ url('/') }}"><span>Blog </span></a> </li>
-
-
-                                <li><a href="contact.html"><span>Contact</span></a></li>
+                                <li><a href="{{ url('/') }}"><span>Agent</span></a> </li>
+                                <li><a href="{{ url('/') }}"><span>Blog</span></a> </li>
+                                <li><a href="{{ url('/') }}"><span>Contact</span></a> </li>
 
                                 <li>
                                     <a href="{{ route('agent.login') }}" class="btn btn-success"><span>+</span>Add
@@ -78,9 +77,6 @@
                             </ul>
                         </div>
                     </nav>
-                </div>
-                <div class="btn-box">
-                    <a href="index.html" class="theme-btn btn-one"><span>+</span>Add Listing</a>
                 </div>
             </div>
         </div>
@@ -99,9 +95,6 @@
                     <nav class="main-menu clearfix">
                         <!--Keep This Empty / Menu will come through Javascript-->
                     </nav>
-                </div>
-                <div class="btn-box">
-                    <a href="{{ route('agent.login') }}" class="theme-btn btn-one"><span>+</span>Add Listing</a>
                 </div>
             </div>
         </div>
