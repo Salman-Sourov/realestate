@@ -3,12 +3,8 @@
         <a href="#" class="sidebar-brand">
             Real<span>Estate</span>
         </a>
-        <div class="sidebar-toggler not-active">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
     </div>
+
     <div class="sidebar-body">
         <ul class="nav">
             <li class="nav-item nav-category">Main</li>
@@ -115,8 +111,8 @@
 
             {{-- Property --}}
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#testimonials" role="button" aria-expanded="false"
-                    aria-controls="emails">
+                <a class="nav-link" data-bs-toggle="collapse" href="#testimonials" role="button"
+                    aria-expanded="false" aria-controls="emails">
                     <i class="link-icon" data-feather="crosshair"></i>
                     <span class="link-title">Manage Testimonials</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
@@ -134,6 +130,8 @@
             </li>
 
             <li class="nav-item nav-category">User All Function</li>
+
+            {{-- Manage Agent --}}
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents" role="button"
                     aria-expanded="false" aria-controls="uiComponents">
@@ -148,6 +146,24 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('add.agent') }}" class="nav-link">Add Agent</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </li>
+
+            {{-- Blog Category --}}
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#blogcategory" role="button"
+                    aria-expanded="false" aria-controls="uiComponents">
+                    <i class="link-icon" data-feather="feather"></i>
+                    <span class="link-title">Blog Category</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="blogcategory">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">All Blog Category</a>
                         </li>
                     </ul>
                 </div>

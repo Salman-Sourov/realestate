@@ -4,18 +4,18 @@
         <div class="top-inner clearfix">
             <div class="left-column pull-left">
                 <ul class="info clearfix">
-                    <li><i class="far fa-map-marker-alt"></i>Discover St, New York, NY 10012, USA</li>
-                    <li><i class="far fa-clock"></i>Mon - Sat 9.00 - 18.00</li>
-                    <li><i class="far fa-phone"></i><a href="tel:2512353256">+251-235-3256</a></li>
+                    <li><i class="far fa-map-marker-alt"></i>Banasree, Dhaka, Bangladesh</li>
+                    <li><i class="far fa-clock"></i>Sun - Thu 10.00 - 7.00</li>
+                    <li><i class="far fa-phone"></i><a href="tel:+8801521406205">+880 1521 406 205</a></li>
                 </ul>
             </div>
             <div class="right-column pull-right">
                 <ul class="social-links clearfix">
-                    <li><a href="index.html"><i class="fab fa-facebook-f"></i></a></li>
-                    <li><a href="index.html"><i class="fab fa-twitter"></i></a></li>
-                    <li><a href="index.html"><i class="fab fa-pinterest-p"></i></a></li>
-                    <li><a href="index.html"><i class="fab fa-google-plus-g"></i></a></li>
-                    <li><a href="index.html"><i class="fab fa-vimeo-v"></i></a></li>
+                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                    <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                    <li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
                 </ul>
 
                 {{-- Laravel default login logout method --}}
@@ -58,7 +58,7 @@
                                 <li><a href="{{ url('/') }}"><span>Home</span></a> </li>
                                 <li><a href="{{ url('/') }}"><span>About Us </span></a> </li>
 
-                                <li class="dropdown"><a href="index.html"><span>Property</span></a>
+                                <li class="dropdown"><a href="#"><span>Property</span></a>
                                     <ul>
                                         <li><a href="{{ route('rent.property') }}">Rent Property</a></li>
                                         <li><a href="{{ route('buy.property') }}">Buy Property </a></li>

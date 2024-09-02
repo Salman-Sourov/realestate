@@ -61,12 +61,10 @@
                         </div>
                         <div class="widget-content">
                             <ul class="info-list clearfix">
-                                <li><i class="fas fa-map-marker-alt"></i>Flat 20, Reynolds Neck, North
-                                    Helenaville, FV77 8WS</li>
-                                <li><i class="fas fa-microphone"></i><a href="tel:23055873407">+2(305)
-                                        587-3407</a></li>
+                                <li><i class="fas fa-map-marker-alt"></i>Banasree, Dhaka, Bangladesh</li>
+                                <li><i class="fas fa-microphone"></i><a href="tel:+8801521406205">+880 1521 406 205</a></li>
                                 <li><i class="fas fa-envelope"></i><a
-                                        href="mailto:info@example.com">info@example.com</a></li>
+                                        href="mailto:contact@empobd.com">contact@empobd.com</a></li>
                             </ul>
                         </div>
                     </div>
@@ -77,11 +75,11 @@
     <div class="footer-bottom">
         <div class="auto-container">
             <div class="inner-box clearfix">
-                <figure class="footer-logo"><a href="index.html"><img
+                <figure class="footer-logo"><a href="{{ url('/') }}"><img
                             src="{{ asset('frontend') }}/assets/images/footer-logo.png" alt=""></a>
                 </figure>
                 <div class="copyright pull-left">
-                    <p><a href="index.html">Realshed</a> &copy; 2021 All Right Reserved</p>
+                    <p><a href="{{ url('https://tech.empobd.com/') }}">Realshed</a> &copy; 2021 All Right Reserved</p>
                 </div>
                 <ul class="footer-nav pull-right clearfix">
                     <li><a href="index.html">Terms of Service</a></li>
