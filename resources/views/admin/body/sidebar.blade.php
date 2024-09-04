@@ -163,7 +163,7 @@
                 <div class="collapse" id="blogcategory">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">All Blog Category</a>
+                            <a href="{{ route("all.blog.category") }}" class="nav-link">All Blog Category</a>
                         </li>
                     </ul>
                 </div>

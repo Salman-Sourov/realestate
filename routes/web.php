@@ -14,6 +14,7 @@ use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\Frontend\CompareController;
 use App\Http\Controllers\Backend\StateController;
 use App\Http\Controllers\Backend\TestimonialController;
+use App\Http\Controllers\Backend\BlogController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -166,6 +167,18 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/update/testimonials', 'UpdateTestimonials')->name('update.testimonials');
         Route::get('/delete/testimonials/{id}', 'DeleteTestimonials')->name('delete.testimonials');
     });
+
+    //Blog Ctegory All Route
+    Route::controller(BlogController::class)->group(function () {
+
+        Route::get('/all/blog/category', 'AllBlogCategory')->name('all.blog.category');
+        Route::get('/add/blog/category', 'AddBlogCategory')->name('add.blog.category');
+        Route::post('/store/blog/category', 'StoreBlogCategory')->name('store.blog.category');
+        Route::get('/edit/blog/category/{id}', 'EditBlogCategory')->name('edit.blog.category');
+        Route::post('/update/blog/category', 'UpdateBlogCategory')->name('update.blog.category');
+        Route::get('/delete/blog/category/{id}', 'DeleteBlogCategory')->name('delete.blog.category');
+
+    });
 }); // End Group Admin Middleware
 
 
@@ -256,3 +269,4 @@ Route::post('/rent/property/search', [IndexController::class, 'RentPropertySearc
 
 //All Property Search Option
 Route::post('/all/property/search', [IndexController::class, 'AllPropertySearch'])->name('all.property.search');
+
