@@ -4,13 +4,13 @@
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js
-                    /bootstrap-toggle.min.js"></script>
+                            /bootstrap-toggle.min.js"></script>
 
     <div class="page-content">
 
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
-                <a href="{{ route('add.agent') }}" class="btn btn-inverse-info"> Add Agent</a>
+                <a href="{{ route('add.post') }}" class="btn btn-inverse-info">Add Post</a>
             </ol>
         </nav>
 
@@ -24,27 +24,21 @@
                             <table id="dataTableExample" class="table">
                                 <thead>
                                     <tr>
-                                        <th>Sl </th>
-                                        <th>Image </th>
-                                        <th>Name </th>
-                                        <th>Role </th>
-                                        <th>Status </th>
-                                        <th>Action </th>
+                                        <th>Sl</th>
+                                        <th>Post Image</th>
+                                        <th>Title</th>
+                                        <th>Category</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($allagent as $key => $item)
+                                    @foreach ($post as $key => $item)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td><img src="{{ !empty($item->photo) ? url('upload/agent_images/' . $item->photo) : url('upload/no_image.jpg') }}"
+                                            <td><img src="{{ !empty($item->post_image) ? url('upload/post/' . $item->photo) : url('upload/no_image.jpg') }}"
                                                     style="width:70px; height:40px;"> </td>
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ $item->role }}</td>
-
-                                            <td>
-                                                <span
-                                                    class="badge rounded-pill {{ $item->status == 'active' ? 'bg-success' : 'bg-danger' }}">{{ $item->status }}</span>
-                                            </td>
+                                            <td>{{ $item->post_title }}</td>
+                                            <td>{{ $item['cat']['category_name'] }}</td>
 
                                             {{-- <td>
                                                 <input data-id="{{ $item->id }}" class="toggle-class" type="checkbox"
@@ -62,14 +56,11 @@
                                                         data-feather="{{ $item->status == 'active' ? 'toggle-left' : 'toggle-right' }}"></i>
                                                 </a>
 
+                                                <a href="{{ route('edit.post', $item->id) }}"
+                                                    class="btn btn-inverse-warning"> Edit </a>
 
-                                                <a href="{{ route('edit.agent', $item->id) }}"
-                                                    class="btn btn-inverse-warning" title="Edit"> <i
-                                                        data-feather="edit"></i> </a>
-
-                                                <a href="{{ route('delete.agent', $item->id) }}"
-                                                    class="btn btn-inverse-danger" id="delete" title="Delete"> <i
-                                                        data-feather="trash-2"></i> </a>
+                                                <a href="{{ route('delete.post', $item->id) }}"
+                                                    class="btn btn-inverse-danger" id="delete"> Delete </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -81,7 +72,7 @@
             </div>
         </div>
     </div>
-    
+
 
     <script type="text/javascript">
         $(function() {
@@ -115,7 +106,7 @@
 
                             // Update button class, icon, and status text based on the returned status
                             var $statusSpan = $this.closest('tr').find(
-                            '.status-span'); // Find the status text element
+                                '.status-span'); // Find the status text element
 
                             if (data.status === 'inactive') {
                                 // Update classes for inactive status
@@ -156,5 +147,4 @@
             });
         });
     </script>
-
 @endsection

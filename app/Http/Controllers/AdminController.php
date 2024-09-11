@@ -19,7 +19,8 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
-    public function AdminLogout(Request $request){
+    public function AdminLogout(Request $request)
+    {
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
@@ -32,19 +33,22 @@ class AdminController extends Controller
         );
 
         return redirect('/admin/login')->with($notification);
-    }// End Method
+    } // End Method
 
-    public function AdminLogin(){
+    public function AdminLogin()
+    {
         return view('admin.admin_login');
     }
 
-    public function AdminProfile(){
+    public function AdminProfile()
+    {
         $id = Auth::user()->id; //collect user data from database
         $profileData = User::find($id); //Laravel Eloquent
-        return view('admin.admin_profile_view',compact('profileData'));
+        return view('admin.admin_profile_view', compact('profileData'));
     } //End Method
 
-    public function AdminProfileStore(Request $request){
+    public function AdminProfileStore(Request $request)
+    {
         $id = Auth::user()->id; //collect user data from database
         $data = User::find($id); //Laravel Eloquent
         $data->username = $request->username;
@@ -55,9 +59,9 @@ class AdminController extends Controller
 
         if ($request->file('photo')) {
             $file = $request->file('photo');
-            @unlink(public_path('upload/admin_images/'.$data->photo));
-            $filename = date('YmdHi').$file->getClientOriginalName();
-            $file->move(public_path('upload/admin_images'),$filename);
+            @unlink(public_path('upload/admin_images/' . $data->photo));
+            $filename = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('upload/admin_images'), $filename);
             $data['photo'] = $filename;
         }
 
@@ -71,14 +75,16 @@ class AdminController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    public function AdminChangePassword(){
+    public function AdminChangePassword()
+    {
 
         $id = Auth::user()->id; //collect user data from database
         $profileData = User::find($id); //Laravel Eloquent
-        return view('admin.admin_change_password',compact('profileData'));
+        return view('admin.admin_change_password', compact('profileData'));
     }
 
-    public function AdminUpdatePassword(Request $request){
+    public function AdminUpdatePassword(Request $request)
+    {
 
         //Validation
         $request->validate([
@@ -87,7 +93,7 @@ class AdminController extends Controller
         ]);
 
         //Match The old password
-        if(!Hash::check($request->old_password, auth::user()->password)){
+        if (!Hash::check($request->old_password, auth::user()->password)) {
 
             $notification = array(
                 'message' => 'Old password does not match',
@@ -110,16 +116,19 @@ class AdminController extends Controller
         return back()->with($notification);
     }
 
-    public function AllAgent(){
-        $allagent = User::where('role','agent')->get();
-        return view('backend.agentuser.all_agent',compact('allagent'));
+    public function AllAgent()
+    {
+        $allagent = User::where('role', 'agent')->get();
+        return view('backend.agentuser.all_agent', compact('allagent'));
     }
 
-    public function AddAgent(){
+    public function AddAgent()
+    {
         return view('backend.agentuser.add_agent');
     }
 
-    public function StoreAgent(Request $request) {
+    public function StoreAgent(Request $request)
+    {
         // Validate the incoming request
         $request->validate([
             'name' => 'required|string|max:255',
@@ -170,12 +179,14 @@ class AdminController extends Controller
     }
 
 
-    public function EditAgent($id){
+    public function EditAgent($id)
+    {
         $allagent = User::findOrFail($id);
-        return view('backend.agentuser.edit_agent',compact('allagent'));
+        return view('backend.agentuser.edit_agent', compact('allagent'));
     }
 
-    public function UpdateAgent(Request $request) {
+    public function UpdateAgent(Request $request)
+    {
         $user_id = $request->id;
         $user = User::findOrFail($user_id); // Retrieve the user by ID
 
@@ -217,7 +228,8 @@ class AdminController extends Controller
         return redirect()->route('all.agent')->with($notification);
     }
 
-    public function DeleteAgent(Request $request) {
+    public function DeleteAgent(Request $request)
+    {
         $user_id = $request->id;
         $user = User::findOrFail($user_id);
 
@@ -259,14 +271,18 @@ class AdminController extends Controller
     }
 
 
-    public function changeStatus(Request $request){
+    public function changeStatus(Request $request)
+    {
 
         $user = User::find($request->user_id);
-        $user->status = $request->status;
+
+        // Toggle status between 'active' and 'inactive'
+        $user->status = $user->status == 'active' ? 'inactive' : 'active';
+
+        //$user->status = $request->status ==1? 'active' : 'inactive';
         $user->save();
 
-        return response()->json(['success'=>'Status Change Successfully']);
-
-    }// End Method
+        return response()->json(['success' => 'Status Change Successfully']);
+    } // End Method
 
 }

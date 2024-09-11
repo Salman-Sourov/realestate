@@ -37,7 +37,6 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/user/logout', [UserController::class, 'UserLogout'])->name('user.logout');
     Route::get('/user/change/password', [UserController::class, 'UserChangePassword'])->name('user.change.password');
     Route::post('/user/password/update', [UserController::class, 'UserPasswordUpdate'])->name('user.pasword.update');
-
 });
 
 require __DIR__ . '/auth.php';
@@ -176,7 +175,17 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/blog/category/{id}', 'EditBlogCategory');
         Route::post('/update/blog/category', 'UpdateBlogCategory')->name('update.blog.category');
         Route::get('/delete/blog/category/{id}', 'DeleteBlogCategory')->name('delete.blog.category');
+    });
 
+    //Blog Post All Route
+    Route::controller(BlogController::class)->group(function () {
+
+        Route::get('/all/post', 'AllPost')->name('all.post');
+        Route::get('/add/post', 'AddPost')->name('add.post');
+        Route::post('/store/post', 'StorePost')->name('store.post');
+        Route::get('/edit/post/{id}', 'EditPost')->name('edit.post');
+        Route::post('/update/post', 'UpdatePost')->name('update.post');
+        Route::get('/delete/post/{id}', 'DeletePost')->name('delete.post');
     });
 }); // End Group Admin Middleware
 
@@ -268,4 +277,3 @@ Route::post('/rent/property/search', [IndexController::class, 'RentPropertySearc
 
 //All Property Search Option
 Route::post('/all/property/search', [IndexController::class, 'AllPropertySearch'])->name('all.property.search');
-
