@@ -115,6 +115,15 @@ class BlogController extends Controller
             $save_url = '';
         }
 
+        $request->validate([
+            'blogcat_id' => 'required|exists:blog_categories,id',
+            'post_title' => 'required|string|max:255',
+            'short_descp' => 'nullable|string',
+        ], [
+            'blogcat_id.required' => 'Please select a blog category.',
+            'blogcat_id.exists' => 'The selected category does not exist.',
+        ]);
+
         BlogPost::insert([
             'blogcat_id' => $request->blogcat_id,
             'user_id' => Auth::user()->id,
@@ -151,13 +160,15 @@ class BlogController extends Controller
         $post = BlogPost::findOrFail($post_id);
 
         // Check if a new image is uploaded
-        if ($request->file('image')) {
+        if ($request->file('post_image')) {
 
             // Unlink the old image
-            $old_image = $post->image;
-            if (!empty($old_image) && file_exists(public_path($old_image))) {
-                unlink(public_path($old_image));
+            // Unlink the old image if it exists
+            $old_image = public_path($post->post_image); // Generate the full path to the image
+            if (file_exists($old_image) && !empty($post->post_image)) {
+                unlink($old_image); // Unlink (delete) the file if it exists
             }
+
 
             // Process and save the new image
             $manager = new ImageManager(new Driver());
@@ -169,37 +180,36 @@ class BlogController extends Controller
             //Update with image
             $post->update([
                 'blogcat_id' => $request->blogcat_id,
-        'user_id' => Auth::user()->id,
-        'post_title' => $request->post_title,
-        'post_slug' => strtolower(str_replace(' ','-',$request->post_title)),
-        'short_descp' => $request->short_descp,
-        'long_descp' => $request->long_descp,
-        'post_tags' => $request->post_tags,
-        'post_image' => $save_url,
-        'created_at' => Carbon::now(),
+                'user_id' => Auth::user()->id,
+                'post_title' => $request->post_title,
+                'post_slug' => strtolower(str_replace(' ', '-', $request->post_title)),
+                'short_descp' => $request->short_descp,
+                'long_descp' => $request->long_descp,
+                'post_tags' => $request->post_tags,
+                'post_image' => $save_url,
+                'updated_at' => Carbon::now(),
             ]);
-        }
-        else {
+        } else {
             // Update without changing the image
             $post->update([
                 'blogcat_id' => $request->blogcat_id,
-        'user_id' => Auth::user()->id,
-        'post_title' => $request->post_title,
-        'post_slug' => strtolower(str_replace(' ','-',$request->post_title)),
-        'short_descp' => $request->short_descp,
-        'long_descp' => $request->long_descp,
-        'post_tags' => $request->post_tags,
-        'created_at' => Carbon::now(),
+                'user_id' => Auth::user()->id,
+                'post_title' => $request->post_title,
+                'post_slug' => strtolower(str_replace(' ', '-', $request->post_title)),
+                'short_descp' => $request->short_descp,
+                'long_descp' => $request->long_descp,
+                'post_tags' => $request->post_tags,
+                'created_at' => Carbon::now(),
             ]);
         }
 
-            $notification = array(
-                'message' => 'BlogPost Updated Successfully',
-                'alert-type' => 'success'
-            );
+        $notification = array(
+            'message' => 'BlogPost Updated Successfully',
+            'alert-type' => 'success'
+        );
 
-            return redirect()->route('all.post')->with($notification);
-        }
+        return redirect()->route('all.post')->with($notification);
+    }
 
     public function DeletePost($id)
     {
@@ -221,4 +231,4 @@ class BlogController extends Controller
         return redirect()->back()->with($notification);
     } // End Method
 
-    } // End Class
+} // End Class

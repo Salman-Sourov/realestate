@@ -32,6 +32,9 @@
                                                     <option value="{{ $item->id }}">{{ $item->category_name }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('blogcat_id')
+                                                <div class="text-danger mt-2">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div><!-- Col -->
                                 </div><!-- Row -->
@@ -95,5 +98,4 @@
             }
         }
     </script>
-
 @endsection

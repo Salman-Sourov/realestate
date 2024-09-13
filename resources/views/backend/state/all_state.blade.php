@@ -29,8 +29,8 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $item->state_name }}</td>
-                                            <td><img src="{{ asset($item->state_image) }}" style="width:70px;height: 40px;">
-                                            </td>
+                                            <td><img src="{{ !empty($item->state_image) ? asset($item->state_image) : url('upload/no_image.jpg') }}"
+                                                     style="width:70px; height:40px;"></td>
                                             <td>
                                                 <a href="{{ route('edit.state', $item->id) }}"
                                                     class="btn btn-inverse-warning"> Edit </a>

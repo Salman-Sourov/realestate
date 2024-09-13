@@ -79,14 +79,12 @@
                 rules: {
                     name: { required: true },
                     email: { required: true, email: true },
-                    phone: { required: true },
                     address: { required: true },
                     password: { required: true }
                 },
                 messages: {
                     name: { required: 'Please enter the agent\'s name.' },
                     email: { required: 'Please enter the agent\'s email.', email: 'Please enter a valid email address.' },
-                    phone: { required: 'Please enter the agent\'s phone number.' },
                     address: { required: 'Please enter the agent\'s address.' },
                     password: { required: 'Please enter a password.' }
                 },

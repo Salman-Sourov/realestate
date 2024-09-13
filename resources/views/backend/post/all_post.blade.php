@@ -35,8 +35,8 @@
                                     @foreach ($post as $key => $item)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td><img src="{{ !empty($item->post_image) ? url('upload/post/' . $item->photo) : url('upload/no_image.jpg') }}"
-                                                    style="width:70px; height:40px;"> </td>
+                                            <td><img src="{{ !empty($item->post_image) ? asset($item->post_image) : url('upload/no_image.jpg') }}"
+                                                style="width:70px; height:40px;"></td>
                                             <td>{{ $item->post_title }}</td>
                                             <td>{{ $item['cat']['category_name'] }}</td>
 
