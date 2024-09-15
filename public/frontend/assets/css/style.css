@@ -9840,3 +9840,21 @@ div#mCSB_1_container{
     white-space: normal;
 }
 
+.parent-container {
+    max-height: 50px; /* Adjust based on your line height */
+    overflow: hidden;
+}
+
+.title-text-cap {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Show ellipsis for overflow */
+    line-height: 1.2; /* Adjust line height */
+    max-height: 3.3em; /* Adjust based on line height */
+    font-size: 16px; /* Set font size */
+    color: #333; /* Set text color */
+}
+
+

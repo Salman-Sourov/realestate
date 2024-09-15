@@ -78,7 +78,7 @@ class BlogController extends Controller
     }
 
 
-    //Blog Post Controller
+    //Blog Post Controller (Backend)
     public function  AllPost()
     {
 
@@ -93,7 +93,7 @@ class BlogController extends Controller
         return view('backend.post.add_post', compact('blogcat'));
     }
 
-    public function  StorePost(Request $request)
+    public function StorePost(Request $request)
     {
 
         // Define the directory path
@@ -151,7 +151,6 @@ class BlogController extends Controller
         $post = BlogPost::findOrFail($id);
         return view('backend.post.edit_post', compact('post', 'blogcat'));
     } // End Method
-
 
     public function UpdatePost(Request $request)
     {
@@ -231,4 +230,18 @@ class BlogController extends Controller
         return redirect()->back()->with($notification);
     } // End Method
 
+
+
+    //Blog Details (Frontend)
+
+    public function BlogDetails($slug){
+
+        $blog = BlogPost::where('post_slug',$slug)->first();
+        $tags = $blog->post_tags;
+        $tags_all = explode(',',$tags);
+        $bcategory = BlogCategory::latest()->get();
+        $dpost = BlogPost::latest()->get();
+        return view('frontend.blog.blog_details',compact('blog','tags_all','bcategory','dpost'));
+
+    }
 } // End Class

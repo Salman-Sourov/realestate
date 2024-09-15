@@ -1,5 +1,6 @@
 @extends('frontend.frontend_dashboard')
 @section('main')
+
     <!--Page Title-->
     <section class="page-title-two bg-color-1 centred">
         <div class="pattern-layer">
@@ -26,7 +27,7 @@
         <div class="auto-container">
             <div class="top-details clearfix">
                 <div class="left-column pull-left clearfix">
-                    <h3>{{ $property->property_name }}</h3>
+                    <h3>{{ $blog->tit }}</h3>
                     <div class="author-info clearfix">
                         <div class="author-box pull-left">
 
