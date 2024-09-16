@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
 use App\Models\BlogPost;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -233,7 +234,6 @@ class BlogController extends Controller
 
 
     //Blog Details (Frontend)
-
     public function BlogDetails($slug)
     {
 
@@ -256,24 +256,47 @@ class BlogController extends Controller
     }
 
     public function BlogList()
-{
-    $blogs = BlogPost::latest()->get();
-    $all_category = BlogCategory::all();
+    {
+        $blogs = BlogPost::latest()->get();
+        $all_category = BlogCategory::all();
 
-    $all_tags = [];
+        $all_tags = [];
 
-    foreach ($blogs as $blog) {
-        if (!empty($blog->post_tags)) {
-            $tags = explode(',', $blog->post_tags);
-            foreach ($tags as $tag) {
-                $normalizedTag = strtolower(trim($tag));
-                $all_tags[] = $normalizedTag;
+        foreach ($blogs as $blog) {
+            if (!empty($blog->post_tags)) {
+                $tags = explode(',', $blog->post_tags);
+                foreach ($tags as $tag) {
+                    $normalizedTag = strtolower(trim($tag));
+                    $all_tags[] = $normalizedTag;
+                }
             }
         }
+
+        $tags_all = array_unique($all_tags);
+
+        return view('frontend.blog.blog_list', compact('blogs', 'all_category', 'tags_all'));
     }
 
-    $tags_all = array_unique($all_tags);
+    public function StoreComment(Request $request){
 
-    return view('frontend.blog.blog_list', compact('blogs', 'all_category', 'tags_all'));
-}
+        $p_id =  $request->post_id;
+
+        Comment::insert([
+            'user_id' => Auth::user()->id,
+            'post_id' => $p_id,
+            'parent_id' => null,
+            'subject' =>  $request->subject,
+            'message' =>   $request->message,
+            'created_at' => Carbon::now(),
+        ]);
+
+        $notification = [
+            'message' => 'Comment Added Successfully',
+            'alert-type' => 'success',
+        ];
+
+        return  redirect()->back()->with($notification);
+    }
+
+
 } // End Class

@@ -284,3 +284,6 @@ Route::get('/blog/details/{slug}',[BlogController::class, 'BlogDetails']);
 Route::get('blog/category/{id}',[BlogController::class, 'BlogCategoryList']);
 // Blog Header
 Route::get('/blog',[BlogController::class, 'BlogList'])->name('blog.list');
+
+//Blog Comment
+Route::post('/store/comment',[BlogController::class, 'StoreComment'])->name('store.comment');
