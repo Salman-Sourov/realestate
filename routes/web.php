@@ -280,3 +280,7 @@ Route::post('/all/property/search', [IndexController::class, 'AllPropertySearch'
 
 // Blog Details Page
 Route::get('/blog/details/{slug}',[BlogController::class, 'BlogDetails']);
+// Blog Category Details Page
+Route::get('blog/category/{id}',[BlogController::class, 'BlogCategoryList']);
+// Blog Header
+Route::get('/blog',[BlogController::class, 'BlogList'])->name('blog.list');

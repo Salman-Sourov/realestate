@@ -27,7 +27,7 @@
         <div class="auto-container">
             <div class="top-details clearfix">
                 <div class="left-column pull-left clearfix">
-                    <h3>{{ $blog->tit }}</h3>
+                    <h3>{{ $property->title }}</h3>
                     <div class="author-info clearfix">
                         <div class="author-box pull-left">
 

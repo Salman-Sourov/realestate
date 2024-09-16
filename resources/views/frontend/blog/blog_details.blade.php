@@ -188,7 +188,7 @@
                                     @php
                                         $post = App\Models\BlogPost::where('blogcat_id',$cat->id)->get();
                                     @endphp
-                                        <li><a href="">{{ $cat->category_name }}<span>{{ count($post) }}</span></a></li>
+                                        <li><a href="{{ url('blog/category/'.$cat->id) }}">{{ $cat->category_name }}<span>{{ count($post) }}</span></a></li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -202,9 +202,9 @@
                             @foreach ($dpost as $item)
                             <div class="post-inner">
                                 <div class="post">
-                                    <figure class="post-thumb"><a href="#"><img
+                                    <figure class="post-thumb"><a href="{{ url('blog/details/'.$item->post_slug) }}"><img
                                                 src="{{ !empty($item->post_image) ? asset($item->post_image) : url('upload/no_image_blog.png') }}" alt=""></a></figure>
-                                    <h5><a href="#">{{ $item->post_title }}</a></h5>
+                                    <h5><a href="{{ url('blog/details/'.$item->post_slug) }}">{{ $item->post_title }}</a></h5>
                                     <span class="post-date">{{ $item->created_at->format('d M Y') }}</span>
                                 </div>
                             </div>

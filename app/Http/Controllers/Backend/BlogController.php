@@ -234,14 +234,46 @@ class BlogController extends Controller
 
     //Blog Details (Frontend)
 
-    public function BlogDetails($slug){
+    public function BlogDetails($slug)
+    {
 
-        $blog = BlogPost::where('post_slug',$slug)->first();
+        $blog = BlogPost::where('post_slug', $slug)->first();
         $tags = $blog->post_tags;
-        $tags_all = explode(',',$tags);
+        $tags_all = explode(',', $tags);
         $bcategory = BlogCategory::latest()->get();
         $dpost = BlogPost::latest()->get();
-        return view('frontend.blog.blog_details',compact('blog','tags_all','bcategory','dpost'));
-
+        return view('frontend.blog.blog_details', compact('blog', 'tags_all', 'bcategory', 'dpost'));
     }
+
+    public function BlogCategoryList($id)
+    {
+
+        $blog = BlogPost::where('blogcat_id', $id)->get();
+        $breadcat = BlogCategory::where('id', $id)->first();
+        $all_category =  BlogCategory::get()->all();
+        $dpost = BlogPost::latest()->get();
+        return view('frontend.blog.blog_cat_list', compact('blog', 'breadcat', 'all_category', 'dpost'));
+    }
+
+    public function BlogList()
+{
+    $blogs = BlogPost::latest()->get();
+    $all_category = BlogCategory::all();
+
+    $all_tags = [];
+
+    foreach ($blogs as $blog) {
+        if (!empty($blog->post_tags)) {
+            $tags = explode(',', $blog->post_tags);
+            foreach ($tags as $tag) {
+                $normalizedTag = strtolower(trim($tag));
+                $all_tags[] = $normalizedTag;
+            }
+        }
+    }
+
+    $tags_all = array_unique($all_tags);
+
+    return view('frontend.blog.blog_list', compact('blogs', 'all_category', 'tags_all'));
+}
 } // End Class
