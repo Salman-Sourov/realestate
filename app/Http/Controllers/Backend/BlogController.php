@@ -277,7 +277,8 @@ class BlogController extends Controller
         return view('frontend.blog.blog_list', compact('blogs', 'all_category', 'tags_all'));
     }
 
-    public function StoreComment(Request $request){
+    public function StoreComment(Request $request)
+    {
 
         $p_id =  $request->post_id;
 
@@ -298,5 +299,62 @@ class BlogController extends Controller
         return  redirect()->back()->with($notification);
     }
 
+    public function AdminBlogComment()
+    {
+        // Get all top-level comments (where parent_id is null)
+        $comments = Comment::where('parent_id', null)->latest()->get();
 
+        // Pass both top-level comments and their child comments to the view
+        return view('backend.comment.comment_all', compact('comments',));
+    }
+
+    public function AdminCommentReply($id)
+    {
+        $comment = Comment::where('id', $id)->first();
+        $view_comments = Comment::where('parent_id', $id)->get(); // Fetch replies as a collection
+
+        return view('backend.comment.reply_comment', compact('comment', 'view_comments'));
+    }
+
+    public function ReplyMessage(Request $request)
+    {
+
+        $id =  $request->id;
+        $user_id = $request->user_id;
+        $post_id = $request->post_id;
+
+        $request->validate([
+            'subject' => 'required|string',
+            'message' => 'required|string',
+        ]);
+
+        Comment::insert([
+            'user_id' => $user_id,
+            'post_id' => $post_id,
+            'parent_id' => $id,
+            'subject' => $request->subject,
+            'message' => $request->message,
+            'created_at' => Carbon::now(),
+        ]);
+
+        $notification = array(
+            'message' => 'Reply Inserted Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+    Public function DeleteComment($id){
+
+        $comment = Comment::find($id);
+        $comment->delete();
+
+        $notification = array(
+            'message' => 'Comment Deleted Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
 } // End Class

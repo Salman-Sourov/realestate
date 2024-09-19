@@ -287,3 +287,19 @@ Route::get('/blog',[BlogController::class, 'BlogList'])->name('blog.list');
 
 //Blog Comment
 Route::post('/store/comment',[BlogController::class, 'StoreComment'])->name('store.comment');
+
+//Blog Reply Route
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
+    // Display All Comment on Admdin Dashboard
+    Route::get('/admin/blog/comment', [BlogController::class, 'AdminBlogComment'])->name('admin.blog.comment');
+
+    // Reply On Comment in Admdin Dashboard
+    Route::get('/admin/comment/reply/{id}', [BlogController::class, 'AdminCommentReply'])->name('admin.comment.reply');
+    // Reply On Comment in Admdin Dashboard
+    Route::post('/reply/message', [BlogController::class, 'ReplyMessage'])->name('reply.message');
+    //delete comment from admin
+    Route::get('/admin/delete/comment/{id}', [BlogController::class, 'DeleteComment'])->name('admin.delete.comment');
+    //View Comment reply on  Admin Dashboard
+    Route::post('/reply/message/view', [BlogController::class, 'ReplyMessageView'])->name('reply.message.view');
+});
