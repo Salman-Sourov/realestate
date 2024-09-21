@@ -68,7 +68,7 @@
                                                                         <td>{{ $loop->iteration }}</td>
                                                                         <td>{{ $item->subject }}</td>
                                                                         <td>{{ $item->message }}</td>
-                                                                        <td>{{ $item->created_at->format('H:i  M-d  Y') }}
+                                                                        <td>{{ $item->created_at->format('M j, Y h:i A') }}
                                                                         <td>
                                                                             <a href="{{ route('admin.delete.comment', $item->id) }}"
                                                                                 class="btn btn-inverse-danger" id="delete" title="Delete"> <i

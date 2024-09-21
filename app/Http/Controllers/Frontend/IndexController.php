@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\propertyType;
+use App\Models\Schedule;
 use App\Models\State;
 
 class IndexController extends Controller
@@ -208,18 +209,53 @@ class IndexController extends Controller
         $bedrooms = $request->bedrooms;
         $bathrooms = $request->bathrooms;
 
-        $property = Property::where('status','1')->where('property_status', $property_status)->where('bedrooms', $bedrooms)->where('bathrooms', $bathrooms)
-        ->with('type', 'pstate')
+        $property = Property::where('status', '1')->where('property_status', $property_status)->where('bedrooms', $bedrooms)->where('bathrooms', $bathrooms)
+            ->with('type', 'pstate')
             ->whereHas('type', function ($q) use ($stype) {
-                $q->where('type_name','like', '%' . $stype . '%');
+                $q->where('type_name', 'like', '%' . $stype . '%');
             })
             ->whereHas('pstate', function ($q) use ($sstate) {
-                $q->where('state_name','like', '%' . $sstate . '%');
+                $q->where('state_name', 'like', '%' . $sstate . '%');
             })->get();
 
         $rentproperty = property::where('property_status', 'rent')->get();
         $buyproperty = property::where('property_status', 'buy')->get();
 
         return view('frontend.property.property_search', compact('property', 'rentproperty', 'buyproperty'));
+    }
+
+    public function StoreSchedule(Request $request)
+    {
+
+        $pid = $request->property_id;
+        $aid = $request->agent_id;
+
+        if (Auth::check()) {
+
+            Schedule::insert([
+
+                'user_id' => Auth::user()->id,
+                'property_id' => $pid,
+                'agent_id' => $aid,
+                'tour_date' => $request->tour_date,
+                'tour_time' => $request->tour_time,
+                'message' => $request->message,
+                'created_at' =>  Carbon::now(),
+            ]);
+
+            $notification = array(
+                'message' => 'Send Request Successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        } else {
+            $notification = array(
+
+                'message' => 'Please Login Your Account First',
+                'alert-type' => 'error'
+
+            );
+            return redirect()->back()->with($notification);
+        }
     }
 }

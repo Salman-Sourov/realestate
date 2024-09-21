@@ -9598,12 +9598,12 @@ div#mCSB_1_container{
 .blog-details-content .comments-area .comment{
   position: relative;
   display: block;
-  padding-left: 110px;
-  margin-bottom: 32px;
+  padding-left: 83px;
+  margin-bottom: 19px;
 }
 
 .blog-details-content .comments-area .comment .comment-inner{
-  padding-bottom: 23px;
+  padding-bottom: 3px;
   border-bottom: 1px solid #e5e7ec;
 }
 
@@ -9619,7 +9619,7 @@ div#mCSB_1_container{
   position: absolute;
   left: 0px;
   top: -2px;
-  width: 80px;
+  width: 60px;
   height: 80px;
   border-radius: 50%;
 }

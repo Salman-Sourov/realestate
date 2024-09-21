@@ -5,7 +5,6 @@
 
 
     <div class="page-content">
-
         <div class="row">
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
@@ -178,22 +177,11 @@
                                             </td>
                                         @endforeach
                                     </tr>
-
                                 </tbody>
-
                             </table>
-
-
                         </div>
                     </div>
-
-
-
-
                 </div>
-
-
-
             </div>
 
             <div class="col-md-12 grid-margin stretch-card">

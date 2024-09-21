@@ -83,12 +83,12 @@
                                         <div class="comment-inner">
                                             <div class="comment-info clearfix">
                                                 <h5>{{ $com->user->name }}</h5>
-                                                <span>{{ $com->created_at->format('M d Y') }}</span>
+                                                <span>{{ $com->created_at->format('M j, Y h:i A') }}</span>
                                             </div>
-                                            <div class="text">
-                                                <p>{{ $com->subject }}</p>
+                                            <div class="comment-info clearfix">
+                                                <h5>{{ $com->subject }}</h5>
                                                 <p>{{ $com->message }}</p>
-                                                <a href="#"><i class="fas fa-share"></i>Reply</a>
+                                                {{-- <a href="#"><i class="fas fa-share"></i>Reply</a> --}}
                                             </div>
                                         </div>
                                 @endforeach
@@ -106,11 +106,11 @@
                                     <div class="comment-inner">
                                         <div class="comment-info clearfix">
                                             <h5>{{ $rep->subject }}</h5>
-                                            <span>{{ $rep->created_at->format('M d Y') }}</span>
+                                            <span>{{ $rep->created_at->format('M j, Y h:i A') }}</span>
                                         </div>
                                         <div class="text">
                                             <p>{{ $rep->message }}</p>
-                                            <a href="#"><i class="fas fa-share"></i>Reply</a>
+                                            {{-- <a href="#"><i class="fas fa-share"></i>Reply</a> --}}
                                         </div>
                                     </div>
                                 </div>

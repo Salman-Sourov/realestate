@@ -300,6 +300,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/reply/message', [BlogController::class, 'ReplyMessage'])->name('reply.message');
     //delete comment from admin
     Route::get('/admin/delete/comment/{id}', [BlogController::class, 'DeleteComment'])->name('admin.delete.comment');
-    //View Comment reply on  Admin Dashboard
-    Route::post('/reply/message/view', [BlogController::class, 'ReplyMessageView'])->name('reply.message.view');
 });
+
+//Schedule a tour
+Route::post('/store/schedule', [IndexController::class, 'StoreSchedule'])->name('store.schedule');
+
+

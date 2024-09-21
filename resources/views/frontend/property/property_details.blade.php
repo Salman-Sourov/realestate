@@ -25,6 +25,7 @@
     <!-- property-details -->
     <section class="property-details property-details-one">
         <div class="auto-container">
+
             <div class="top-details clearfix">
                 <div class="left-column pull-left clearfix">
                     <h3>{{ $property->title }}</h3>
@@ -73,6 +74,8 @@
                     </ul>
                 </div>
             </div>
+
+            {{-- Product Details --}}
             <div class="row clearfix">
                 <div class="col-lg-8 col-md-12 col-sm-12 content-side">
                     <div class="property-details-content">
@@ -187,42 +190,35 @@
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div>
+
+                        {{-- Schedule --}}
                         <div class="schedule-box content-widget">
                             <div class="title-box">
                                 <h4>Schedule A Tour</h4>
                             </div>
                             <div class="form-inner">
-                                <form action="property-details.html" method="post">
+                                <form action="{{ route('store.schedule') }}" method="post">
+                                    @csrf
                                     <div class="row clearfix">
+                                        <input type="hidden" name="property_id" value="{{ $property->id }}">
+
+                                        @if ($property->agent_id == null)
+                                            <input type="hidden" name="agent_id" value="">
+                                        @else
+                                            <input type="hidden" name="agent_id" value="{{ $property->agent_id }}">
+                                        @endif
+
                                         <div class="col-lg-6 col-md-12 col-sm-12 column">
                                             <div class="form-group">
                                                 <i class="far fa-calendar-alt"></i>
-                                                <input type="text" name="date" placeholder="Tour Date"
+                                                <input type="text" name="tour_date" placeholder="Tour Date"
                                                     id="datepicker">
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-12 col-sm-12 column">
                                             <div class="form-group">
                                                 <i class="far fa-clock"></i>
-                                                <input type="text" name="time" placeholder="Any Time">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12 column">
-                                            <div class="form-group">
-                                                <input type="text" name="name" placeholder="Your Name"
-                                                    required="">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12 column">
-                                            <div class="form-group">
-                                                <input type="email" name="email" placeholder="Your Email"
-                                                    required="">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12 column">
-                                            <div class="form-group">
-                                                <input type="tel" name="phone" placeholder="Your Phone"
-                                                    required="">
+                                                <input type="text" name="tour_time" placeholder="Any Time">
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12 column">
@@ -239,6 +235,7 @@
                                 </form>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -399,6 +396,8 @@
                     </div>
                 </div>
             </div>
+
+            {{-- Similar type of property --}}
             <div class="similar-content">
                 <div class="title">
                     <h4>Similar Properties</h4>
@@ -464,6 +463,7 @@
                     @endforeach
                 </div>
             </div>
+
         </div>
     </section>
     <!-- property-details end -->
@@ -495,4 +495,5 @@
         </div>
     </section>
     <!-- subscribe-section end -->
+    
 @endsection
