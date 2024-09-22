@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Agent;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ScheduleMail;
 use Illuminate\Http\Request;
 use App\Models\Property;
 use App\Models\MultiImage;
@@ -13,6 +14,7 @@ use App\Models\PropertyMessage;
 use App\Models\PropertyType;
 use App\Models\State;
 use App\Models\User;
+use App\Models\Schedule;
 use Intervention\Image\Facades\Image;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Carbon\Carbon;
@@ -22,7 +24,7 @@ use Illuminate\Support\Facades\Auth;
 use PHPUnit\Framework\Constraint\Count;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use Illuminate\Support\Facades\Mail;
 
 class AgentPropertyController extends Controller
 {
@@ -53,7 +55,7 @@ class AgentPropertyController extends Controller
             );
             return redirect()->route('buy.package')->with($notification);
         } else {
-            return view('agent.property.add_property', compact('propertytype', 'amenities','pstate'));
+            return view('agent.property.add_property', compact('propertytype', 'amenities', 'pstate'));
         }
     }
 
@@ -159,7 +161,6 @@ class AgentPropertyController extends Controller
         return redirect()->route('agent.all.property')->with($notification);
     }
 
-
     public function AgentEditProperty($id)
     {
 
@@ -260,7 +261,6 @@ class AgentPropertyController extends Controller
 
         return back()->with($notification);
     }
-
     public function AgentUpdatePropertyMultiimage(Request $request)
     {
 
@@ -291,7 +291,6 @@ class AgentPropertyController extends Controller
         );
         return redirect()->back()->with($notification);
     }
-
     public function AgentPropertyMultiimgDelete($id)
     {
 
@@ -307,7 +306,6 @@ class AgentPropertyController extends Controller
 
         return redirect()->back()->with($notification);
     }
-
     public function AgentStoreNewMultiimage(Request $request)
     {
 
@@ -426,7 +424,6 @@ class AgentPropertyController extends Controller
         return view('agent.package.buy_package');
     }
 
-
     public function BuyBusinessPlan()
     {
 
@@ -527,7 +524,6 @@ class AgentPropertyController extends Controller
         return $pdf->download('invoice.pdf');
     }
 
-
     public function AgentPropertyMessage()
     {
         $id = Auth::user()->id;
@@ -556,8 +552,6 @@ class AgentPropertyController extends Controller
         return view('agent.message.all_message', compact('promsg'));
     }
 
-
-
     public function AgentProfileMessageDetails($id)
     {
         $authid = Auth::user()->id;
@@ -565,5 +559,49 @@ class AgentPropertyController extends Controller
         $promsgdetails = PropertyMessage::findOrFail($id);
 
         return view('agent.message.profile_message_details', compact('promsg', 'promsgdetails'));
+    }
+
+    //Agent Schedule Request
+    public function AgentScheduleRequest()
+    {
+        $id = Auth::user()->id;
+        $usermsg = Schedule::where('agent_id', $id)->get();
+        return view('agent.schedule.schedule_request', compact('usermsg'));
+    }
+
+    public function AgentDetailsSchedule($id)
+    {
+        $schedule = Schedule::findOrFail($id);
+        // dd(vars: $schedule);
+        return view('agent.schedule.schedule_details', data: compact('schedule'));
+    }
+
+    public function AgentUpdateSchedule(Request $request)
+    {
+        $sid = $request->id;
+        $schedule = Schedule::findOrFail($sid);
+
+        $schedule->update([
+            'status' => '1',
+        ]);
+
+        //Start Email
+
+            $data = [
+                'tour_date' => $schedule->tour_date,
+                'tour_time' => $schedule->tour_time,
+            ];
+
+            $user_email = $request->email;
+            Mail::to($user_email)->send(new ScheduleMail($data));
+
+        //End Email
+
+        $notification = array(
+            'message' => 'You have Confirm Schedule Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('agent.schedule.request')->with($notification);
     }
 }

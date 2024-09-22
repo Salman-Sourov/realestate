@@ -495,5 +495,5 @@
         </div>
     </section>
     <!-- subscribe-section end -->
-    
+
 @endsection

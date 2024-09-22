@@ -229,6 +229,14 @@ Route::middleware(['auth', 'role:agent'])->group(function () {
         Route::get('/package/history', 'PackageHistory')->name('package.history');
         Route::get('/agent/package/invoice/{id}', 'AgentPackageInvoice')->name('agent.package.invoice');
     });
+
+    // Schedule Request Route
+    Route::controller(AgentPropertyController::class)->group(function () {
+
+        Route::get('/agent/schedule/request', 'AgentScheduleRequest')->name('agent.schedule.request');
+        Route::get('/agent/details/schedule/{id}', 'AgentDetailsSchedule')->name('agent.details.schedule');
+        Route::post('/agent/update/schedule/', 'AgentUpdateSchedule')->name('agent.update.schedule');
+    });
 }); // End Group Admin Middleware
 
 
