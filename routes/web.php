@@ -15,6 +15,8 @@ use App\Http\Controllers\Frontend\CompareController;
 use App\Http\Controllers\Backend\StateController;
 use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\BlogController;
+use App\Http\Controllers\Backend\SettingController;
+use App\Models\SmtpSetting;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -287,30 +289,35 @@ Route::post('/rent/property/search', [IndexController::class, 'RentPropertySearc
 Route::post('/all/property/search', [IndexController::class, 'AllPropertySearch'])->name('all.property.search');
 
 // Blog Details Page
-Route::get('/blog/details/{slug}',[BlogController::class, 'BlogDetails']);
+Route::get('/blog/details/{slug}', [BlogController::class, 'BlogDetails']);
 // Blog Category Details Page
-Route::get('blog/category/{id}',[BlogController::class, 'BlogCategoryList']);
+Route::get('blog/category/{id}', [BlogController::class, 'BlogCategoryList']);
 // Blog Header
-Route::get('/blog',[BlogController::class, 'BlogList'])->name('blog.list');
+Route::get('/blog', [BlogController::class, 'BlogList'])->name('blog.list');
 
 //Blog Comment
-Route::post('/store/comment',[BlogController::class, 'StoreComment'])->name('store.comment');
+Route::post('/store/comment', [BlogController::class, 'StoreComment'])->name('store.comment');
 
-//Blog Reply Route
+//Blog Reply Route,SMTP Setting  All Route
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
     // Display All Comment on Admdin Dashboard
     Route::get('/admin/blog/comment', [BlogController::class, 'AdminBlogComment'])->name('admin.blog.comment');
-
     // Reply On Comment in Admdin Dashboard
     Route::get('/admin/comment/reply/{id}', [BlogController::class, 'AdminCommentReply'])->name('admin.comment.reply');
     // Reply On Comment in Admdin Dashboard
     Route::post('/reply/message', [BlogController::class, 'ReplyMessage'])->name('reply.message');
     //delete comment from admin
     Route::get('/admin/delete/comment/{id}', [BlogController::class, 'DeleteComment'])->name('admin.delete.comment');
+
+
+    // SMTP Setting  All Route
+    Route::controller(SettingController::class)->group(function () {
+
+        Route::get('/smtp/setting', 'SmtpSetting')->name('smtp.setting');
+        Route::post('/update/smpt/setting', 'UpdateSmtpSetting')->name('update.smpt.setting');
+    });
 });
 
 //Schedule a tour
 Route::post('/store/schedule', [IndexController::class, 'StoreSchedule'])->name('store.schedule');
-
-
