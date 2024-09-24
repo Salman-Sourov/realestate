@@ -7,8 +7,7 @@
 
         <li><a href="{{ route('user.profile') }}"><i class="fa fa-cog" aria-hidden="true"></i>
                 Settings</a></li>
-        <li><a href="blog-details.html"><i class="fa fa-credit-card" aria-hidden="true"></i> Buy
-                credits<span class="badge badge-info">( 10 credits)</span></a></li>
+        <li><a href="{{ route('user.schedule.request') }}"><i class="fa fa-credit-card" aria-hidden="true"></i> Schedule Request<span class="badge badge-info"></span></a></li>
         <li><a href="{{ route('user.compare') }}"><i class="icon-12" aria-hidden="true"></i></i>
                 Compare </a></li>
         <li><a href="{{ route('user.wishlist') }}"><i class="icon-13" aria-hidden="true"></i> WishList </a></li>

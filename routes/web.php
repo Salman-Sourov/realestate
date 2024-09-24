@@ -86,6 +86,10 @@ Route::middleware(['auth', 'role:user'])->group(function () {
         Route::get('/get-compare-property', 'GetCompareProperty');
         Route::get('/compare-remove/{id}', 'CompareRemove');
     });
+
+    //Show User schedule request
+    Route::get('/user/schedule/request', [UserController::class,'UserScheduleRequest'])->name('user.schedule.request');
+
 });
 
 
