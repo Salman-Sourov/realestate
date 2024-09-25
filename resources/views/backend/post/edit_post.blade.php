@@ -73,17 +73,20 @@
                                     </div>
                                 </div><!-- Col -->
 
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <label for="imageInput" class="form-label">Post Photo</label>
+                                        <input class="form-control" name="post_image" type="file" id="image"
+                                            accept="image/*">
+                                    </div>
 
-                                <div class="col-sm-6">
-                                    <label for="exampleInputEmail1" class="form-label">Post Photo </label>
-                                    <input class="form-control" name="post_image" type="file" id="image">
-                                </div>
-                                <br>
-
-                                <div class="col-sm-6">
-                                    <label for="exampleInputEmail1" class="form-label"> </label>
-                                    <img id="showImage" class="wd-80 rounded-circle" src="{{ asset($post->post_image) }}"
-                                        alt="profile">
+                                    <div class="col-sm-6">
+                                        <br>
+                                        <label for="showImage" class="form-label"></label>
+                                        <img id="showImage" class="wd-80 rounded-circle"
+                                        src="{{ !empty($post->post_image) ? asset($post->post_image) : url('upload/no_image.jpg') }}"
+                                            alt="Post Preview">
+                                    </div>
                                 </div>
 
                                 <hr>
@@ -101,12 +104,12 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#image').change(function(e) {
+            $('#imageInput').change(function(e) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     $('#showImage').attr('src', e.target.result);
                 }
-                reader.readAsDataURL(e.target.files['0']);
+                reader.readAsDataURL(e.target.files[0]);
             });
         });
     </script>

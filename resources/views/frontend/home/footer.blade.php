@@ -1,3 +1,7 @@
+@php
+    $setting = App\Models\SiteSetting::first();
+    $blog = App\Models\BlogPost::latest()->limit(2)->get();
+@endphp
 <footer class="main-footer">
     <div class="footer-top bg-color-2">
         <div class="auto-container">
@@ -8,9 +12,9 @@
                             <h3>About</h3>
                         </div>
                         <div class="text">
-                            <p>Lorem ipsum dolor amet consetetur adi pisicing elit sed eiusm tempor in cididunt
-                                ut labore dolore magna aliqua enim ad minim venitam</p>
-                            <p>Quis nostrud exercita laboris nisi ut aliquip commodo.</p>
+                            <p>Your trusted real estate partner specializing in residential, commercial, and investment
+                                properties. Our expert team provides personalized service for a seamless buying,
+                                selling, or leasing experience.Discover your dream property with us today!</p>
                         </div>
                     </div>
                 </div>
@@ -21,12 +25,12 @@
                         </div>
                         <div class="widget-content">
                             <ul class="links-list class">
-                                <li><a href="index.html">About Us</a></li>
-                                <li><a href="index.html">Listing</a></li>
-                                <li><a href="index.html">How It Works</a></li>
-                                <li><a href="index.html">Our Services</a></li>
-                                <li><a href="index.html">Our Blog</a></li>
-                                <li><a href="index.html">Contact Us</a></li>
+                                <li><a href="{{ url('/') }}">About Us</a></li>
+                                <li><a href={{ route('buy.property') }}>Listing</a></li>
+                                <li><a href="{{ url('/') }}">How It Works</a></li>
+                                <li><a href="{{ url('/') }}">Our Services</a></li>
+                                <li><a href="{{ route('blog.list') }}">Our Blog</a></li>
+                                <li><a href="{{ url('/') }}">Contact Us</a></li>
                             </ul>
                         </div>
                     </div>
@@ -37,20 +41,15 @@
                             <h3>Top News</h3>
                         </div>
                         <div class="post-inner">
+                            @foreach($blog as $item)
                             <div class="post">
-                                <figure class="post-thumb"><a href="blog-details.html"><img
-                                            src="{{ asset('frontend') }}/assets/images/resource/footer-post-1.jpg"
+                                <figure class="post-thumb"><a href="{{ url('blog/details/'.$item->post_slug) }}"><img
+                                            src="{{ !empty($item->post_image) ? asset($item->post_image) : url('upload/no_image.jpg') }}"
                                             alt=""></a></figure>
-                                <h5><a href="blog-details.html">The Added Value Social Worker</a></h5>
-                                <p>Mar 25, 2020</p>
+                                <p class="two-line-text"><a href="url('blog/details/'.$item->post_slug)">{{ $item->post_title }}</a></p>
+                                <p>{{ $item->created_at->format('M d Y') }}</p>
                             </div>
-                            <div class="post">
-                                <figure class="post-thumb"><a href="blog-details.html"><img
-                                            src="{{ asset('frontend') }}/assets/images/resource/footer-post-2.jpg"
-                                            alt=""></a></figure>
-                                <h5><a href="blog-details.html">Ways to Increase Trust</a></h5>
-                                <p>Mar 24, 2020</p>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -61,10 +60,11 @@
                         </div>
                         <div class="widget-content">
                             <ul class="info-list clearfix">
-                                <li><i class="fas fa-map-marker-alt"></i>Banasree, Dhaka, Bangladesh</li>
-                                <li><i class="fas fa-microphone"></i><a href="tel:+8801521406205">+880 1521 406 205</a></li>
+                                <li><i class="fas fa-map-marker-alt"></i>{{ $setting->company_address }}</li>
+                                <li><i class="fas fa-microphone"></i><a href="tel:{{ $setting->support_phone }}">{{ $setting->support_phone }}</a>
+                                </li>
                                 <li><i class="fas fa-envelope"></i><a
-                                        href="mailto:contact@empobd.com">contact@empobd.com</a></li>
+                                        href="mailto:{{ $setting->email }}">{{ $setting->email }}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -76,14 +76,14 @@
         <div class="auto-container">
             <div class="inner-box clearfix">
                 <figure class="footer-logo"><a href="{{ url('/') }}"><img
-                            src="{{ asset('frontend') }}/assets/images/footer-logo.png" alt=""></a>
+                            src="{{ asset('frontend') }}/assets/images/footer-logo-empotech.png" alt=""></a>
                 </figure>
                 <div class="copyright pull-left">
-                    <p><a href="{{ url('https://tech.empobd.com/') }}">Realshed</a> &copy; 2021 All Right Reserved</p>
+                    <p><a href="{{ url('https://tech.empobd.com/') }}">{{ $setting->copyright }}</a> &copy; 2021 All Right Reserved</p>
                 </div>
                 <ul class="footer-nav pull-right clearfix">
-                    <li><a href="index.html">Terms of Service</a></li>
-                    <li><a href="index.html">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
                 </ul>
             </div>
         </div>

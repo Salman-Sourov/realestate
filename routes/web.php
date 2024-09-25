@@ -88,8 +88,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     });
 
     //Show User schedule request
-    Route::get('/user/schedule/request', [UserController::class,'UserScheduleRequest'])->name('user.schedule.request');
-
+    Route::get('/user/schedule/request', [UserController::class, 'UserScheduleRequest'])->name('user.schedule.request');
 });
 
 
@@ -302,7 +301,7 @@ Route::get('/blog', [BlogController::class, 'BlogList'])->name('blog.list');
 //Blog Comment
 Route::post('/store/comment', [BlogController::class, 'StoreComment'])->name('store.comment');
 
-//Blog Reply Route,SMTP Setting  All Route
+//Blog Reply Route,SMTP Setting,Site Setting  All Route
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
     // Display All Comment on Admdin Dashboard
@@ -315,12 +314,18 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/delete/comment/{id}', [BlogController::class, 'DeleteComment'])->name('admin.delete.comment');
 
 
-    // SMTP Setting  All Route
+    // SMTP Setting All Route
     Route::controller(SettingController::class)->group(function () {
 
         Route::get('/smtp/setting', 'SmtpSetting')->name('smtp.setting');
         Route::post('/update/smpt/setting', 'UpdateSmtpSetting')->name('update.smpt.setting');
     });
+
+    // Site Setting All Route
+    Route::controller(SettingController::class)->group(function () {
+
+        Route::get('/site/setting', 'SiteSetting')->name('site.setting');
+        Route::post('/update/site/setting', 'UpdateSiteSetting')->name('update.site.setting');     });
 });
 
 //Schedule a tour

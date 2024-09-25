@@ -1,27 +1,28 @@
+@php
+    $setting = App\Models\SiteSetting::first(); // Retrieves the first record
+@endphp
+
 <header class="main-header">
     <!-- header-top -->
     <div class="header-top">
         <div class="top-inner clearfix">
             <div class="left-column pull-left">
                 <ul class="info clearfix">
-                    <li><i class="far fa-map-marker-alt"></i>Banasree, Dhaka, Bangladesh</li>
+                    <li><i class="far fa-map-marker-alt"></i>{{ $setting->company_address }}</li>
                     <li><i class="far fa-clock"></i>Sun - Thu 10.00 - 7.00</li>
-                    <li><i class="far fa-phone"></i><a href="tel:+8801521406205">+880 1521 406 205</a></li>
+                    <li><i class="far fa-phone"></i><a href="tel:{{ $setting->support_phone }}">{{ $setting->support_phone }}</a></li>
                 </ul>
             </div>
             <div class="right-column pull-right">
                 <ul class="social-links clearfix">
-                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
-                    <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
-                    <li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
+                    <li><a href="{{ $setting->facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="{{ $setting->twitter }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
                 </ul>
 
                 {{-- Laravel default login logout method --}}
                 @auth
                     <div class="sign-box ">
-                        <a href="{{ route('dashboard') }}"><i class="fas fa-user"></i>Dashboard</a>
+                        <a href="{{ route('dashboard') }}" target="_blank"><i class="fas fa-user"></i>Dashboard</a>
                         <a href="{{ route('user.logout') }}"><i class="fas fa-user"></i>Logout</a>
                     </div>
                 @else
@@ -29,8 +30,6 @@
                         <a href="{{ route('login') }}"><i class="fas fa-user"></i>Sign In</a>
                     </div>
                 @endauth
-
-
 
             </div>
         </div>
@@ -42,7 +41,7 @@
             <div class="main-box">
                 <div class="logo-box">
                     <figure class="logo"><a href="{{ url('/') }}"><img
-                                src="{{ asset('frontend') }}/assets/images/logo.png" alt=""></a>
+                                src="{{ asset($setting->logo) }}" alt=""></a>
                     </figure>
                 </div>
                 <div class="menu-area clearfix">
