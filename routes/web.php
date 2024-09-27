@@ -15,6 +15,7 @@ use App\Http\Controllers\Frontend\CompareController;
 use App\Http\Controllers\Backend\StateController;
 use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\BlogController;
+use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Models\SmtpSetting;
 
@@ -52,6 +53,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin/profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
     Route::get('/admin/change/passowrd', [AdminController::class, 'AdminChangePassword'])->name('admin.change.password');
     Route::post('/admin/update/password', [AdminController::class, 'AdminUpdatePassword'])->name('admin.update.password');
+
+    //Role & Permission All route
+    Route::controller(RoleController::class)->group(function () {
+        Route::get('/all/permission', 'AllPermission')->name('all.permission');
+        Route::get('/add/permission', 'AddPermission')->name('add.permission');
+        Route::post('/store/permission', 'StorePermission')->name('store.permission');
+        Route::get('/edit/permission/{id}', 'EditPermission')->name('edit.permission');
+        Route::post('/update/permission', 'UpdatePermission')->name('update.permission');
+        Route::get('/delete/permission/{id}', 'DeletePermission')->name('delete.permission');
+    });
 }); //End Group Admin Middleware
 
 
@@ -325,7 +336,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::controller(SettingController::class)->group(function () {
 
         Route::get('/site/setting', 'SiteSetting')->name('site.setting');
-        Route::post('/update/site/setting', 'UpdateSiteSetting')->name('update.site.setting');     });
+        Route::post('/update/site/setting', 'UpdateSiteSetting')->name('update.site.setting');
+    });
 });
 
 //Schedule a tour
