@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PermissionExport;
+use App\Imports\PermissionImport;
 
 class RoleController extends Controller
 {
@@ -59,7 +62,6 @@ class RoleController extends Controller
         return redirect()->route('all.permission')->with($notification);
     }
 
-
     public function DeletePermission($id)
     {
 
@@ -71,5 +73,52 @@ class RoleController extends Controller
         );
 
         return redirect()->back()->with($notification);
+    }
+
+
+    //Import-Export Excel File
+    public function ImportPermission()
+    {
+        return view('backend.pages.permission.import_permission');
+    }
+
+    public function Export()
+    {
+        return Excel::download(new PermissionExport, 'permission.xlsx');
+    }
+
+    public function Import(Request $request)
+    {
+        // Check if the file is uploaded and is an Excel file
+        if ($request->hasFile('import_file') && $request->file('import_file')->isValid()) {
+
+            // Validate that the file is an Excel file (.xlsx or .xls)
+            $this->validate($request, [
+                'import_file' => 'mimes:xlsx,xls|required'
+            ]);
+
+            // Try to import the file
+            try {
+                Excel::import(new PermissionImport, $request->file('import_file'));
+
+                // Success notification
+                return redirect()->route('all.permission')->with([
+                    'message' => 'Permission Imported Successfully',
+                    'alert-type' => 'success'
+                ]);
+            } catch (\Exception $e) {
+                // If an error occurs, show a failure message
+                return back()->with([
+                    'message' => 'Error importing file. Please try again.',
+                    'alert-type' => 'error'
+                ]);
+            }
+        } else {
+            // If no file is uploaded or the file is not valid, show an error
+            return back()->with([
+                'message' => 'Please upload a valid Excel file.',
+                'alert-type' => 'error'
+            ]);
+        }
     }
 }

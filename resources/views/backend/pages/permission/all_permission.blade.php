@@ -5,6 +5,10 @@
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
                 <a href="{{ route('add.permission') }}" class="btn btn-inverse-info"> Add Permission </a>
+                &nbsp; &nbsp;
+                <a href="{{ route('import.permission') }}" class="btn btn-inverse-warning"> Import File </a>
+                &nbsp; &nbsp;
+                <a href="{{ route('export') }}" class="btn btn-inverse-danger"> Export File </a>
             </ol>
         </nav>
 
@@ -13,7 +17,6 @@
                 <div class="card">
                     <div class="card-body">
                         <h6 class="card-title">Permission All </h6>
-
                         <div class="table-responsive">
                             <table id="dataTableExample" class="table">
                                 <thead>

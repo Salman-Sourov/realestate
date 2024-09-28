@@ -60,12 +60,8 @@
                                         <option value="role" {{ $permission->group_name == 'role' ? 'selected' : '' }}>
                                             Role & Permission </option>
                                     </select>
-
                                 </div>
-
-
                                 <button type="submit" class="btn btn-primary me-2">Save Changes </button>
-
                             </form>
                         </div>
                     </div>
@@ -73,6 +69,5 @@
             </div>
             <!-- middle wrapper end -->
         </div>
-
     </div>
 @endsection

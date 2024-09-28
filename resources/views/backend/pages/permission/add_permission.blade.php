@@ -50,5 +50,4 @@
             <!-- middle wrapper end -->
         </div>
     </div>
-
 @endsection
