@@ -5,7 +5,7 @@
     <div class="page-content">
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
-                <button type="button" class="btn btn-inverse-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-inverse-info" data-bs-toggle="modal" data-bs-target="#addModal">
                     Add Category
                 </button>
             </ol>
@@ -15,7 +15,7 @@
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title">Blog Category All </h6>
+                        <h6 class="card-title">Blog Category All</h6>
 
                         <div class="table-responsive">
                             <table id="dataTableExample" class="table">
@@ -35,7 +35,7 @@
                                             <td>{{ $item->category_slug }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-inverse-warning"
-                                                    data-bs-toggle="modal" data-bs-target="#catedit"
+                                                    data-bs-toggle="modal" data-bs-target="#editModal"
                                                     id="{{ $item->id }}" onclick="categoryEdit(this.id)">
                                                     Edit
                                                 </button>
@@ -53,112 +53,69 @@
         </div>
     </div>
 
-
     <!-- Add Category Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+                    <h5 class="modal-title" id="addModalLabel">Add Category</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
                 </div>
                 <div class="modal-body">
-
-                    <form method="POST" action="{{ route('store.blog.category') }}" class="forms-sample"
-                        onsubmit="return validateForm()">
+                    <form method="POST" action="{{ route('store.blog.category') }}" class="forms-sample">
                         @csrf
-
                         <div class="form-group mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Blog Category Name</label>
-                            <input type="text" name="category_name" class="form-control"
-                                @error('category_name') is-invalid @enderror " id="category_name" autocomplete="off">
-                                                    @error('category_name')
-        <span class="text-danger">{{ $message }}</span>
-    @enderror
-                                                </div>
-
-                                                <button type="submit" class="btn btn-primary">Add Category</button>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
-                                        </div>
-                                        <div class="modal-body">
-
-                                            <form method="POST" action="{{ route('store.blog.category') }}" class="forms-sample"
-                                                onsubmit="return validateForm()">
-                                                @csrf
-
-                                                <div class="form-group mb-3">
-                                                    <label for="exampleInputEmail1" class="form-label">Blog Category Name</label>
-                                                    <input type="text" name="category_name" class="form-control"
-                                                        @error('category_name') is-invalid @enderror " id="category_name"
-                                autocomplete="off">
+                            <label for="category_name" class="form-label">Blog Category Name</label>
+                            <input type="text" name="category_name" class="form-control" id="category_name">
+                            @error('category_name')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
-
                         <button type="submit" class="btn btn-primary">Add Category</button>
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Edit Category Modal -->
-    <div class="modal fade" id="catedit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                    <h5 class="modal-title" id="editModalLabel">Edit Category</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
                 </div>
                 <div class="modal-body">
-
                     <form method="POST" action="{{ route('update.blog.category') }}" class="forms-sample">
                         @csrf
-
                         <input type="hidden" name="cat_id" id="cat_id">
-
                         <div class="form-group mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Blog Category Name </label>
+                            <label for="cat" class="form-label">Blog Category Name</label>
                             <input type="text" name="category_name" class="form-control" id="cat">
-
                         </div>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
-                </form>
-
             </div>
         </div>
     </div>
 
-
     <script type="text/javascript">
-        function categoryEdit(id){
+        function categoryEdit(id) {
             $.ajax({
                 type: 'GET',
-                url: '/blog/category/'+id,
+                url: '/admin/blog/category/' + id, // Use the admin route for editing
                 dataType: 'json',
-
-                success:function(data){
-                    // console.log(data)
-                    $('#cat').val(data.category_name);
-                    $('#cat_id').val(data.id)
+                success: function(data) {
+                    console.log(data);
+                    $('#cat').val(data.category_name); // Populate the form with category name
+                    $('#cat_id').val(data.id); // Populate the hidden field with category ID
+                },
+                error: function(err) {
+                    console.log(err);
                 }
-            })
+            });
         }
     </script>
-
 @endsection

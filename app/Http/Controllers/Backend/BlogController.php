@@ -29,25 +29,40 @@ class BlogController extends Controller
             'category_name' => 'required|string|max:255',
         ]);
 
-        BlogCategory::insert([
+        // Check if the category already exists
+        $existingCategory = BlogCategory::where('category_name', $request->category_name)->first();
 
+        if ($existingCategory) {
+            // Prepare the error notification
+            $notification = array(
+                'message' => 'Blog Category already exists',
+                'alert-type' => 'error'
+            );
+
+            // Return back with the error notification
+            return redirect()->back()->with($notification);
+        }
+
+        // Insert new category
+        BlogCategory::insert([
             'category_name' => $request->category_name,
             'category_slug' => strtolower(str_ireplace(' ', '-', $request->category_name)),
         ]);
 
+        // Prepare success notification
         $notification = array(
-            'message' => 'Blog Category Create Successfully',
+            'message' => 'Blog Category Created Successfully',
             'alert-type' => 'success'
         );
 
-        return back()->with($notification);
+        // Return back with the success notification
+        return redirect()->back()->with($notification);
     }
-
 
     public function EditBlogCategory($id)
     {
-        $categories = BlogCategory::findOrFail($id);
-        return response()->json($categories);
+        $category = BlogCategory::findOrFail($id);
+        return response()->json($category);
     }
 
     public function UpdateBlogCategory(Request $request)
@@ -345,7 +360,8 @@ class BlogController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    Public function DeleteComment($id){
+    public function DeleteComment($id)
+    {
 
         $comment = Comment::find($id);
         $comment->delete();

@@ -18,9 +18,10 @@
                                         <p class="text-muted">support@empobd.com</p>
                                     </div>
                                 </div>
-                                <div class="d-grid my-3">
+                                <br>
+                                {{-- <div class="d-grid my-3">
                                     <a class="btn btn-primary" href="./compose.html">Compose Email</a>
-                                </div>
+                                </div> --}}
                                 <div class="email-aside-nav collapse">
                                     <ul class="nav flex-column">
                                         <li class="nav-item active">

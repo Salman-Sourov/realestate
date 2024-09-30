@@ -18,9 +18,10 @@
                                         <p class="text-muted">support@empobd.com</p>
                                     </div>
                                 </div>
-                                <div class="d-grid my-3">
+                                <br>
+                                {{-- <div class="d-grid my-3">
                                     <a class="btn btn-primary" href="./compose.html">Compose Email</a>
-                                </div>
+                                </div> --}}
                                 <div class="email-aside-nav collapse">
                                     <ul class="nav flex-column">
                                         <li class="nav-item active">
@@ -60,52 +61,54 @@
                                             <tbody>
                                                 <tr>
                                                     <th>Customer Name : </th>
-                                                    <td>{{ $msgdetails['user']['name'] }}</td>
+                                                    <td>{{ isset($msgdetails['user']['name']) ? $msgdetails['user']['name'] : 'N/A' }}
+                                                    </td>
                                                 </tr>
-
                                                 <tr>
                                                     <th>Customer Email : </th>
-                                                    <td>{{ $msgdetails['user']['email'] }}</td>
+                                                    <td>{{ isset($msgdetails['user']['email']) ? $msgdetails['user']['email'] : 'N/A' }}
+                                                    </td>
                                                 </tr>
-
                                                 <tr>
                                                     <th>Customer Phone : </th>
-                                                    <td>{{ $msgdetails['user']['phone'] }}</td>
+                                                    <td>{{ isset($msgdetails['user']['phone']) ? $msgdetails['user']['phone'] : 'N/A' }}
+                                                    </td>
                                                 </tr>
-
                                                 <tr>
                                                     <th>Agent ID : </th>
-                                                    <td>{{ $msgdetails['property']['agent_id'] }}</td>
+                                                    <td>{{ isset($msgdetails['property']['agent_id']) ? $msgdetails['property']['agent_id'] : 'N/A' }}
+                                                    </td>
                                                 </tr>
-
                                                 <tr>
                                                     <th>Agent Name : </th>
-                                                    <td>{{ $msgdetails['agent']['name'] }}</td>
+                                                    <td>{{ isset($msgdetails['agent']['name']) ? $msgdetails['agent']['name'] : 'N/A' }}
+                                                    </td>
                                                 </tr>
-
                                                 <tr>
                                                     <th>Property Name : </th>
-                                                    <td>{{ $msgdetails['property']['property_name'] }}</td>
+                                                    <td>{{ isset($msgdetails['property']['property_name']) ? $msgdetails['property']['property_name'] : 'N/A' }}
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <th>Property Code : </th>
-                                                    <td>{{ $msgdetails['property']['property_code'] }}</td>
+                                                    <td>{{ isset($msgdetails['property']['property_code']) ? $msgdetails['property']['property_code'] : 'N/A' }}
+                                                    </td>
                                                 </tr>
-
                                                 <tr>
                                                     <th>Property Status : </th>
-                                                    <td>{{ $msgdetails['property']['property_status'] }}</td>
+                                                    <td>{{ isset($msgdetails['property']['property_status']) ? $msgdetails['property']['property_status'] : 'N/A' }}
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <th>Message : </th>
-                                                    <td>{{ $msgdetails->message }}</td>
+                                                    <td>{{ isset($msgdetails->message) ? $msgdetails->message : 'N/A' }}
+                                                    </td>
                                                 </tr>
-
                                                 <tr>
                                                     <th>Sending Time : </th>
-                                                    <td>{{ $msgdetails->created_at->format('l M d') }}</td>
+                                                    <td>{{ isset($msgdetails->created_at) ? $msgdetails->created_at->format('l M d') : 'N/A' }}
+                                                    </td>
                                                 </tr>
-
 
                                             </tbody>
                                         </table>
