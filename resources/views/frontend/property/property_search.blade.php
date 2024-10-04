@@ -40,6 +40,7 @@
 <section class="property-page-section property-list">
     <div class="auto-container">
         <div class="row clearfix">
+            
             <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
                 <div class="default-sidebar property-sidebar">
                     <div class="filter-widget sidebar-widget">
@@ -104,8 +105,9 @@
                                 </div>
                             </div>
                         </form>
-
                     </div>
+
+
                     <div class="price-filter sidebar-widget">
                         <div class="widget-title">
                             <h5>Select Price Range</h5>
@@ -133,6 +135,7 @@
 
                 </div>
             </div>
+
             <div class="col-lg-8 col-md-12 col-sm-12 content-side">
                 <div class="property-content-side">
                     <div class="item-shorting clearfix">

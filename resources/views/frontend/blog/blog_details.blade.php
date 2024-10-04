@@ -149,6 +149,7 @@
                     </div>
                 </div>
             </div>
+
             {{-- Right Side --}}
             <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
                 <div class="blog-sidebar">
@@ -218,6 +219,8 @@
                     </div>
                 </div>
             </div>
+
+            
         </div>
         </div>
     </section>

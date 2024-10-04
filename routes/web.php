@@ -66,7 +66,19 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         //Import-Export Excel File
         Route::get('/import/permission', 'ImportPermission')->name('import.permission');
         Route::get('/export', 'Export')->name('export');
-        Route::post('/import', 'import')->name('import');
+        Route::post('/import', 'Import')->name('import');
+    });
+
+    //ALl Role
+    Route::controller(RoleController::class)->group(function () {
+        Route::get('/all/role', 'AllRole')->name('all.role');
+        Route::post('/store/role', 'StoreRole')->name('store.role');
+        Route::get('/edit/role/{id}', 'EditRole')->name('edit.role');
+        Route::post('/update/role', 'UpdateRole')->name('update.role');
+        Route::get('/delete/role/{id}', 'DeleteRole')->name('delete.role');
+
+        Route::get('/add/roles/permission', 'AddRolesPermission')->name('add.roles.permission');
+
     });
 }); //End Group Admin Middleware
 

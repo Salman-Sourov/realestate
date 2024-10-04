@@ -9,9 +9,12 @@ use Spatie\Permission\Models\Permission;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PermissionExport;
 use App\Imports\PermissionImport;
+use App\Models\User;
+use Log;
 
 class RoleController extends Controller
 {
+    // All Permission Controller
     public function AllPermission()
     {
         $permissions = Permission::all();
@@ -76,7 +79,7 @@ class RoleController extends Controller
     }
 
 
-    //Import-Export Excel File
+    // Import-Export Excel File
     public function ImportPermission()
     {
         return view('backend.pages.permission.import_permission');
@@ -91,7 +94,6 @@ class RoleController extends Controller
     {
         // Check if the file is uploaded and is an Excel file
         if ($request->hasFile('import_file') && $request->file('import_file')->isValid()) {
-
             // Validate that the file is an Excel file (.xlsx or .xls)
             $this->validate($request, [
                 'import_file' => 'mimes:xlsx,xls|required'
@@ -107,9 +109,14 @@ class RoleController extends Controller
                     'alert-type' => 'success'
                 ]);
             } catch (\Exception $e) {
+                // Log the error for debugging
+                \Log::error('Import error: ' . $e->getMessage());
+                \Log::error('File size: ' . $request->file('import_file')->getSize());
+                \Log::error('Memory usage: ' . memory_get_usage());
+
                 // If an error occurs, show a failure message
                 return back()->with([
-                    'message' => 'Error importing file. Please try again.',
+                    'message' => 'Error importing file: ' . $e->getMessage(),
                     'alert-type' => 'error'
                 ]);
             }
@@ -120,5 +127,92 @@ class RoleController extends Controller
                 'alert-type' => 'error'
             ]);
         }
+    }
+
+
+    // All Role Controller
+    public function AllRole()
+    {
+        $roles = Role::all();
+        return view('backend.pages.roles.all_roles', compact('roles'));
+    }
+
+    public function StoreRole(Request $request)
+    {
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        // Check if the category already exists
+        $ExistingRoles = Role::where('name', $request->name)->first();
+
+        if ($ExistingRoles) {
+
+            $notification = array(
+                'message' => 'Role already exists',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
+        Role::create([
+            'name' => $request->name,
+        ]);
+
+        $notification = array(
+            'message' => 'Role added successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function EditRole($id)
+    {
+
+        $role = Role::findOrFail($id);
+        return response()->json($role);
+    }
+
+    public function  UpdateRole(Request $request)
+    {
+
+        $role = $request->role_id;
+        Role::findOrFail($role)->update([
+            'id' =>  $request->role_id,
+            'name' => $request->name,
+        ]);
+
+        $notification = array(
+            'message' => 'Role updated successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function  DeleteRole($id)
+    {
+        Role::findOrFail($id)->delete();
+        $notification = array(
+            'message' => 'Role deleted successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+
+
+    // Add Role Permission all Method
+    public function AddRolesPermission()
+    {
+        $roles = Role::all();
+        $permissions = Permission::all();
+
+        // Create a new instance of the User model
+        $user = new User();
+        $permission_groups = $user->getpermissionGroups(); // Non-static call
+
+        return view('backend.pages.rolesetup.add_roles_permission', compact('roles', 'permissions', 'permission_groups'));
     }
 }
