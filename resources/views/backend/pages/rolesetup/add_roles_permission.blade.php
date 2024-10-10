@@ -11,12 +11,13 @@
                         <div class="card-body">
                             <h6 class="card-title">Add Roles in Permission</h6>
 
-                            <form id="myForm" method="POST" action="{{ route('store.permission') }}" class="forms-sample">
+                            <form id="myForm" method="POST" action="{{ route('role.permission.store') }}"
+                                class="forms-sample">
                                 @csrf
 
                                 <div class="form-group mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Role Name</label>
-                                    <select name="group_name" class="form-select" id="exampleFormControlSelect1">
+                                    <select name="role_id" class="form-select" id="exampleFormControlSelect1">
                                         <option selected="" disabled="">Select Role</option>
                                         @foreach ($roles as $role)
                                             <option value="{{ $role->id }}"">{{ $role->name }}</option>
@@ -36,7 +37,7 @@
                                 @foreach ($permission_groups as $group)
                                     <div class="row">
                                         <div class="col-3">
-                                            <div class="form-check mb-2">
+                                            <div class="text-capitalize form-check mb-2">
                                                 <input type="checkbox" class="form-check-input" id="checkDefault">
                                                 <label class="form-check-label" for="checkDefault">
                                                     {{ $group->group_name }}
@@ -45,18 +46,20 @@
                                         </div>
 
                                         @php
-                                            $userModel =  new App\Models\User();
+                                            $userModel = new App\Models\User();
                                             $permissions = $userModel->getPermissionByGroupName($group->group_name);
                                         @endphp
 
                                         <div class="col-9">
                                             @foreach ($permissions as $permission)
-                                            <div class="form-check mb-2">
-                                                <input type="checkbox" class="form-check-input" name="permission[]" id="checkDefault {{ $permission->id }}" value="{{ $permission->id }}" >
-                                                <label class="form-check-label" for="checkDefault{{ $permission->id }}">
-                                                    {{ $permission->name }}
-                                                </label>
-                                            </div>
+                                                <div class="text-capitalize form-check mb-2">
+                                                    <input type="checkbox" class="form-check-input" name="permission[]"
+                                                        id="checkDefault {{ $permission->id }}"
+                                                        value="{{ $permission->id }}">
+                                                    <label class="form-check-label" for="checkDefault{{ $permission->id }}">
+                                                        {{ $permission->name }}
+                                                    </label>
+                                                </div>
                                             @endforeach
                                             <br>
                                         </div>
@@ -74,6 +77,12 @@
     </div>
 
     <script type="text/javascript">
-
+        $('#checkDefaultmain').click(function() {
+            if ($(this).is(':checked')) {
+                $('input[ type=checkbox]').prop('checked', true);
+            } else {
+                $('input[type=checkbox]').prop('checked', false);
+            }
+        });
     </script>
 @endsection
