@@ -179,10 +179,11 @@ class RoleController extends Controller
     {
 
         $role = $request->role_id;
-        Role::findOrFail($role)->update([
-            'id' =>  $request->role_id,
-            'name' => $request->name,
-        ]);
+        $existRole =
+            Role::findOrFail($role)->update([
+                'id' =>  $request->role_id,
+                'name' => $request->name,
+            ]);
 
         $notification = array(
             'message' => 'Role updated successfully',
@@ -195,6 +196,7 @@ class RoleController extends Controller
     public function  DeleteRole($id)
     {
         Role::findOrFail($id)->delete();
+
         $notification = array(
             'message' => 'Role deleted successfully',
             'alert-type' => 'success'
@@ -239,8 +241,20 @@ class RoleController extends Controller
         return redirect()->route('all.roles.permission')->with($notification);
     }
 
-    public function AllRolesPermission(){
+    public function AllRolesPermission()
+    {
         $roles = Role::all();
         return view('backend.pages.roles.all_roles_permission', compact('roles'));
+    }
+
+    public function AdminEditRoles($id)
+    {
+        $role = Role::findOrFail($id);
+        $permissions = Permission::all();
+        // Create a User instance
+        $user = new User();
+        // Call the method on the instance
+        $permission_groups = $user->getpermissionGroups();
+        return view('backend.pages.rolesetup.edit_roles_permission', compact('role', 'permissions', 'permission_groups'));
     }
 }

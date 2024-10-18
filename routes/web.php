@@ -80,6 +80,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/add/roles/permission', 'AddRolesPermission')->name('add.roles.permission');
         Route::post('/role/permission/store', 'RolePermissionStore')->name('role.permission.store');
         Route::get('/all/roles/permission', 'AllRolesPermission')->name('all.roles.permission');
+        Route::get('/admin/edit/roles/{id}', 'AdminEditRoles')->name('admin.edit.roles');
+
     });
 }); //End Group Admin Middleware
 
@@ -360,3 +362,5 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 //Schedule a tour
 Route::post('/store/schedule', [IndexController::class, 'StoreSchedule'])->name('store.schedule');
+
+
