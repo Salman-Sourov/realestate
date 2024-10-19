@@ -4,7 +4,7 @@
 
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
-                <a href="" class="btn btn-inverse-info"> Add Roles </a>
+                <a href="{{ route('all.role') }}" class="btn btn-inverse-info"> Add Roles </a>
             </ol>
         </nav>
 
@@ -40,7 +40,7 @@
                                             <td>
                                                 <a href="{{ route('admin.edit.roles', $item->id) }}"
                                                     class="btn btn-inverse-warning"> Edit </a>
-                                                <a href="{{ route('delete.role', $item->id) }}"
+                                                <a href="{{ route('admin.delete.roles', $item->id) }}"
                                                     class="btn btn-inverse-danger" id="delete"> Delete </a>
                                             </td>
                                         </tr>

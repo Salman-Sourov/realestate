@@ -257,4 +257,39 @@ class RoleController extends Controller
         $permission_groups = $user->getpermissionGroups();
         return view('backend.pages.rolesetup.edit_roles_permission', compact('role', 'permissions', 'permission_groups'));
     }
+
+    public function AdminRolesUpdate(Request $request, $id)
+    {
+        $role = Role::findOrFail($id);
+        $permissions = $request->permission ?? []; // Default to empty array if no permissions are selected
+
+        // Validate the permissions to ensure they exist for the 'web' guard
+        $validPermissions = Permission::whereIn('id', $permissions)->where('guard_name', 'web')->pluck('id')->toArray();
+
+        // Sync the valid permissions, whether it's empty or populated
+        $role->syncPermissions($validPermissions);
+
+        $notification = array(
+            'message' => 'Role Permissions Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('all.roles.permission')->with($notification);
+    }
+
+    public function AdminDeleteRoles($id){
+
+        $role = Role::findOrFail($id);
+        if (!is_null($role)) {
+            $role->delete();
+        }
+
+        $notification = array(
+            'message' => 'Role Permission Deleted Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+
+    }// End Method
 }
