@@ -11,6 +11,8 @@ use Intervention\Image\Drivers\Gd\Driver;
 use Carbon\Carbon;
 use function PHPUnit\Framework\fileExists;
 use Illuminate\Support\Facades\Log;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -284,5 +286,110 @@ class AdminController extends Controller
 
         return response()->json(['success' => 'Status Change Successfully']);
     } // End Method
+
+
+
+    /////////// Admin User All Method ////////////
+    public function AllAdmin()
+    {
+        $alladmin = User::where('role', 'admin')->get();
+        return view('backend.pages.admin.all_admin', compact('alladmin'));
+    } // End Method
+
+    public function AddAdmin()
+    {
+        $roles = Role::all();
+        return view('backend.pages.admin.add_admin', compact('roles'));
+    }
+
+    public function StoreAdmin(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|string|max:15',
+            'address' => 'required|string|max:255',
+            'password' => 'required|string|min:8',
+            'roles' => 'required|array',
+        ]);
+
+        $user = new User();  //new object for user table
+        $user->username = $request->username;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->password =  Hash::make($request->password);
+        $user->role = 'admin';
+        $user->status = 'active';
+        $user->save();
+
+        // if ($request->roles) {
+        //     $user->assignRole($request->roles);   //assignRole default spaite function, Assign roles to user
+        // }
+
+        if ($request->roles) {
+            // Fetch the role(s) by their IDs and assign them to the user
+            $roles = Role::whereIn('id', (array) $request->roles)->pluck('name');
+            $user->assignRole($roles); //assignRole default spaite function, Assign roles to user
+        }
+
+        $notification = array(
+            'message' => 'New Admin Inserted Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('all.admin')->with($notification);
+    }
+
+    public function EditAdmin($id)
+    {
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+        return view('backend.pages.admin.edit_admin', compact('user', 'roles'));
+    }
+
+    public function UpdateAdmin(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->username = $request->username;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->role = 'admin';
+        $user->status = 'active';
+        $user->save();
+
+        $user->roles()->detach(); //spaite default function , Detach all roles from user
+        if ($request->roles) {
+            $roles = Role::whereIn('id', (array) $request->roles)->pluck('name');
+            $user->assignRole($roles);
+        }
+
+        $notification = array(
+            'message' => 'New Admin Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('all.admin')->with($notification);
+    } // End Method
+
+    public function DeleteAdmin($id){
+
+        $user = User::findOrFail($id);
+        if (!is_null($user)) {
+            $user->delete();
+        }
+
+        $notification = array(
+                'message' => 'New Admin Deleted Successfully',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->back()->with($notification);
+
+      }// End Method
 
 }

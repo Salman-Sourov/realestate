@@ -84,6 +84,17 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/admin/roles/update/{id}', 'AdminRolesUpdate')->name('admin.roles.update');
         Route::get('/admin/delete/roles/{id}', 'AdminDeleteRoles')->name('admin.delete.roles');
     });
+
+
+    // Admin User All Route
+    Route::controller(AdminController::class)->group(function () {
+        Route::get('/all/admin', 'AllAdmin')->name('all.admin');
+        Route::get('/add/admin', 'AddAdmin')->name('add.admin');
+        Route::post('/store/admin', 'StoreAdmin')->name('store.admin');
+        Route::get('/edit/admin/{id}', 'EditAdmin')->name('edit.admin');
+        Route::post('/update/admin/{id}', 'UpdateAdmin')->name('update.admin');
+        Route::get('/delete/admin/{id}', 'DeleteAdmin')->name('delete.admin');
+    });
 }); //End Group Admin Middleware
 
 
@@ -363,5 +374,3 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 //Schedule a tour
 Route::post('/store/schedule', [IndexController::class, 'StoreSchedule'])->name('store.schedule');
-
-
