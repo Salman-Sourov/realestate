@@ -29,11 +29,11 @@ Route::get('/', [UserController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'role:user', 'verified'])->name('dashboard');
+})->middleware(['auth', 'roles:user', 'verified'])->name('dashboard');
 
 
 //User Management Group Middleware
-Route::middleware(['auth', 'role:user'])->group(function () {
+Route::middleware(['auth', 'roles:user'])->group(function () {
 
     Route::get('/user/profile', [UserController::class, 'UserProfile'])->name('user.profile');
     Route::post('/user/profile/store', [UserController::class, 'UserProfileStore'])->name('user.profile.store');
@@ -45,7 +45,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 require __DIR__ . '/auth.php';
 
 //Admin Management Group Middleware
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'roles:admin'])->group(function () {
 
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
     Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
@@ -99,7 +99,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
 //Agent Management Group Middleware
-Route::middleware(['auth', 'role:agent'])->group(function () {
+Route::middleware(['auth', 'roles:agent'])->group(function () {
     Route::get('/agent/dashboard', [AgentController::class, 'AgentDashboard'])->name('agent.dashboard');
     Route::get('/agent/logout', [AgentController::class, 'AgentLogout'])->name('agent.logout');
     Route::get('/agent/profile', [AgentController::class, 'AgentProfile'])->name('agent.profile');
@@ -112,7 +112,7 @@ Route::middleware(['auth', 'role:agent'])->group(function () {
 
 
 //User Group Middleware
-Route::middleware(['auth', 'role:user'])->group(function () {
+Route::middleware(['auth', 'roles:user'])->group(function () {
 
     // User WishlistAll Route
     Route::controller(WishlistController::class)->group(function () {
@@ -136,12 +136,12 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
 
 //Admin Group Middleware
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'roles:admin'])->group(function () {
 
     //Property type All route
     Route::controller(PropertyTypeController::class)->group(function () {
-        Route::get('/all/type', 'AllType')->name('all.type');
-        Route::get('/add/type', 'AddType')->name('add.type');
+        Route::get('/all/type', 'AllType')->name('all.type')->middleware('permission:all.type');
+        Route::get('/add/type', 'AddType')->name('add.type')->middleware('permission:add.type');
         Route::post('/store/type', 'StoreType')->name('store.type');
         Route::get('/edit/type/{id}', 'EditType')->name('edit.type');
         Route::post('/update/type/', 'UpdateType')->name('update.type');
@@ -228,7 +228,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 }); // End Group Admin Middleware
 
 // Blog Category Routes for Admin
-Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'roles:admin'])->group(function () {
     Route::get('/all/blog/category', [BlogController::class, 'AllBlogCategory'])->name('all.blog.category');
     Route::post('/store/blog/category', [BlogController::class, 'StoreBlogCategory'])->name('store.blog.category');
     Route::get('/blog/category/{id}', [BlogController::class, 'EditBlogCategory'])->name('edit.blog.category');
@@ -239,7 +239,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 
 
 //Agent Group Middleware
-Route::middleware(['auth', 'role:agent'])->group(function () {
+Route::middleware(['auth', 'roles:agent'])->group(function () {
 
     // Agent All Property
     Route::controller(AgentPropertyController::class)->group(function () {
@@ -345,7 +345,7 @@ Route::get('/blog', [BlogController::class, 'BlogList'])->name('blog.list');
 Route::post('/store/comment', [BlogController::class, 'StoreComment'])->name('store.comment');
 
 //Blog Reply Route,SMTP Setting,Site Setting  All Route
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'roles:admin'])->group(function () {
 
     // Display All Comment on Admdin Dashboard
     Route::get('/admin/blog/comment', [BlogController::class, 'AdminBlogComment'])->name('admin.blog.comment');

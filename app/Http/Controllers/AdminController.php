@@ -384,7 +384,7 @@ class AdminController extends Controller
         }
 
         $notification = array(
-                'message' => 'New Admin Deleted Successfully',
+                'message' => 'Admin Deleted Successfully',
                 'alert-type' => 'success'
             );
 

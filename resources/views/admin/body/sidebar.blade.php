@@ -16,6 +16,7 @@
             </li>
             <li class="nav-item nav-category">RealEstate</li>
 
+            @if(Auth::user()->can('type.menu'))
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false"
                     aria-controls="emails">
@@ -25,15 +26,22 @@
                 </a>
                 <div class="collapse" id="emails">
                     <ul class="nav sub-menu">
+
+                        @if(Auth::user()->can('all.type'))
                         <li class="nav-item">
                             <a href="{{ route('all.type') }}" class="nav-link">All Type</a>
                         </li>
+                        @endif
+
+                        @if(Auth::user()->can('add.type'))
                         <li class="nav-item">
                             <a href="{{ route('add.type') }}" class="nav-link">Add Type</a>
                         </li>
+                        @endif
                     </ul>
                 </div>
             </li>
+            @endif
 
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#state" role="button" aria-expanded="false"
