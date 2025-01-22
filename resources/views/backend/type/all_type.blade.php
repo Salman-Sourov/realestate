@@ -4,8 +4,8 @@
 
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
-                @if(Auth::user()->can('add.type'))
-                <a href="{{route('add.type')}}" class="btn btn-inverse-info"> Add Property Type </a>
+                @if (Auth::user()->can('add.type'))
+                    <a href="{{ route('add.type') }}" class="btn btn-inverse-info"> Add Property Type </a>
                 @endif
             </ol>
         </nav>
@@ -23,7 +23,8 @@
                                         <th>Sl </th>
                                         <th>Type Name </th>
                                         <th>Type Icon </th>
-                                        @if(Auth::user()->can('edit.type') || Auth::user()->can('delete.type'))                                        <th>Action </th>
+                                        @if (Auth::user()->can('edit.type') || Auth::user()->can('delete.type'))
+                                            <th>Action</th>
                                         @endif
                                     </tr>
                                 </thead>
@@ -34,12 +35,14 @@
                                             <td>{{ $item->type_name }}</td>
                                             <td>{{ $item->type_icon }}</td>
                                             <td>
-                                                @if(Auth::user()->can('edit.type'))
-                                                <a href="{{route('edit.type',$item->id)}}" class="btn btn-inverse-warning"> Edit </a>
+                                                @if (Auth::user()->can('edit.type'))
+                                                    <a href="{{ route('edit.type', $item->id) }}"
+                                                        class="btn btn-inverse-warning"> Edit </a>
                                                 @endif
 
-                                                @if(Auth::user()->can('delete.type'))
-                                                <a href="{{route('delete.type',$item->id)}}" class="btn btn-inverse-danger" id="delete"> Delete </a>
+                                                @if (Auth::user()->can('delete.type'))
+                                                    <a href="{{ route('delete.type', $item->id) }}"
+                                                        class="btn btn-inverse-danger" id="delete"> Delete </a>
                                                 @endif
                                             </td>
                                         </tr>

@@ -34,7 +34,7 @@
                                         <th>City</th>
                                         <th>State</th>
                                         <th>Status</th>
-                                        <th>Update Details</th>
+                                        {{-- <th>Update Details</th> --}}
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -61,13 +61,13 @@
                                                     <span class="badge rounded-pill bg-danger">InActive</span>
                                                 @endif
                                             </td>
-                                            <td>
+                                            {{-- <td>
                                                 @if ($item->updated_at != null)
                                                     {{ $item->updated_at }} ({{ $profileData->name }})
                                                 @else
                                                     Not Updated Yet
                                                 @endif
-                                            </td>
+                                            </td> --}}
                                             {{-- <td>{{ $item->updated_at }} (BY {{ $profileData->name }}) </td> --}}
                                             <td>
                                                 <a href="{{ route('details.property', $item->id) }}"

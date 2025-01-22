@@ -10,7 +10,8 @@
                 <ul class="info clearfix">
                     <li><i class="far fa-map-marker-alt"></i>{{ $setting->company_address }}</li>
                     <li><i class="far fa-clock"></i>Sun - Thu 10.00 - 7.00</li>
-                    <li><i class="far fa-phone"></i><a href="tel:{{ $setting->support_phone }}">{{ $setting->support_phone }}</a></li>
+                    <li><i class="far fa-phone"></i><a
+                            href="tel:{{ $setting->support_phone }}">{{ $setting->support_phone }}</a></li>
                 </ul>
             </div>
             <div class="right-column pull-right">
@@ -22,7 +23,11 @@
                 {{-- Laravel default login logout method --}}
                 @auth
                     <div class="sign-box ">
+                        @if (auth()->user() && auth()->user()->hasRole('user'))
                         <a href="{{ route('dashboard') }}" target="_blank"><i class="fas fa-user"></i>Dashboard</a>
+                        @else
+                        <a href="{{ route('admin.dashboard') }}" target="_blank"><i class="fas fa-user"></i>Dashboard</a>
+                        @endif
                         <a href="{{ route('user.logout') }}"><i class="fas fa-user"></i>Logout</a>
                     </div>
                 @else
@@ -40,8 +45,8 @@
         <div class="outer-box">
             <div class="main-box">
                 <div class="logo-box">
-                    <figure class="logo"><a href="{{ url('/') }}"><img
-                                src="{{ asset($setting->logo) }}" alt=""></a>
+                    <figure class="logo"><a href="{{ url('/') }}"><img src="{{ asset($setting->logo) }}"
+                                alt=""></a>
                     </figure>
                 </div>
                 <div class="menu-area clearfix">
@@ -86,8 +91,8 @@
         <div class="outer-box">
             <div class="main-box">
                 <div class="logo-box">
-                    <figure class="logo"><a href="{{ url('/') }}"><img
-                                src="{{ asset('frontend') }}/assets/images/logo.png" alt=""></a>
+                    <figure class="logo"><a href="{{ url('/') }}"><img src="{{ asset($setting->logo) }}"
+                                alt=""></a>
                     </figure>
                 </div>
                 <div class="menu-area clearfix">
