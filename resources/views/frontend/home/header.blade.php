@@ -25,10 +25,11 @@
                     <div class="sign-box ">
                         @if (auth()->user() && auth()->user()->hasRole('user'))
                         <a href="{{ route('dashboard') }}" target="_blank"><i class="fas fa-user"></i>Dashboard</a>
+                        <a href="{{ route('user.logout') }}"><i class="fas fa-user"></i>Logout</a>
                         @else
                         <a href="{{ route('admin.dashboard') }}" target="_blank"><i class="fas fa-user"></i>Dashboard</a>
+                        <a href="{{ route('admin.logout') }}"><i class="fas fa-user"></i>Logout</a>
                         @endif
-                        <a href="{{ route('user.logout') }}"><i class="fas fa-user"></i>Logout</a>
                     </div>
                 @else
                     <div class="sign-box">

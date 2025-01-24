@@ -1,13 +1,14 @@
 @php
     $sstates = App\Models\State::latest()->get();
     $ptypes = App\Models\PropertyType::latest()->get();
+    $allproperty = $rentproperty->count() + $buyproperty->count();
 @endphp
 
 @extends('frontend.frontend_dashboard')
 @section('main')
     <!--Page Title-->
 @section('title')
-    Buy Property | EMPO RealEstate
+    All Property | EMPO RealEstate
 @endsection
 
 <section class="page-title-two bg-color-1 centred">
@@ -19,7 +20,7 @@
     </div>
     <div class="auto-container">
         <div class="content-box clearfix">
-            <h1>Buy Property </h1>
+            <h1>All Property </h1>
             <ul class="bread-crumb clearfix">
                 <li><a href="{{ url('/') }}">Home</a></li>
                 <li>Buy Property List</li>
@@ -120,7 +121,7 @@
                             <h5>Search Reasults: <span>Showing {{ count($property) }} Listings</span></h5>
                         </div>
                         <div class="left-column pull-right">
-                            <h5>Total Property: <span>{{ count($buyproperty) }}</span></h5>
+                            <h5>Total Property: <span>{{ $allproperty }}</span></h5>
                         </div>
                     </div>
                     <div class="wrapper list">

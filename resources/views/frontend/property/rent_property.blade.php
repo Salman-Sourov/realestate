@@ -96,20 +96,6 @@
                                 </div>
                             </div>
                         </form>
-
-                    </div>
-                    <div class="price-filter sidebar-widget">
-                        <div class="widget-title">
-                            <h5>Select Price Range</h5>
-                        </div>
-                        <div class="range-slider clearfix">
-                            <div class="clearfix">
-                                <div class="input">
-                                    <input type="text" class="property-amount" name="field-name" readonly="">
-                                </div>
-                            </div>
-                            <div class="price-range-slider"></div>
-                        </div>
                     </div>
                     <div class="category-widget sidebar-widget">
                         <div class="widget-title">

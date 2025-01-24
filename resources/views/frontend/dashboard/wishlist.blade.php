@@ -68,7 +68,7 @@
                                 <div id="wishlist">
 
                                 </div>
-                                
+
                             </div>
 
                         </div>
@@ -81,7 +81,7 @@
     <!-- property-page-section end -->
 
 
-    <!-- subscribe-section -->
+    {{-- <!-- subscribe-section -->
     <section class="subscribe-section bg-color-3">
         <div class="pattern-layer" style="background-image: url({{ asset('frontend/assets/images/shape/shape-2.png') }});">
         </div>
@@ -106,5 +106,5 @@
             </div>
         </div>
     </section>
-    <!-- subscribe-section end -->
+    <!-- subscribe-section end --> --}}
 @endsection

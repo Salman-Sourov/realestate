@@ -79,7 +79,7 @@
             @endforeach
 
         </div>
-        <div class="more-btn centred"><a href="property-list.html" class="theme-btn btn-one">View All
+        <div class="more-btn centred"><a href="{{ route('all.property') }}" class="theme-btn btn-one">View All
                 Listing</a></div>
     </div>
 </section>

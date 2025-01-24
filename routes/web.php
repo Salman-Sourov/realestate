@@ -322,6 +322,9 @@ Route::get('/buy/property', [IndexController::class, 'BuyProperty'])->name('buy.
 //Get Property type details
 Route::get('/property/type/{id}', [IndexController::class, 'PropertyType'])->name('property.type');
 
+//Get all Buy property
+Route::get('/all/property', [IndexController::class, 'AllProperty'])->name('all.property');
+
 // Get State Details Data
 Route::get('/state/details/{id}', [IndexController::class, 'StateDetails'])->name('state.details');
 
