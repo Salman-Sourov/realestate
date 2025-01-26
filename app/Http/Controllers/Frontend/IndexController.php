@@ -265,4 +265,13 @@ class IndexController extends Controller
 
         return view('frontend.property.all_property', compact('property', 'rentproperty', 'buyproperty'));
     }
+
+    public function AllCategory(){
+        $categories = propertyType::all();
+        $property = Property::where('status', '1')->where('featured', '1')->latest()->limit(3)->get();
+        // dd($property);
+        return view('frontend.all_category',compact('categories','property'));
+    }
+
+
 }
