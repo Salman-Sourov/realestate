@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Amenities;
 use App\Models\Facility;
 use App\Models\Property;
-use App\Models\propertyType;
+use App\Models\PropertyType;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManager;
@@ -32,7 +32,7 @@ class PropertyController extends Controller
 
     public function AddProperty()
     {
-        $propertytype = propertyType::latest()->get();
+        $propertytype = PropertyType::latest()->get();
         $amenities = Amenities::latest()->get();
         $pstate = State::latest()->get();
         $activeAgent = User::where('role', 'agent')->where('status', 'active')->latest()->get();
@@ -146,7 +146,7 @@ class PropertyController extends Controller
         $facilities = Facility::where('property_id', $id)->get();
         $property = Property::findOrFail($id);
 
-        $propertytype = propertyType::latest()->get();
+        $propertytype = PropertyType::latest()->get();
         $amenities = Amenities::latest()->get();
         $pstate = State::latest()->get();
         $activeAgent = User::where('status', 'active')->where('role', 'agent')->latest()->get();

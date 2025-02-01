@@ -11,7 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use App\Models\propertyType;
+use App\Models\PropertyType;
 use App\Models\Schedule;
 use App\Models\State;
 
@@ -267,7 +267,7 @@ class IndexController extends Controller
     }
 
     public function AllCategory(){
-        $categories = propertyType::all();
+        $categories = PropertyType::all();
         $property = Property::where('status', '1')->where('featured', '1')->latest()->limit(3)->get();
         // dd($property);
         return view('frontend.all_category',compact('categories','property'));

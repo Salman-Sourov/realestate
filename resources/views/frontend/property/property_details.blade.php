@@ -60,16 +60,16 @@
                 <div class="right-column pull-right clearfix">
                     <div class="price-inner clearfix">
                         <ul class="category clearfix pull-left">
-                            <li><a href="property-details.html">{{ $property->type->type_name }}</a></li>
-                            <li><a href="property-details.html">For {{ $property->property_status }}</a></li>
+                            <li><a href="">{{ $property->type->type_name }}</a></li>
+                            <li><a href="">For {{ $property->property_status }}</a></li>
                         </ul>
                         <div class="price-box pull-right">
                             <h3>${{ $property->lowest_price }}</h3>
                         </div>
                     </div>
                     <ul class="other-option pull-right clearfix">
-                        <li><a href="property-details.html"><i class="icon-37"></i></a></li>
-                        <li><a href="property-details.html"><i class="icon-38"></i></a></li>
+                        <li><a href=""><i class="icon-37"></i></a></li>
+                        {{-- <li><a href="property-details.html"><i class="icon-38"></i></a></li> --}}
                         <li><a aria-label="Compare" class="action-btn" id="{{ $property->id }}"
                                 onclick="addToCompare(this.id)"><i class="icon-12"></i></a></li>
                         <li><a aria-label="Add To Wishlist" class="action-btn" id="{{ $property->id }}"
@@ -361,7 +361,7 @@
 
                         </div>
 
-                        <div class="calculator-widget sidebar-widget">
+                        {{-- <div class="calculator-widget sidebar-widget">
                             <div class="calculate-inner">
                                 <div class="widget-title">
                                     <h4>Mortgage Calculator</h4>
@@ -396,7 +396,7 @@
                                     </div>
                                 </form>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

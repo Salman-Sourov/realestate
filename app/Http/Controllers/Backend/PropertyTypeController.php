@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Amenities;
 use App\Models\PackagePlan;
-use App\Models\propertyType;
+use App\Models\PropertyType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -14,7 +14,7 @@ class PropertyTypeController extends Controller
 {
     public function AllType()
     {
-        $types = propertyType::latest()->get();
+        $types = PropertyType::latest()->get();
         return view('backend.type.all_type', compact('types'));
     }
 
@@ -30,7 +30,7 @@ class PropertyTypeController extends Controller
             'type_icon' => 'required'
         ]);
 
-        propertyType::insert([
+        PropertyType::insert([
             'type_name' => $request->type_name, //'database table column name' => ->name of add_type view file form name='type_name'
             'type_icon' => $request->type_icon,
         ]);
@@ -46,7 +46,7 @@ class PropertyTypeController extends Controller
     public function EditType($id)
     {
 
-        $types = propertyType::findOrFail($id);
+        $types = PropertyType::findOrFail($id);
         return view('backend.type.edit_type', compact('types'));
     }
 
@@ -56,7 +56,7 @@ class PropertyTypeController extends Controller
 
         $pid = $request->id;
 
-        propertyType::findOrFail($pid)->update([
+        PropertyType::findOrFail($pid)->update([
             'type_name' => $request->type_name, //'database table column name' => ->name of add_type view file form name='type_name'
             'type_icon' => $request->type_icon,
         ]);
@@ -73,7 +73,7 @@ class PropertyTypeController extends Controller
     public function DeleteType($id)
     {
 
-        propertyType::findOrFail($id)->delete();
+        PropertyType::findOrFail($id)->delete();
 
         $notification = array(
             'message' => 'Property Deleted Successfully',
