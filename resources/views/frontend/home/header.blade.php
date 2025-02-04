@@ -17,7 +17,7 @@
             <div class="right-column pull-right">
                 <ul class="social-links clearfix">
                     <li><a href="{{ $setting->facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                    <li><a href="{{ $setting->twitter }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="{{ $setting->twitter }}" target="_blank"><i class="fab fa-instagram"></i></a></li>
                 </ul>
 
                 {{-- Laravel default login logout method --}}

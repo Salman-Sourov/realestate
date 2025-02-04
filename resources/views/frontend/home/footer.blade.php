@@ -41,14 +41,16 @@
                             <h3>Top News</h3>
                         </div>
                         <div class="post-inner">
-                            @foreach($blog as $item)
-                            <div class="post">
-                                <figure class="post-thumb"><a href="{{ url('blog/details/'.$item->post_slug) }}"><img
-                                            src="{{ !empty($item->post_image) ? asset($item->post_image) : url('upload/no_image.jpg') }}"
-                                            alt=""></a></figure>
-                                <p class="two-line-text"><a href="url('blog/details/'.$item->post_slug)">{{ $item->post_title }}</a></p>
-                                <p>{{ $item->created_at->format('M d Y') }}</p>
-                            </div>
+                            @foreach ($blog as $item)
+                                <div class="post">
+                                    <figure class="post-thumb"><a
+                                            href="{{ url('blog/details/' . $item->post_slug) }}"><img
+                                                src="{{ !empty($item->post_image) ? asset($item->post_image) : url('upload/no_image.jpg') }}"
+                                                alt=""></a></figure>
+                                    <p class="two-line-text"><a
+                                            href="url('blog/details/'.$item->post_slug)">{{ $item->post_title }}</a></p>
+                                    <p>{{ $item->created_at->format('M d Y') }}</p>
+                                </div>
                             @endforeach
                         </div>
                     </div>
@@ -61,7 +63,8 @@
                         <div class="widget-content">
                             <ul class="info-list clearfix">
                                 <li><i class="fas fa-map-marker-alt"></i>{{ $setting->company_address }}</li>
-                                <li><i class="fas fa-microphone"></i><a href="tel:{{ $setting->support_phone }}">{{ $setting->support_phone }}</a>
+                                <li><i class="fas fa-microphone"></i><a
+                                        href="tel:{{ $setting->support_phone }}">{{ $setting->support_phone }}</a>
                                 </li>
                                 <li><i class="fas fa-envelope"></i><a
                                         href="mailto:{{ $setting->email }}">{{ $setting->email }}</a></li>
@@ -75,11 +78,20 @@
     <div class="footer-bottom">
         <div class="auto-container">
             <div class="inner-box clearfix">
-                <figure class="footer-logo"><a href="{{ url('/') }}"><img
-                            src="{{ asset('frontend') }}/assets/images/footer-logo-empotech.png" alt=""></a>
+
+                <figure class="footer-logo" style="text-align: center;">
+                    <a href="{{ url('https://empotechbd.com/') }}">
+                        <img src="{{ asset('frontend') }}/assets/images/EMPO_TECH_BD_logo_2.png" alt="Empotech BD Logo"
+                            style="width: 146px; height: auto; margin-top: 2px;">
+                    </a>
+                    <figcaption style="display: block; margin-top: -14px; font-size: 12px; color: #b9b8b8;">
+                        Developed by Empotech BD
+                    </figcaption>
                 </figure>
+
                 <div class="copyright pull-left">
-                    <p><a href="{{ url('https://tech.empobd.com/') }}">{{ $setting->copyright }}</a> &copy; 2021 All Right Reserved</p>
+                    <p><a href="{{ url('https://empotechbd.com/') }}">{{ $setting->copyright }}</a> &copy; 2023 All
+                        Right Reserved</p>
                 </div>
                 <ul class="footer-nav pull-right clearfix">
                     <li><a href="#">Terms of Service</a></li>

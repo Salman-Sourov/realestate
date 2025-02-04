@@ -18,20 +18,20 @@
                                 <input type="hidden" name="id" value="{{ $sitesetting->id }}">
 
                                 <div class="form-group mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">support_phone </label>
+                                    <label for="exampleInputEmail1" class="form-label">Support Phone </label>
                                     <input type="text" name="support_phone" class="form-control"
                                         value="{{ $sitesetting->support_phone }}">
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">company_address </label>
+                                    <label for="exampleInputEmail1" class="form-label">Company Address </label>
                                     <input type="text" name="company_address" class="form-control"
                                         value="{{ $sitesetting->company_address }}">
                                 </div>
 
 
                                 <div class="form-group mb-3">
-                                    <label for="exampleInputEmail1" class="form-label"> email </label>
+                                    <label for="exampleInputEmail1" class="form-label">Email </label>
                                     <input type="email" name="email" class="form-control"
                                         value="{{ $sitesetting->email }}">
                                 </div>
@@ -39,7 +39,7 @@
 
 
                                 <div class="form-group mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">facebook </label>
+                                    <label for="exampleInputEmail1" class="form-label">Facebook </label>
                                     <input type="text" name="facebook" class="form-control"
                                         value="{{ $sitesetting->facebook }}">
                                 </div>
@@ -47,14 +47,14 @@
 
 
                                 <div class="form-group mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">twitter </label>
+                                    <label for="exampleInputEmail1" class="form-label">Instagram </label>
                                     <input type="text" name="twitter" class="form-control"
                                         value="{{ $sitesetting->twitter }}">
                                 </div>
 
 
                                 <div class="form-group mb-3">
-                                    <label for="exampleInputEmail1" class="form-label"> copyright </label>
+                                    <label for="exampleInputEmail1" class="form-label">Copyright </label>
                                     <input type="text" name="copyright" class="form-control"
                                         value="{{ $sitesetting->copyright }}">
                                 </div>

@@ -137,7 +137,7 @@
                 </div>
             </li>
 
-            <li class="nav-item nav-category">User All Function</li>
+            <li class="nav-item nav-category">Agent | Blog | Setting</li>
 
             {{-- Manage Agent --}}
             <li class="nav-item">
@@ -265,13 +265,13 @@
             </div>
           </li>
 
-            <li class="nav-item nav-category">Docs</li>
+            {{-- <li class="nav-item nav-category">Docs</li>
             <li class="nav-item">
                 <a href="#" target="_blank" class="nav-link">
                     <i class="link-icon" data-feather="hash"></i>
                     <span class="link-title">Documentation</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </nav>

@@ -9,7 +9,7 @@
     <title>@yield('title')</title>
 
     <!-- Fav Icon -->
-    <link rel="icon" href="{{ asset('frontend') }}/assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{ asset('frontend') }}/assets/images/favicon.png" type="image/x-icon">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -34,27 +34,16 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/assets/css/toastr.css""> --}}
-
-
 </head>
-
 
 <!-- page wrapper -->
 
 <body>
-
     <div class="boxed_wrapper">
-
 
         <!-- preloader -->
         @include('frontend.home.preoload')
         <!-- preloader end -->
-
-
-        <!-- switcher menu -->
-
-        <!-- end switcher menu -->
-
 
         <!-- main header -->
         @include('frontend.home.header')
