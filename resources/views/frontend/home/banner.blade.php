@@ -1,7 +1,7 @@
 @php
     $states = App\Models\State::latest()->get();
     $ptypes = App\Models\PropertyType::latest()->get();
-    $setting =  App\Models\SiteSetting::first();
+    $setting = App\Models\SiteSetting::first();
 @endphp
 
 <section class="banner-section" style="background-image: url('{{ asset($setting->banner_photo) }}');">
@@ -9,8 +9,8 @@
     <div class="auto-container">
         <div class="inner-container">
             <div class="content-box centred">
-                <h2>BROADEN LIFE BOUNDARIES</h2>
-                <p>Our real estate portfolio is a mark of distinction.</p>
+                <h2>Find Your Perfect Property</h2>
+                <p>Discover top real estate listings for homes, apartments, and more.</p>
             </div>
             <div class="search-field">
                 <div class="tabs-box">
@@ -34,8 +34,7 @@
                                                     <div class="field-input">
                                                         <i class="fas fa-search"></i>
                                                         <input type="search" name="search"
-                                                            placeholder="Search by Property Name"
-                                                            required="">
+                                                            placeholder="Search by Property Name" required="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -80,7 +79,8 @@
                         <div class="tab" id="tab-2">
                             <div class="inner-box">
                                 <div class="top-search">
-                                    <form action="{{ route('rent.property.search') }}" method="post" class="search-form">
+                                    <form action="{{ route('rent.property.search') }}" method="post"
+                                        class="search-form">
                                         @csrf
                                         <div class="row clearfix">
                                             <div class="col-lg-4 col-md-12 col-sm-12 column">
@@ -89,8 +89,7 @@
                                                     <div class="field-input">
                                                         <i class="fas fa-search"></i>
                                                         <input type="search" name="search"
-                                                            placeholder="Search by Property Name"
-                                                            required="">
+                                                            placeholder="Search by Property Name" required="">
                                                     </div>
                                                 </div>
                                             </div>

@@ -109,8 +109,6 @@ Route::middleware(['auth', 'roles:agent'])->group(function () {
 }); //End Group Agent Middleware
 
 
-
-
 //User Group Middleware
 Route::middleware(['auth', 'roles:user'])->group(function () {
 
@@ -162,7 +160,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 
     //Properties All route
     Route::controller(PropertyController::class)->group(function () {
-        Route::get('/all/property', 'AllProperty')->name('all.property');
+        Route::get('admin/all/property', 'AdminAllProperty')->name('admin.all.property');
         Route::get('/add/property', 'AddProperty')->name('add.property');
         Route::post('/store/property', 'StoreProperty')->name('store.property');
         Route::get('/edit/property/{id}', 'EditProperty')->name('edit.property');

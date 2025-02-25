@@ -18,13 +18,13 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
-                                            <label class="form-label">Property Name </label>
+                                            <label class="form-label">Property Name * </label>
                                             <input type="text" name="property_name" class="form-control">
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
-                                            <label class="form-label">Property Status</label>
+                                            <label class="form-label">Property Status *</label>
                                             <select name="property_status" class="form-select"
                                                 id="exampleFormControlSelect1">
                                                 <option selected="" disabled="">Select Status</option>
@@ -36,14 +36,14 @@
 
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
-                                            <label class="form-label">Lowest Price </label>
+                                            <label class="form-label">Lowest Price *</label>
                                             <input type="text" name="lowest_price" class="form-control">
                                         </div>
                                     </div><!-- Col -->
 
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
-                                            <label class="form-label">Max Price </label>
+                                            <label class="form-label">Max Price *</label>
                                             <input type="text" name="max_price" class="form-control">
                                         </div>
                                     </div><!-- Col -->
@@ -51,7 +51,7 @@
 
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
-                                            <label class="form-label">Main Thambnail </label>
+                                            <label class="form-label">Main Thambnail *</label>
                                             <input type="file" name="property_thambnail" class="form-control"
                                                 onChange="mainThamUrl(this)">
 
@@ -105,7 +105,7 @@
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label class="form-label">Address</label>
+                                            <label class="form-label">Address *</label>
                                             <input type="text" name="address" class="form-control">
                                         </div>
                                     </div><!-- Col -->
@@ -117,7 +117,7 @@
                                     </div><!-- Col -->
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label class="form-label">State</label>
+                                            <label class="form-label">State *</label>
                                             <select name="state" class="form-select" id="exampleFormControlSelect1">
                                                 <option selected="" disabled="">Select State</option>
                                                 @foreach ($pstate as $state)
@@ -140,7 +140,7 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="mb-3">
-                                            <label class="form-label">Property Size</label>
+                                            <label class="form-label">Property Size *</label>
                                             <input type="text" name="property_size" class="form-control">
                                         </div>
                                     </div><!-- Col -->
@@ -180,7 +180,7 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="mb-3">
-                                            <label class="form-label">Property Type </label>
+                                            <label class="form-label">Property Type *</label>
                                             <select name="ptype_id" class="form-select" id="exampleFormControlSelect1">
                                                 <option selected="" disabled="">Select Type</option>
                                                 @foreach ($propertytype as $ptype)
@@ -205,7 +205,7 @@
                                     </div><!-- Col -->
                                     <div class="col-sm-4">
                                         <div class="mb-3">
-                                            <label class="form-label"> Agent </label>
+                                            <label class="form-label">Agent *</label>
                                             <select name="agent_id" class="form-select" id="exampleFormControlSelect1">
                                                 <option selected="" disabled="">Select Agent</option>
                                                 @foreach ($activeAgent as $agent)
@@ -221,7 +221,7 @@
 
                                 <div class="col-sm-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Short Description</label>
+                                        <label class="form-label">Short Description *</label>
                                         <textarea name="short_descp" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
 
                                     </div>
@@ -246,10 +246,9 @@
                                         <input type="checkbox" name="featured" value="1" class="form-check-input"
                                             id="checkInline1">
                                         <label class="form-check-label" for="checkInline1">
-                                            Features Property
+                                            Features Property *
                                         </label>
                                     </div>
-
 
                                     <div class="form-check form-check-inline">
                                         <input type="checkbox" name="hot" value="1" class="form-check-input"
@@ -318,18 +317,12 @@
 
     </div>
 
-
-
-
-
-
     <!--========== Start of add multiple class with ajax ==============-->
     <div style="visibility: hidden">
         <div class="whole_extra_item_add" id="whole_extra_item_add">
             <div class="whole_extra_item_delete" id="whole_extra_item_delete">
                 <div class="container mt-2">
                     <div class="row">
-
                         <div class="form-group col-md-4">
                             <label for="facility_name">Facilities</label>
                             <select name="facility_name[]" id="facility_name" class="form-control">
@@ -364,7 +357,6 @@
     </div>
 
 
-
     <!----For Section-------->
     <script type="text/javascript">
         $(document).ready(function() {
@@ -381,10 +373,6 @@
         });
     </script>
     <!--========== End of add multiple class with ajax ==============-->
-
-
-
-
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -442,7 +430,6 @@
         });
     </script>
 
-
     <script type="text/javascript">
         function mainThamUrl(input) {
             if (input.files && input.files[0]) {
@@ -454,7 +441,6 @@
             }
         }
     </script>
-
 
     <script>
         $(document).ready(function() {

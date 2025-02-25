@@ -16,31 +16,31 @@
             </li>
             <li class="nav-item nav-category">RealEstate</li>
 
-            @if(Auth::user()->can('type.menu'))
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false"
-                    aria-controls="emails">
-                    <i class="link-icon" data-feather="home"></i>
-                    <span class="link-title">Property Type</span>
-                    <i class="link-arrow" data-feather="chevron-down"></i>
-                </a>
-                <div class="collapse" id="emails">
-                    <ul class="nav sub-menu">
+            @if (Auth::user()->can('type.menu'))
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false"
+                        aria-controls="emails">
+                        <i class="link-icon" data-feather="home"></i>
+                        <span class="link-title">Property Type</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse" id="emails">
+                        <ul class="nav sub-menu">
 
-                        @if(Auth::user()->can('all.type'))
-                        <li class="nav-item">
-                            <a href="{{ route('all.type') }}" class="nav-link">All Type</a>
-                        </li>
-                        @endif
+                            @if (Auth::user()->can('all.type'))
+                                <li class="nav-item">
+                                    <a href="{{ route('all.type') }}" class="nav-link">All Type</a>
+                                </li>
+                            @endif
 
-                        @if(Auth::user()->can('add.type'))
-                        <li class="nav-item">
-                            <a href="{{ route('add.type') }}" class="nav-link">Add Type</a>
-                        </li>
-                        @endif
-                    </ul>
-                </div>
-            </li>
+                            @if (Auth::user()->can('add.type'))
+                                <li class="nav-item">
+                                    <a href="{{ route('add.type') }}" class="nav-link">Add Type</a>
+                                </li>
+                            @endif
+                        </ul>
+                    </div>
+                </li>
             @endif
 
             <li class="nav-item">
@@ -94,7 +94,7 @@
                 <div class="collapse" id="property">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="{{ route('all.property') }}" class="nav-link">All Property</a>
+                            <a href="{{ route('admin.all.property') }}" class="nav-link">All Property</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('add.property') }}" class="nav-link">Add Property</a>
@@ -208,7 +208,7 @@
 
             <li class="nav-item">
                 <a href="{{ route('smtp.setting') }}" class="nav-link">
-                    <i class="link-icon" data-feather="edit-3"></i>
+                    <i class="link-icon" data-feather="server"></i>
                     <span class="link-title">SMTP Setting </span>
                 </a>
             </li>
@@ -247,23 +247,25 @@
                     </ul>
                 </div>
             </li>
-             <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#admin" role="button" aria-expanded="false" aria-controls="admin">
-              <i class="link-icon" data-feather="anchor"></i>
-              <span class="link-title">Manage Admin User</span>
-              <i class="link-arrow" data-feather="chevron-down"></i>
-            </a>
-            <div class="collapse" id="admin">
-              <ul class="nav sub-menu">
-                <li class="nav-item">
-                  <a href="{{ route('all.admin') }}" class="nav-link">All Admin</a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ route('add.admin') }}" class="nav-link">Add Admin </a>
-                </li>
-              </ul>
-            </div>
-          </li>
+
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#admin" role="button" aria-expanded="false"
+                    aria-controls="admin">
+                    <i class="link-icon" data-feather="user-check"></i>
+                    <span class="link-title">Manage Admin User</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="admin">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('all.admin') }}" class="nav-link">All Admin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('add.admin') }}" class="nav-link">Add Admin </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
 
             {{-- <li class="nav-item nav-category">Docs</li>
             <li class="nav-item">

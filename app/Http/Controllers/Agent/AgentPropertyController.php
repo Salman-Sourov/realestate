@@ -182,14 +182,11 @@ class AgentPropertyController extends Controller
 
     public function AgentUpdateProperty(Request $request)
     {
-
         $property_id = $request->id;
-
         $amen = $request->amenities_id;
         $amenites = implode(",", $amen);
 
         Property::findOrFail($property_id)->Update([
-
             'ptype_id' => $request->ptype_id,
             'amenities_id' => $amenites,
             'property_name' => $request->property_name,
@@ -249,7 +246,6 @@ class AgentPropertyController extends Controller
         }
 
         Property::findOrFail($pro_id)->update([
-
             'property_thambnail' => $save_url,
             'updated_at' => Carbon::now(),
         ]);

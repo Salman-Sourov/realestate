@@ -23,9 +23,8 @@ use function PHPUnit\Framework\fileExists;
 
 class PropertyController extends Controller
 {
-    public function AllProperty()
+    public function AdminAllProperty()
     {
-
         $property = Property::latest()->get();
         return view('backend.property.all_property', compact('property'));
     }
@@ -75,14 +74,12 @@ class PropertyController extends Controller
             'garage' => $request->garage,
             'garage_size' => $request->garage_size,
 
-
             'property_size' => $request->property_size,
             'property_video' => $request->property_video,
             'address' => $request->address,
             'city' => $request->city,
             'state' => $request->state,
             'postal_code' => $request->postal_code,
-
 
             'neighborhood' => $request->neighborhood,
             'latitude' => $request->latitude,
@@ -137,7 +134,7 @@ class PropertyController extends Controller
             'message' => 'Property Inserted Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('all.property')->with($notification);
+        return redirect()->route('admin.all.property')->with($notification);
     }
 
 

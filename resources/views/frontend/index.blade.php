@@ -3,7 +3,7 @@
 @section('main')
 
 @section('title')
-    EMPO RealEstate
+    EMPO RealEstate - Buy, Sell & Rent Properties
 @endsection
 <!-- banner-section -->
 @include('frontend.home.banner')
