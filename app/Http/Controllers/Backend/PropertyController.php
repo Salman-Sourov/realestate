@@ -41,6 +41,21 @@ class PropertyController extends Controller
     public function StoreProperty(Request $request)
     {
 
+        $request->validate([
+            'property_name' => 'required|string|max:255|unique:properties,property_name',
+            'property_status' => 'required|in:rent,buy',
+            'lowest_price' => 'required|string|min:0',
+            'property_thambnail' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'address' => 'required|string|max:255',
+            'state' => 'required|exists:states,id',
+            'property_size' => 'required|string|min:0',
+            'ptype_id' => 'required|exists:property_types,id',
+            'short_descp' => 'required|string',
+            'amenities_id' => 'required|array', // This ensures the field is required and is an array
+            'amenities_id.*' => 'exists:amenities,amenitis_name', // This checks that each selected amenity exists in the `amenities` tabl
+        ]);
+
+
         $amen = $request->amenities_id;
         $amenities = implode(",", $amen); //implode works on making single data to string data ("4,5,6,7 no are amenities_id", $amen)
         // dd($amenities); for show draft amenities_id on view page
@@ -94,29 +109,24 @@ class PropertyController extends Controller
         ]);
 
         // Multiple Image Upload from here
-
         $images = $request->file('multi_img');
-        foreach ($images as $img) {
 
-            $manager = new ImageManager(new Driver());
-            $make_name = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
-            $image = $manager->read($img);
-            $image = $image->resize(370, 250);
-            $image->toJpeg(80)->Save(base_path(('public/upload/property/multi-image/' . $make_name)));
-            $uploadPath = 'upload/property/multi-image/' . $make_name;
+        if ($images) { // Check if files are uploaded
+            foreach ($images as $img) {
+                $manager = new ImageManager(new Driver());
+                $make_name = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
+                $image = $manager->read($img);
+                $image = $image->resize(370, 250);
+                $image->toJpeg(80)->Save(base_path(('public/upload/property/multi-image/' . $make_name)));
+                $uploadPath = 'upload/property/multi-image/' . $make_name;
 
-            // $make_name = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
-            // Image::make($img)->resize(770, 520)->save('upload/property/multi_img/' . $make_name);
-            // $uploadPath = 'upload/property/multi_img/' . $make_name;
-
-            MultiImage::insert([
-                'property_id' => $property_id,
-                'photo_name' => $uploadPath,
-                'created_at' => Carbon::now(),
-
-            ]);
-        } //end foreach
-        // Multiple Image Upload from here
+                MultiImage::insert([
+                    'property_id' => $property_id,
+                    'photo_name' => $uploadPath,
+                    'created_at' => Carbon::now(),
+                ]);
+            }
+        } // end if
 
         // Facilities Add From Here
         $facilities = Count($request->facility_name);
@@ -136,7 +146,6 @@ class PropertyController extends Controller
         );
         return redirect()->route('admin.all.property')->with($notification);
     }
-
 
     public function EditProperty($id)
     {
@@ -204,7 +213,7 @@ class PropertyController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('all.property')->with($notification);
+        return redirect()->route('admin.all.property')->with($notification);
     }
 
     public function UpdatePropertyThambnail(Request $request)
@@ -441,14 +450,15 @@ class PropertyController extends Controller
         return response()->json(['success' => 'Status Change Successfully']);
     } // End Method
 
-    public function AdminPropertyMessage(){
+    public function AdminPropertyMessage()
+    {
 
         $usermsg = PropertyMessage::latest()->get()->sortDesc();
-        return view('backend.message.all_message',compact('usermsg'));
+        return view('backend.message.all_message', compact('usermsg'));
+    } // End Method
 
-    }// End Method
-
-    public function AdminMessageDetails($id){
+    public function AdminMessageDetails($id)
+    {
         $msgdetails = PropertyMessage::findOrFail($id);
         return view('backend.message.message_details', compact('msgdetails'));
     } // End Method

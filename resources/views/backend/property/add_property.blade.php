@@ -4,7 +4,6 @@
 
     <div class="page-content">
         <div class="row profile-body">
-            <!-- middle wrapper start -->
             <div class="col-md-12 col-xl-12 middle-wrapper">
                 <div class="row">
                     <div class="card">
@@ -19,44 +18,59 @@
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
                                             <label class="form-label">Property Name * </label>
-                                            <input type="text" name="property_name" class="form-control">
+                                            <input type="text" name="property_name" class="form-control"
+                                                value="{{ old('property_name') }}">
+                                            @error('property_name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div><!-- Col -->
+
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
                                             <label class="form-label">Property Status *</label>
                                             <select name="property_status" class="form-select"
                                                 id="exampleFormControlSelect1">
                                                 <option selected="" disabled="">Select Status</option>
-                                                <option value="rent">For Rent</option>
-                                                <option value="buy">For Buy</option>
+                                                <option value="rent"
+                                                    {{ old('property_status') == 'rent' ? 'selected' : '' }}>For Rent
+                                                </option>
+                                                <option value="buy"
+                                                    {{ old('property_status') == 'buy' ? 'selected' : '' }}>For Buy</option>
                                             </select>
+                                            @error('property_status')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div><!-- Col -->
 
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
                                             <label class="form-label">Lowest Price *</label>
-                                            <input type="text" name="lowest_price" class="form-control">
+                                            <input type="text" name="lowest_price" class="form-control"
+                                                value="{{ old('lowest_price') }}">
+                                            @error('lowest_price')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div><!-- Col -->
 
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
-                                            <label class="form-label">Max Price *</label>
+                                            <label class="form-label">Max Price</label>
                                             <input type="text" name="max_price" class="form-control">
                                         </div>
                                     </div><!-- Col -->
-
 
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
                                             <label class="form-label">Main Thambnail *</label>
                                             <input type="file" name="property_thambnail" class="form-control"
                                                 onChange="mainThamUrl(this)">
-
                                             <img src="" id="mainThmb">
-
+                                            @error('property_thambnail')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div><!-- Col -->
 
@@ -101,29 +115,39 @@
 
                                 </div><!-- Row -->
 
-
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">Address *</label>
-                                            <input type="text" name="address" class="form-control">
+                                            <input type="text" name="address" class="form-control"
+                                                value="{{ old('address') }}">
+                                            @error('address')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div><!-- Col -->
+
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">City</label>
                                             <input type="text" name="city" class="form-control">
                                         </div>
                                     </div><!-- Col -->
+
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">State *</label>
                                             <select name="state" class="form-select" id="exampleFormControlSelect1">
                                                 <option selected="" disabled="">Select State</option>
                                                 @foreach ($pstate as $state)
-                                                    <option value="{{ $state->id }}">{{ $state->state_name }}</option>
+                                                    <option value="{{ $state->id }}" {{ old('state') == $state->id ? 'selected' : '' }}>
+                                                        {{ $state->state_name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
+                                            @error('state')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div><!-- Col -->
 
@@ -141,15 +165,20 @@
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label class="form-label">Property Size *</label>
-                                            <input type="text" name="property_size" class="form-control">
+                                            <input type="text" name="property_size" class="form-control" value="{{ old('property_size') }}">
+                                            @error('property_size')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div><!-- Col -->
+
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label class="form-label">Property Video</label>
                                             <input type="text" name="property_video" class="form-control">
                                         </div>
                                     </div><!-- Col -->
+
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label class="form-label">Neighborhood</label>
@@ -182,30 +211,41 @@
                                         <div class="mb-3">
                                             <label class="form-label">Property Type *</label>
                                             <select name="ptype_id" class="form-select" id="exampleFormControlSelect1">
-                                                <option selected="" disabled="">Select Type</option>
+                                                <option selected disabled>Select Type</option>
                                                 @foreach ($propertytype as $ptype)
-                                                    <option value="{{ $ptype->id }}">{{ $ptype->type_name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div><!-- Col -->
-                                    <div class="col-sm-4">
-                                        <div class="mb-3">
-                                            <label class="form-label">Property Amenities </label>
-                                            <select name="amenities_id[]" class="js-example-basic-multiple form-select"
-                                                multiple="multiple" data-width="100%">
-
-                                                @foreach ($amenities as $ameni)
-                                                    <option value="{{ $ameni->amenitis_name }}">{{ $ameni->amenitis_name }}
+                                                    <option value="{{ $ptype->id }}" {{ old('ptype_id') == $ptype->id ? 'selected' : '' }}>
+                                                        {{ $ptype->type_name }}
                                                     </option>
                                                 @endforeach
-
                                             </select>
+                                            @error('ptype_id')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div><!-- Col -->
+
+
                                     <div class="col-sm-4">
                                         <div class="mb-3">
-                                            <label class="form-label">Agent *</label>
+                                            <label class="form-label">Property Amenities * </label>
+                                            <select name="amenities_id[]" class="js-example-basic-multiple form-select" multiple="multiple" data-width="100%">
+                                                @foreach ($amenities as $ameni)
+                                                    <option value="{{ $ameni->amenitis_name }}"
+                                                        @if(in_array($ameni->amenitis_name, old('amenities_id', []))) selected @endif>
+                                                        {{ $ameni->amenitis_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('amenities_id')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div><!-- Col -->
+
+
+                                    <div class="col-sm-4">
+                                        <div class="mb-3">
+                                            <label class="form-label">Agent</label>
                                             <select name="agent_id" class="form-select" id="exampleFormControlSelect1">
                                                 <option selected="" disabled="">Select Agent</option>
                                                 @foreach ($activeAgent as $agent)
@@ -215,29 +255,25 @@
                                         </div>
                                     </div><!-- Col -->
 
-
                                 </div><!-- Row -->
 
 
                                 <div class="col-sm-12">
                                     <div class="mb-3">
                                         <label class="form-label">Short Description *</label>
-                                        <textarea name="short_descp" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-
+                                        <textarea name="short_descp" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ old('short_descp') }}</textarea>
+                                        @error('short_descp')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div><!-- Col -->
-
-
 
                                 <div class="col-sm-12">
                                     <div class="mb-3">
                                         <label class="form-label">Long Description</label>
-
                                         <textarea name="long_descp" class="form-control" name="tinymce" id="tinymceExample" rows="10"></textarea>
-
                                     </div>
                                 </div><!-- Col -->
-
 
                                 <hr>
 
@@ -246,7 +282,7 @@
                                         <input type="checkbox" name="featured" value="1" class="form-check-input"
                                             id="checkInline1">
                                         <label class="form-check-label" for="checkInline1">
-                                            Features Property *
+                                            Features Property
                                         </label>
                                     </div>
 
@@ -261,7 +297,6 @@
 
 
                                 <!--   //////////// Facilities Option /////////////// -->
-
                                 <div class="row add_item">
                                     <div class="col-md-4">
                                         <div class="mb-3">
@@ -295,24 +330,13 @@
                                     </div>
                                 </div> <!---end row-->
 
-
-
                                 <button type="submit" class="btn btn-primary">Save Changes </button>
-
-
                             </form>
 
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
-            <!-- middle wrapper end -->
-            <!-- right wrapper start -->
-
-            <!-- right wrapper end -->
         </div>
 
     </div>
@@ -374,7 +398,7 @@
     </script>
     <!--========== End of add multiple class with ajax ==============-->
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         $(document).ready(function() {
             $('#myForm').validate({
                 rules: {
@@ -428,7 +452,7 @@
                 },
             });
         });
-    </script>
+    </script> --}}
 
     <script type="text/javascript">
         function mainThamUrl(input) {
