@@ -79,45 +79,45 @@
                             <div class="comment-box">
 
                                 @foreach ($comment as $com)
-                                    <div class="comment">
-                                        <figure class="thumb-box">
-                                            <img src="{{ (!empty($com->user->photo)) ? url('upload/user_images/'.$com->user->photo) : url('upload/no_image.jpg') }}" alt="">
-                                        </figure>
-                                        <div class="comment-inner">
-                                            <div class="comment-info clearfix">
-                                                <h5>{{ $com->user->name }}</h5>
-                                                <span>{{ $com->created_at->format('M j, Y h:i A') }}</span>
-                                            </div>
-                                            <div class="comment-info clearfix">
-                                                <h5>{{ $com->subject }}</h5>
-                                                <p>{{ $com->message }}</p>
-                                                {{-- <a href="#"><i class="fas fa-share"></i>Reply</a> --}}
-                                            </div>
-                                        </div>
-                                @endforeach
+    <div class="comment">
+        <figure class="thumb-box">
+            <img src="{{ (!empty($com->user->photo)) ? url('upload/user_images/'.$com->user->photo) : url('upload/no_image.jpg') }}" alt="">
+        </figure>
+        <div class="comment-inner">
+            <div class="comment-info clearfix">
+                <h5>{{ $com->user->name }}</h5>
+                <span>{{ $com->created_at->format('M j, Y h:i A') }}</span>
+            </div>
+            <div class="comment-info clearfix">
+                <h5>{{ $com->subject }}</h5>
+                <p>{{ $com->message }}</p>
+            </div>
+        </div>
+    </div>
+
+    @php
+        $reply = App\Models\Comment::where('parent_id', $com->id)->get();
+    @endphp
+
+    @foreach ($reply as $rep)
+        <div class="comment replay-comment">
+            <figure class="thumb-box">
+                <img src="{{ url('upload/salman_sourov.png') }}" alt="">
+            </figure>
+            <div class="comment-inner">
+                <div class="comment-info clearfix">
+                    <h5>{{ $rep->subject }}</h5>
+                    <span>{{ $rep->created_at->format('M j, Y h:i A') }}</span>
+                </div>
+                <div class="text">
+                    <p>{{ $rep->message }}</p>
+                </div>
+            </div>
+        </div>
+    @endforeach
+@endforeach
+
                             </div>
-
-                            @php
-                                $reply = App\Models\Comment::where('parent_id', $com->id)->get();
-                            @endphp
-
-                            @foreach ($reply as $rep)
-                                <div class="comment replay-comment">
-                                    <figure class="thumb-box">
-                                        <img src="{{ url('upload/salman_sourov.png') }}" alt="">
-                                    </figure>
-                                    <div class="comment-inner">
-                                        <div class="comment-info clearfix">
-                                            <h5>{{ $rep->subject }}</h5>
-                                            <span>{{ $rep->created_at->format('M j, Y h:i A') }}</span>
-                                        </div>
-                                        <div class="text">
-                                            <p>{{ $rep->message }}</p>
-                                            {{-- <a href="#"><i class="fas fa-share"></i>Reply</a> --}}
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
                         </div>
                     </div>
                     <div class="comments-form-area">
@@ -220,7 +220,7 @@
                 </div>
             </div>
 
-            
+
         </div>
         </div>
     </section>
