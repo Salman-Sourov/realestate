@@ -22,8 +22,11 @@
                     <div class="feature-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
-                                <figure class="image"><img src="{{ asset($item->property_thambnail) }}" alt="">
-                                </figure>
+                                <a href="{{ url('property/details/' . $item->property_slug) }}">
+                                    <figure class="image">
+                                        <img src="{{ asset($item->property_thambnail) }}" alt="empotechbd_property_image">
+                                    </figure>
+                                </a>
                                 <div class="batch"><i class="icon-11"></i></div>
                                 <span class="category">Featured</span>
                             </div>
@@ -42,13 +45,13 @@
                                         @endif
                                     </div>
                                     <div class="buy-btn pull-right"><a
-                                            href="{{ url('property/details/' . $item->id . '/' . $item->property_slug) }}">For
+                                            href="{{ url('property/details/' . $item->property_slug) }}">For
                                             Buy</a>
                                     </div>
                                 </div>
                                 <div class="title-text">
                                     <h4><a
-                                            href="{{ url('property/details/' . $item->id . '/' . $item->property_slug) }}">{{ $item->property_name }}</a>
+                                            href="{{ url('property/details/' . $item->property_slug) }}">{{ $item->property_name }}</a>
                                     </h4>
                                 </div>
                                 <div class="price-box clearfix">

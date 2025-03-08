@@ -14,7 +14,6 @@ class TestimonialController extends Controller
 {
     public function AllTestimonials()
     {
-
         $testimonial = Testimonial::latest()->get();
         return view('backend.testimonial.all_testimonial', compact('testimonial'));
     }
@@ -62,14 +61,12 @@ class TestimonialController extends Controller
 
     public function  EditTestimonials($id)
     {
-
         $testimonial = Testimonial::findOrFail($id);
         return view('backend.testimonial.edit_testimonial', compact('testimonial'));
     }
 
     public function UpdateTestimonials(Request $request)
     {
-
         $testimonial = $request->id;
         $testimonial = Testimonial::findOrFail($testimonial);
 

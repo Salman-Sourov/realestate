@@ -9,19 +9,14 @@
             <ul class="category-list clearfix">
 
                 @foreach ($ptype as $item)
-
                 @php
-
                   $property = App\Models\Property::where('ptype_id', $item->id)->latest()->get();
-
                 @endphp
-
                 <li>
                     <div class="category-block-one">
                         <div class="inner-box">
                             <div class="icon-box"><i class="{{ $item->type_icon }}"></i></div>
                             <h5><a href="{{route('property.type',$item->id)}}">{{$item->type_name}}</a></h5>
-
                             <span>{{ count($property) }}</span>
                         </div>
                     </div>

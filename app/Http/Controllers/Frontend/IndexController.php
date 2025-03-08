@@ -17,21 +17,25 @@ use App\Models\State;
 
 class IndexController extends Controller
 {
-    public function PropertyDetails($id, $slug)
+    public function PropertyDetails($slug)
     {
-
-        $property = Property::findOrFail($id);
-        $multiImage = MultiImage::where('property_id', $id)->get();
-        $facility = Facility::where('property_id', $id)->get();
+        $property = Property::where('property_slug', $slug)->firstOrFail();
+        $multiImage = MultiImage::where('property_id', $property->id)->get();
+        $facility = Facility::where('property_id', $property->id)->get();
 
         $amenities = $property->amenities_id;
         $property_amen = explode(',', $amenities);
 
         $property_type = $property->ptype_id;
-        $relatedProperty = Property::where('ptype_id', $property_type)->where('id', '!=', $id)->orderBy('id', 'DESC')->limit(3)->get();
+        $relatedProperty = Property::where('ptype_id', $property_type)
+            ->where('id', '!=', $property->id)
+            ->orderBy('id', 'DESC')
+            ->limit(3)
+            ->get();
 
         return view('frontend.property.property_details', compact('property', 'multiImage', 'property_amen', 'facility', 'relatedProperty'));
-    } // End Method
+    }
+
 
     public function PropertyMessage(Request $request)
     {
@@ -153,28 +157,38 @@ class IndexController extends Controller
     } // End Method
 
     public function BuyPropertySearch(Request $request)
-    {
-        $request->validate(['search' => 'required']);
-        $item = $request->search;
-        $sstate = $request->state;
-        $stype = $request->ptype_id;
+{
+    $request->validate(['search' => 'required']);
 
-        $property = Property::where('status', '1')->where('property_name', 'like', '%' . $item . '%')
-            ->where('property_status', 'buy')
-            ->with('pstate', 'type')
-            ->whereHas('pstate', function ($q) use ($sstate) {
-                $q->where('state_name', 'like', '%' . $sstate . '%');
-            })
-            ->whereHas('type', function ($q) use ($stype) {
-                $q->where('type_name', 'like', '%' . $stype . '%');
-            })
-            ->get();
+    $item = $request->search;
+    $sstate = $request->state;
+    $stype = $request->ptype_id;
 
-        $rentproperty = property::where('property_status', 'rent')->get();
-        $buyproperty = property::where('property_status', 'buy')->get();
+    $property = Property::where('status', '1')
+        ->where('property_name', 'like', '%' . $item . '%')
+        ->where('property_status', 'buy')
+        ->with('pstate', 'type');
 
-        return view('frontend.property.property_search', compact('property', 'rentproperty', 'buyproperty'));
+    if (!empty($sstate)) {
+        $property->whereHas('pstate', function ($q) use ($sstate) {
+            $q->where('state_name', 'like', '%' . $sstate . '%');
+        });
     }
+
+    if (!empty($stype)) {
+        $property->whereHas('type', function ($q) use ($stype) {
+            $q->where('type_name', 'like', '%' . $stype . '%');
+        });
+    }
+
+    $property = $property->get();
+
+    $rentproperty = Property::where('property_status', 'rent')->get();
+    $buyproperty = Property::where('property_status', 'buy')->get();
+
+    return view('frontend.property.property_search', compact('property', 'rentproperty', 'buyproperty'));
+}
+
 
     public function RentPropertySearch(Request $request)
     {
@@ -258,7 +272,8 @@ class IndexController extends Controller
         }
     }
 
-    public function AllProperty(){
+    public function AllProperty()
+    {
         $property = Property::where('status', '1')->paginate(4);
         $rentproperty = Property::where('property_status', 'rent')->get();
         $buyproperty = Property::where('property_status', 'buy')->get();
@@ -266,12 +281,11 @@ class IndexController extends Controller
         return view('frontend.property.all_property', compact('property', 'rentproperty', 'buyproperty'));
     }
 
-    public function AllCategory(){
+    public function AllCategory()
+    {
         $categories = PropertyType::all();
         $property = Property::where('status', '1')->where('featured', '1')->latest()->limit(3)->get();
         // dd($property);
-        return view('frontend.all_category',compact('categories','property'));
+        return view('frontend.all_category', compact('categories', 'property'));
     }
-
-
 }

@@ -28,7 +28,7 @@ Route::get('/', [UserController::class, 'index']);
 
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view ('dashboard');
 })->middleware(['auth', 'roles:user', 'verified'])->name('dashboard');
 
 
@@ -293,7 +293,7 @@ Route::post('/agent/register', [AgentController::class, 'AgentRegister'])->name(
 
 
 //Frontend Property Details All Route
-Route::get('/property/details/{id}/{slug}', [IndexController::class, 'PropertyDetails']);
+Route::get('/property/details/{slug}', [IndexController::class, 'PropertyDetails']);
 
 //Frontend Wishlist Add Route
 Route::post('/add-to-wishList/{property_id}', [WishlistController::class, 'AddToWishList']);
