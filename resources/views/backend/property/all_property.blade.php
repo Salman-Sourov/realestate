@@ -29,7 +29,7 @@
                                         <th>Image</th>
                                         <th>Name</th>
                                         <th>Agent</th>
-                                        <th>P Type</th>
+                                        {{-- <th>P Type</th> --}}
                                         <th>S Type</th>
                                         <th>City</th>
                                         <th>State</th>
@@ -48,7 +48,7 @@
                                             <td>{{ $item->property_name }}</td>
                                             <td>{{ $item['user']['name'] ?? 'N/A' }}</td>
 
-                                            <td>{{ $item['type']['type_name'] }}</td>
+                                            {{-- <td>{{ $item['type']['type_name'] }}</td> --}}
                                             {{-- ['type is a function of Property MODEL']['type_name is property_types column name'] --}}
 
                                             <td>{{ $item->property_status }}</td>

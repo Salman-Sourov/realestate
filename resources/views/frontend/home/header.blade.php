@@ -65,7 +65,7 @@
 
                                 <li class="dropdown"><a href="#"><span>Property</span></a>
                                     <ul>
-                                        <li><a href="{{ route('rent.property') }}">Rent Property</a></li>
+                                        <li><a href="{{ route('rent.property') }}">Sell Property</a></li>
                                         <li><a href="{{ route('buy.property') }}">Buy Property </a></li>
 
                                     </ul>

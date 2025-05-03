@@ -17,7 +17,7 @@
                     <div class="tab-btn-box">
                         <ul class="tab-btns tab-buttons centred clearfix">
                             <li class="tab-btn active-btn" data-tab="#tab-1">BUY</li>
-                            <li class="tab-btn" data-tab="#tab-2">RENT</li>
+                            <li class="tab-btn" data-tab="#tab-2">SELL</li>
                         </ul>
                     </div>
                     <div class="tabs-content info-group">
@@ -85,7 +85,7 @@
                                         <div class="row clearfix">
                                             <div class="col-lg-4 col-md-12 col-sm-12 column">
                                                 <div class="form-group">
-                                                    <label>Rent Search Property</label>
+                                                    <label>Sell Search Property</label>
                                                     <div class="field-input">
                                                         <i class="fas fa-search"></i>
                                                         <input type="search" name="search"
