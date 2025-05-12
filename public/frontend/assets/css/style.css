@@ -10022,3 +10022,9 @@ div#mCSB_1_container {
     top: 50%;
     transform: translateY(-50%);
 }
+
+.category-block-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}

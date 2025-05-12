@@ -24,11 +24,12 @@
                 @auth
                     <div class="sign-box ">
                         @if (auth()->user() && auth()->user()->hasRole('user'))
-                        <a href="{{ route('dashboard') }}" target="_blank"><i class="fas fa-user"></i>Dashboard</a>
-                        <a href="{{ route('user.logout') }}"><i class="fas fa-user"></i>Logout</a>
+                            <a href="{{ route('dashboard') }}" target="_blank"><i class="fas fa-user"></i>Dashboard</a>
+                            <a href="{{ route('user.logout') }}"><i class="fas fa-user"></i>Logout</a>
                         @else
-                        <a href="{{ route('admin.dashboard') }}" target="_blank"><i class="fas fa-user"></i>Dashboard</a>
-                        <a href="{{ route('admin.logout') }}"><i class="fas fa-user"></i>Logout</a>
+                            <a href="{{ route('admin.dashboard') }}" target="_blank"><i
+                                    class="fas fa-user"></i>Dashboard</a>
+                            <a href="{{ route('admin.logout') }}"><i class="fas fa-user"></i>Logout</a>
                         @endif
                     </div>
                 @else
@@ -65,9 +66,8 @@
 
                                 <li class="dropdown"><a href="#"><span>Property</span></a>
                                     <ul>
-                                        <li><a href="{{ route('rent.property') }}">Sell Property</a></li>
                                         <li><a href="{{ route('buy.property') }}">Buy Property </a></li>
-
+                                        <li><a href="{{ route('rent.property') }}">Sell Property</a></li>
                                     </ul>
                                 </li>
 

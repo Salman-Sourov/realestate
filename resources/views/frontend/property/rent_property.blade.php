@@ -18,10 +18,10 @@
     </div>
     <div class="auto-container">
         <div class="content-box clearfix">
-            <h1>Rent Property </h1>
+            <h1>All Sell Property </h1>
             <ul class="bread-crumb clearfix">
                 <li><a href="{{ url('/') }}">Home</a></li>
-                <li>Rent Property List</li>
+                <li>All Sell Property List</li>
             </ul>
         </div>
     </div>

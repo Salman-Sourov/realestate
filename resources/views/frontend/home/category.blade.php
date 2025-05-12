@@ -13,13 +13,15 @@
                         $property = App\Models\Property::where('ptype_id', $item->id)->latest()->get();
                     @endphp
                     <li>
-                        <div class="category-block-one">
-                            <div class="inner-box">
-                                <div class="icon-box"><i class="{{ $item->type_icon }}"></i></div>
-                                <h5><a href="{{ route('property.type', $item->id) }}">{{ $item->type_name }}</a></h5>
-                                <span>{{ count($property) }}</span>
+                        <a href="{{ route('property.type', $item->id) }}" class="category-block-link">
+                            <div class="category-block-one">
+                                <div class="inner-box">
+                                    <div class="icon-box"><i class="{{ $item->type_icon }}"></i></div>
+                                    <h5>{{ $item->type_name }}</h5>
+                                    <span>{{ count($property) }}</span>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </li>
                 @endforeach
             </ul>
