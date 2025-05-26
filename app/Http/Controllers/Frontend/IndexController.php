@@ -121,7 +121,7 @@ class IndexController extends Controller
 
     public function RentProperty()
     {
-        $property = Property::where('status', '1')->where('property_status', 'rent')->paginate(3);
+        $property = Property::where('status', '1')->where('property_status', 'sell')->paginate(3);
         $rentproperty = Property::where('property_status', 'rent')->get();
         $buyproperty = Property::where('property_status', 'buy')->get();
 
@@ -130,13 +130,26 @@ class IndexController extends Controller
 
     public function BuyProperty()
     {
+        // Fetch properties for pagination with relationships
+        $properties = Property::with(['type', 'user', 'pstate'])
+            ->where('status', 1)
+            ->where('property_status', 'buy')
+            ->paginate(3);
 
-        $property = Property::where('status', '1')->where('property_status', 'buy')->paginate(3);
-        $rentproperty = Property::where('property_status', 'rent')->get();
-        $buyproperty = Property::where('property_status', 'buy')->get();
+        // Total Buy properties count
+        $totalBuyProperties = Property::where('property_status', 'buy')->count();
 
-        return view('frontend.property.buy_property', compact('property', 'rentproperty', 'buyproperty'));
-    } //End Method
+        // Property types and states
+        $propertyTypes = PropertyType::latest()->get();
+        $states = State::latest()->get();
+
+        return view('frontend.property.buy_property', compact(
+            'properties',
+            'totalBuyProperties',
+            'propertyTypes',
+            'states'
+        ));
+    }
 
     public function PropertyType($id)
     {
@@ -157,37 +170,37 @@ class IndexController extends Controller
     } // End Method
 
     public function BuyPropertySearch(Request $request)
-{
-    $request->validate(['search' => 'required']);
+    {
+        $request->validate(['search' => 'required']);
 
-    $item = $request->search;
-    $sstate = $request->state;
-    $stype = $request->ptype_id;
+        $item = $request->search;
+        $sstate = $request->state;
+        $stype = $request->ptype_id;
 
-    $property = Property::where('status', '1')
-        ->where('property_name', 'like', '%' . $item . '%')
-        ->where('property_status', 'buy')
-        ->with('pstate', 'type');
+        $property = Property::where('status', '1')
+            ->where('property_name', 'like', '%' . $item . '%')
+            ->where('property_status', 'buy')
+            ->with('pstate', 'type');
 
-    if (!empty($sstate)) {
-        $property->whereHas('pstate', function ($q) use ($sstate) {
-            $q->where('state_name', 'like', '%' . $sstate . '%');
-        });
+        if (!empty($sstate)) {
+            $property->whereHas('pstate', function ($q) use ($sstate) {
+                $q->where('state_name', 'like', '%' . $sstate . '%');
+            });
+        }
+
+        if (!empty($stype)) {
+            $property->whereHas('type', function ($q) use ($stype) {
+                $q->where('type_name', 'like', '%' . $stype . '%');
+            });
+        }
+
+        $property = $property->get();
+
+        $rentproperty = Property::where('property_status', 'rent')->get();
+        $buyproperty = Property::where('property_status', 'buy')->get();
+
+        return view('frontend.property.property_search', compact('property', 'rentproperty', 'buyproperty'));
     }
-
-    if (!empty($stype)) {
-        $property->whereHas('type', function ($q) use ($stype) {
-            $q->where('type_name', 'like', '%' . $stype . '%');
-        });
-    }
-
-    $property = $property->get();
-
-    $rentproperty = Property::where('property_status', 'rent')->get();
-    $buyproperty = Property::where('property_status', 'buy')->get();
-
-    return view('frontend.property.property_search', compact('property', 'rentproperty', 'buyproperty'));
-}
 
 
     public function RentPropertySearch(Request $request)

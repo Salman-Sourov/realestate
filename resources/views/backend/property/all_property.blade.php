@@ -61,14 +61,6 @@
                                                     <span class="badge rounded-pill bg-danger">InActive</span>
                                                 @endif
                                             </td>
-                                            {{-- <td>
-                                                @if ($item->updated_at != null)
-                                                    {{ $item->updated_at }} ({{ $profileData->name }})
-                                                @else
-                                                    Not Updated Yet
-                                                @endif
-                                            </td> --}}
-                                            {{-- <td>{{ $item->updated_at }} (BY {{ $profileData->name }}) </td> --}}
                                             <td>
                                                 <a href="{{ route('details.property', $item->id) }}"
                                                     class="btn btn-inverse-info" title="Details"> <i data-feather="eye"></i>

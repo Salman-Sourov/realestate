@@ -1,7 +1,5 @@
 @php
-
     $ptype = App\Models\PropertyType::latest()->get();
-
 @endphp
 <section class="category-section centred">
     <div class="auto-container">

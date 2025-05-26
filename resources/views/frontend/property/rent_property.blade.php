@@ -7,7 +7,7 @@
 @section('main')
     <!--Page Title-->
 @section('title')
-    Rent Property | EMPO RealEstate
+    Sell Property | EMPO RealEstate
 @endsection
 <section class="page-title-two bg-color-1 centred">
     <div class="pattern-layer">

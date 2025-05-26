@@ -39,7 +39,7 @@
                                                 id="exampleFormControlSelect1">
                                                 <option selected="" disabled="">Select Status</option>
                                                 <option value="rent"
-                                                    {{ $property->property_status == 'rent' ? 'selected' : '' }}>For Rent
+                                                    {{ $property->property_status == 'sell' ? 'selected' : '' }}>For Sell
                                                 </option>
                                                 <option value="buy"
                                                     {{ $property->property_status == 'buy' ? 'selected' : '' }}>For Buy

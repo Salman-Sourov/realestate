@@ -13,7 +13,6 @@
                             <form method="post" action="{{ route('store.property') }}" id="myForm"
                                 enctype="multipart/form-data">
                                 @csrf
-
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
@@ -33,7 +32,7 @@
                                                 id="exampleFormControlSelect1">
                                                 <option selected="" disabled="">Select Status</option>
                                                 <option value="rent"
-                                                    {{ old('property_status') == 'rent' ? 'selected' : '' }}>For Rent
+                                                    {{ old('property_status') == 'sell' ? 'selected' : '' }}>For Sell
                                                 </option>
                                                 <option value="buy"
                                                     {{ old('property_status') == 'buy' ? 'selected' : '' }}>For Buy</option>
@@ -140,7 +139,8 @@
                                             <select name="state" class="form-select" id="exampleFormControlSelect1">
                                                 <option selected="" disabled="">Select State</option>
                                                 @foreach ($pstate as $state)
-                                                    <option value="{{ $state->id }}" {{ old('state') == $state->id ? 'selected' : '' }}>
+                                                    <option value="{{ $state->id }}"
+                                                        {{ old('state') == $state->id ? 'selected' : '' }}>
                                                         {{ $state->state_name }}
                                                     </option>
                                                 @endforeach
@@ -165,7 +165,8 @@
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label class="form-label">Property Size *</label>
-                                            <input type="text" name="property_size" class="form-control" value="{{ old('property_size') }}">
+                                            <input type="text" name="property_size" class="form-control"
+                                                value="{{ old('property_size') }}">
                                             @error('property_size')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -213,7 +214,8 @@
                                             <select name="ptype_id" class="form-select" id="exampleFormControlSelect1">
                                                 <option selected disabled>Select Type</option>
                                                 @foreach ($propertytype as $ptype)
-                                                    <option value="{{ $ptype->id }}" {{ old('ptype_id') == $ptype->id ? 'selected' : '' }}>
+                                                    <option value="{{ $ptype->id }}"
+                                                        {{ old('ptype_id') == $ptype->id ? 'selected' : '' }}>
                                                         {{ $ptype->type_name }}
                                                     </option>
                                                 @endforeach
@@ -228,10 +230,11 @@
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label class="form-label">Property Amenities * </label>
-                                            <select name="amenities_id[]" class="js-example-basic-multiple form-select" multiple="multiple" data-width="100%">
+                                            <select name="amenities_id[]" class="js-example-basic-multiple form-select"
+                                                multiple="multiple" data-width="100%">
                                                 @foreach ($amenities as $ameni)
                                                     <option value="{{ $ameni->amenitis_name }}"
-                                                        @if(in_array($ameni->amenitis_name, old('amenities_id', []))) selected @endif>
+                                                        @if (in_array($ameni->amenitis_name, old('amenities_id', []))) selected @endif>
                                                         {{ $ameni->amenitis_name }}
                                                     </option>
                                                 @endforeach
