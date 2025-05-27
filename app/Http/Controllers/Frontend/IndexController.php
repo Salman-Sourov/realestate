@@ -121,11 +121,25 @@ class IndexController extends Controller
 
     public function RentProperty()
     {
-        $property = Property::where('status', '1')->where('property_status', 'sell')->paginate(3);
-        $rentproperty = Property::where('property_status', 'rent')->get();
-        $buyproperty = Property::where('property_status', 'buy')->get();
+        // Fetch properties for pagination with relationships
+        $properties = Property::with(['type', 'user', 'pstate'])
+            ->where('status', 1)
+            ->where('property_status', 'sell')
+            ->paginate(3);
 
-        return view('frontend.property.rent_property', compact('property', 'rentproperty', 'buyproperty'));
+        // Total Buy properties count
+        $totalSellProperties = Property::where('property_status', 'sell')->count();
+
+        // Property types and states
+        $propertyTypes = PropertyType::latest()->get();
+        $states = State::latest()->get();
+
+        return view('frontend.property.rent_property', compact(
+            'properties',
+            'totalSellProperties',
+            'propertyTypes',
+            'states'
+        ));
     } //End Method
 
     public function BuyProperty()
@@ -151,6 +165,22 @@ class IndexController extends Controller
         ));
     }
 
+    public function BuyPropertyPlotFlat($id)
+    {
+        $property = Property::where('status', '1')->where('ptype_id', $id)->where('property_status', 'buy')->get();
+        // dd($property);
+        $pbread = PropertyType::where('id', $id)->first();
+        return view('frontend.property.property_type', compact('property', 'pbread'));
+    }
+
+    public function SellPropertyPlotFlat($id)
+    {
+        $property = Property::where('status', '1')->where('ptype_id', $id)->where('property_status', 'sell')->get();
+        // dd($property);
+        $pbread = PropertyType::where('id', $id)->first();
+        return view('frontend.property.property_type', compact('property', 'pbread'));
+    }
+
     public function PropertyType($id)
     {
         $property = Property::where('status', '1')->where('ptype_id', $id)->get();
@@ -162,9 +192,7 @@ class IndexController extends Controller
 
     public function StateDetails($id)
     {
-
         $property = Property::where('status', '1')->where('state', $id)->get();
-
         $bstate = State::where('id', $id)->first();
         return view('frontend.property.state_property', compact('property', 'bstate'));
     } // End Method

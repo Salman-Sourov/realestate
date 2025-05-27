@@ -27,18 +27,18 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
-                                            <label class="form-label">Property Name </label>
+                                            <label class="form-label">Property Name * </label>
                                             <input type="text" name="property_name" class="form-control"
                                                 value="{{ $property->property_name }}">
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
-                                            <label class="form-label">Property Status</label>
+                                            <label class="form-label">Property Status *</label>
                                             <select name="property_status" class="form-select"
                                                 id="exampleFormControlSelect1">
                                                 <option selected="" disabled="">Select Status</option>
-                                                <option value="rent"
+                                                <option value="sell"
                                                     {{ $property->property_status == 'sell' ? 'selected' : '' }}>For Sell
                                                 </option>
                                                 <option value="buy"
@@ -51,7 +51,7 @@
 
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
-                                            <label class="form-label">Lowest Price </label>
+                                            <label class="form-label">Lowest Price *</label>
                                             <input type="text" name="lowest_price" class="form-control"
                                                 value="{{ $property->lowest_price }}">
                                         </div>
@@ -108,30 +108,31 @@
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label class="form-label">Address</label>
+                                            <label class="form-label">Address *</label>
                                             <input type="text" name="address" class="form-control"
                                                 value="{{ $property->address }}">
-                                        </div>
-                                    </div><!-- Col -->
-                                    <div class="col-sm-3">
-                                        <div class="mb-3">
-                                            <label class="form-label">City</label>
-                                            <input type="text" name="city" class="form-control"
-                                                value="{{ $property->city }}">
                                         </div>
                                     </div><!-- Col -->
 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label class="form-label">State</label>
+                                            <label class="form-label">Area/Division *</label>
                                             <select name="state" class="form-select" id="exampleFormControlSelect1">
-                                                <option selected="" disabled="">Select State</option>
+                                                <option selected="" disabled="">Select Area</option>
                                                 @foreach ($pstate as $state)
                                                     <option value="{{ $state->id }}"
                                                         {{ $state->id == $property->state ? 'selected' : '' }}>
                                                         {{ $state->state_name }}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                    </div><!-- Col -->
+
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">City</label>
+                                            <input type="text" name="city" class="form-control"
+                                                value="{{ $property->city }}">
                                         </div>
                                     </div><!-- Col -->
 
@@ -201,7 +202,7 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="mb-3">
-                                            <label class="form-label">Property Type </label>
+                                            <label class="form-label">Property Type *</label>
                                             <select name="ptype_id" class="form-select" id="exampleFormControlSelect1">
                                                 <option selected="" disabled="">Select Type</option>
                                                 @foreach ($propertytype as $ptype)
@@ -216,7 +217,7 @@
                                     </div><!-- Col -->
                                     <div class="col-sm-4">
                                         <div class="mb-3">
-                                            <label class="form-label">Property Amenities </label>
+                                            <label class="form-label">Property Amenities * </label>
                                             <select name="amenities_id[]" class="js-example-basic-multiple form-select"
                                                 multiple="multiple" data-width="100%">
 
@@ -252,11 +253,8 @@
 
                                 <div class="col-sm-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Short Description</label>
-                                        <textarea name="short_descp" class="form-control" id="exampleFormControlTextarea1" rows="3">
- {{ $property->short_descp }}
-          </textarea>
-
+                                        <label class="form-label">Short Description *</label>
+                                        <textarea name="short_descp" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $property->short_descp }} <textarea>
                                     </div>
                                 </div><!-- Col -->
 
@@ -272,7 +270,6 @@
 
                                     </div>
                                 </div><!-- Col -->
-
 
                                 <hr>
 
@@ -305,15 +302,8 @@
 
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
-            <!-- middle wrapper end -->
-            <!-- right wrapper start -->
-
-            <!-- right wrapper end -->
         </div>
 
     </div>
@@ -327,11 +317,9 @@
         <div class="row profile-body">
             <div class="col-md-12 col-xl-12 middle-wrapper">
                 <div class="row">
-
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="card-title">Edit Main Thambnail Image </h6>
-
+                            <h6 class="card-title">Edit Main Thambnail Image * </h6>
 
                             <form method="post" action="{{ route('update.property.thambnail') }}" id="myForm"
                                 enctype="multipart/form-data">

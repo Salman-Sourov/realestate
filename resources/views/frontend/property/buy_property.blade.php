@@ -1,5 +1,3 @@
-{{-- resources/views/frontend/property/buy_property.blade.php --}}
-
 @extends('frontend.frontend_dashboard')
 @section('title', 'Buy Property | EMPO RealEstate')
 @section('main')
@@ -39,7 +37,7 @@
                                     $count = $type->properties()->where('property_status', 'buy')->count();
                                 @endphp
                                 <li>
-                                    <a href="{{ route('property.type', $type->id) }}">
+                                    <a href="{{ route('buy.property.plot.flat', $type->id) }}">
                                         Buy {{ $type->type_name }}
                                         <span>({{ $count }})</span>
                                     </a>
@@ -61,7 +59,7 @@
                                     <select name="property_status" class="wide">
                                         <option data-display="Property Status" disabled selected>Select Status</option>
                                         <option value="buy">Buy</option>
-                                        <option value="rent">Rent</option>
+                                        <option value="sell">Sell</option>
                                     </select>
                                 </div>
 
@@ -76,7 +74,7 @@
 
                                 <div class="select-box">
                                     <select name="state" class="wide">
-                                        <option data-display="State" disabled selected>Select State</option>
+                                        <option data-display="Area" disabled selected>Select Area</option>
                                         @foreach ($states as $state)
                                             <option value="{{ $state->state_name }}">{{ $state->state_name }}</option>
                                         @endforeach
@@ -137,7 +135,7 @@
                                                 </figure>
                                             </a>
                                             <div class="batch"><i class="icon-11"></i></div>
-                                            <span class="category">{{ $item->featured ? 'Featured' : 'New' }}</span>
+                                            <span class="category">{{ $item->type->type_name }}</span>
                                             <div class="buy-btn"><a href="{{ route('buy.property') }}">For {{ ucfirst($item->property_status) }}</a></div>
                                         </div>
 
@@ -149,7 +147,7 @@
                                             <div class="price-box clearfix">
                                                 <div class="price-info pull-left">
                                                     <h6>Start From</h6>
-                                                    <h4>${{ $item->lowest_price }}</h4>
+                                                    <h4>৳ {{ $item->lowest_price }}</h4>
                                                 </div>
 
                                                 <div class="author-box pull-right">

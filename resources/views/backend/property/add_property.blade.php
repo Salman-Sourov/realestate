@@ -31,7 +31,7 @@
                                             <select name="property_status" class="form-select"
                                                 id="exampleFormControlSelect1">
                                                 <option selected="" disabled="">Select Status</option>
-                                                <option value="rent"
+                                                <option value="sell"
                                                     {{ old('property_status') == 'sell' ? 'selected' : '' }}>For Sell
                                                 </option>
                                                 <option value="buy"
@@ -45,7 +45,7 @@
 
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
-                                            <label class="form-label">Lowest Price *</label>
+                                            <label class="form-label">Lowest Price (৳) *</label>
                                             <input type="text" name="lowest_price" class="form-control"
                                                 value="{{ old('lowest_price') }}">
                                             @error('lowest_price')
@@ -56,31 +56,8 @@
 
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
-                                            <label class="form-label">Max Price</label>
+                                            <label class="form-label">Max Price (৳)</label>
                                             <input type="text" name="max_price" class="form-control">
-                                        </div>
-                                    </div><!-- Col -->
-
-                                    <div class="col-sm-6">
-                                        <div class="form-group mb-3">
-                                            <label class="form-label">Main Thambnail *</label>
-                                            <input type="file" name="property_thambnail" class="form-control"
-                                                onChange="mainThamUrl(this)">
-                                            <img src="" id="mainThmb">
-                                            @error('property_thambnail')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div><!-- Col -->
-
-                                    <div class="col-sm-6">
-                                        <div class="form-group mb-3">
-                                            <label class="form-label">Multiple Image </label>
-                                            <input type="file" name="multi_img[]" class="form-control" id="multiImg"
-                                                multiple="">
-
-                                            <div class="row" id="preview_img"> </div>
-
                                         </div>
                                     </div><!-- Col -->
                                 </div><!-- Row -->
@@ -128,16 +105,9 @@
 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label class="form-label">City</label>
-                                            <input type="text" name="city" class="form-control">
-                                        </div>
-                                    </div><!-- Col -->
-
-                                    <div class="col-sm-3">
-                                        <div class="mb-3">
-                                            <label class="form-label">State *</label>
+                                            <label class="form-label">Area/Division *</label>
                                             <select name="state" class="form-select" id="exampleFormControlSelect1">
-                                                <option selected="" disabled="">Select State</option>
+                                                <option selected="" disabled="">Select Area</option>
                                                 @foreach ($pstate as $state)
                                                     <option value="{{ $state->id }}"
                                                         {{ old('state') == $state->id ? 'selected' : '' }}>
@@ -153,13 +123,19 @@
 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
+                                            <label class="form-label">City</label>
+                                            <input type="text" name="city" class="form-control">
+                                        </div>
+                                    </div><!-- Col -->
+
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
                                             <label class="form-label">Postal Code </label>
                                             <input type="text" name="postal_code" class="form-control">
                                         </div>
                                     </div><!-- Col -->
 
                                 </div><!-- Row -->
-
 
                                 <div class="row">
                                     <div class="col-sm-4">
@@ -260,7 +236,6 @@
 
                                 </div><!-- Row -->
 
-
                                 <div class="col-sm-12">
                                     <div class="mb-3">
                                         <label class="form-label">Short Description *</label>
@@ -278,8 +253,31 @@
                                     </div>
                                 </div><!-- Col -->
 
-                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">Main Thambnail *</label>
+                                            <input type="file" name="property_thambnail" class="form-control"
+                                                onChange="mainThamUrl(this)">
+                                            <img src="" id="mainThmb">
+                                            @error('property_thambnail')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div><!-- Col -->
 
+                                    <div class="col-sm-6">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">Multiple Image </label>
+                                            <input type="file" name="multi_img[]" class="form-control" id="multiImg"
+                                                multiple="">
+
+                                            <div class="row" id="preview_img"> </div>
+
+                                        </div>
+                                    </div><!-- Col -->
+                                </div>
+                                <hr>
                                 <div class="mb-3">
                                     <div class="form-check form-check-inline">
                                         <input type="checkbox" name="featured" value="1" class="form-check-input"

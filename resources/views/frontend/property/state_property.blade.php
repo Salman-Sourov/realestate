@@ -2,7 +2,7 @@
 @section('main')
 
 @section('title')
-    {{ $bstate->state_name }} State | EMPO RealEstate
+    {{ $bstate->state_name }} | EMPO RealEstate
 @endsection
 <!--Page Title-->
 <section class="page-title-two bg-color-1 centred">

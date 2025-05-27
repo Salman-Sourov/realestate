@@ -13,7 +13,12 @@
     </div>
     <div class="auto-container">
         <div class="content-box clearfix">
-            <h1>All {{ $pbread->type_name }} Property</h1>
+            <h1>
+                All {{ $pbread->type_name }} Property
+                @if ($property->isNotEmpty())
+                    ({{ $property->first()->property_status }})
+                @endif
+            </h1>
             <ul class="bread-crumb clearfix">
                 <li><a href="{{ url('/') }}">Home</a></li>
                 <li>{{ $pbread->type_name }}</li>
@@ -27,7 +32,7 @@
     $ptype = App\Models\PropertyType::latest()->get();
 @endphp
 
-<section class="category-section centred">
+{{-- <section class="category-section centred">
     <div class="auto-container">
         <div class="inner-container wow slideInLeft animated" data-wow-delay="00ms" data-wow-duration="1500ms">
             <ul class="category-list clearfix clearfix d-flex flex-wrap justify-content-center">
@@ -47,7 +52,7 @@
             </ul>
         </div>
     </div>
-</section>
+</section> --}}
 
 <!-- property-page-section -->
 <section class="property-page-section property-list">
@@ -75,14 +80,7 @@
                                                 </figure>
                                             </a>
                                             <div class="batch"><i class="icon-11"></i></div>
-
-                                            @if ($item->featured == 1)
-                                                <span class="category">Featured</span>
-                                            @else
-                                                <span class="category">New</span>
-                                            @endif
-
-
+                                            <span class="category">{{ $item->type->type_name }}</span>
                                             <div class="buy-btn"><a href="">For
                                                     {{ $item->property_status }}</a></div>
                                         </div>

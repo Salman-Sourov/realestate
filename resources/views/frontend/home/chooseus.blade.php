@@ -6,9 +6,9 @@
                     <h5>Why Choose Us?</h5>
                     <h2>Reasons To Choose Us</h2>
                 </div>
-                <div class="btn-box">
+                {{-- <div class="btn-box">
                     <a href="{{ route('all.category') }}" class="theme-btn btn-one">All Categories</a>
-                </div>
+                </div> --}}
             </div>
             <div class="lower-box">
                 <div class="row clearfix">

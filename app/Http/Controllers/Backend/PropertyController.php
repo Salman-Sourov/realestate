@@ -43,7 +43,7 @@ class PropertyController extends Controller
 
         $request->validate([
             'property_name' => 'required|string|max:255|unique:properties,property_name',
-            'property_status' => 'required|in:rent,buy',
+            'property_status' => 'required|in:sell,buy',
             'lowest_price' => 'required|string|min:0',
             'property_thambnail' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
             'address' => 'required|string|max:255',
@@ -54,7 +54,6 @@ class PropertyController extends Controller
             'amenities_id' => 'required|array', // This ensures the field is required and is an array
             'amenities_id.*' => 'exists:amenities,amenitis_name', // This checks that each selected amenity exists in the `amenities` tabl
         ]);
-
 
         $amen = $request->amenities_id;
         $amenities = implode(",", $amen); //implode works on making single data to string data ("4,5,6,7 no are amenities_id", $amen)

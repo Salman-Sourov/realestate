@@ -317,6 +317,12 @@ Route::get('/sell/property', [IndexController::class, 'RentProperty'])->name('re
 //Get all Buy property
 Route::get('/buy/property', [IndexController::class, 'BuyProperty'])->name('buy.property');
 
+//Buy Property Plot & Flat
+Route::get('/buy/property/{id}', [IndexController::class, 'BuyPropertyPlotFlat'])->name('buy.property.plot.flat');
+
+//Sell Property Plot & Flat
+Route::get('/sell/property/{id}', [IndexController::class, 'SellPropertyPlotFlat'])->name('sell.property.plot.flat');
+
 //Get Property type details
 Route::get('/property/type/{id}', [IndexController::class, 'PropertyType'])->name('property.type');
 

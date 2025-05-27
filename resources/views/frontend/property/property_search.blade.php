@@ -40,9 +40,10 @@
 <section class="property-page-section property-list">
     <div class="auto-container">
         <div class="row clearfix">
-            
+
             <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
                 <div class="default-sidebar property-sidebar">
+
                     <div class="filter-widget sidebar-widget">
                         <div class="widget-title">
                             <h5>Property Search</h5>
@@ -107,8 +108,7 @@
                         </form>
                     </div>
 
-
-                    <div class="price-filter sidebar-widget">
+                    {{-- <div class="price-filter sidebar-widget">
                         <div class="widget-title">
                             <h5>Select Price Range</h5>
                         </div>
@@ -120,19 +120,7 @@
                             </div>
                             <div class="price-range-slider"></div>
                         </div>
-                    </div>
-                    <div class="category-widget sidebar-widget">
-                        <div class="widget-title">
-                            <h5>Status Of Property</h5>
-                        </div>
-                        <ul class="category-list clearfix">
-                            <li><a href="{{ route('rent.property') }}">For Rent
-                                    <span>({{ count($rentproperty) }})</span></a></li>
-                            <li><a href="{{ route('buy.property') }}">For Buy
-                                    <span>({{ count($buyproperty) }})</span></a></li>
-                        </ul>
-                    </div>
-
+                    </div> --}}
                 </div>
             </div>
 
@@ -231,31 +219,4 @@
     </div>
 </section>
 <!-- property-page-section end -->
-
-
-<!-- subscribe-section -->
-<section class="subscribe-section bg-color-3">
-    <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-2.png);"></div>
-    <div class="auto-container">
-        <div class="row clearfix">
-            <div class="col-lg-6 col-md-6 col-sm-12 text-column">
-                <div class="text">
-                    <span>Subscribe</span>
-                    <h2>Sign Up To Our Newsletter To Get The Latest News And Offers.</h2>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 form-column">
-                <div class="form-inner">
-                    <form action="contact.html" method="post" class="subscribe-form">
-                        <div class="form-group">
-                            <input type="email" name="email" placeholder="Enter your email" required="">
-                            <button type="submit">Subscribe Now</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- subscribe-section end -->
 @endsection

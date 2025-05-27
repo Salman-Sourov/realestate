@@ -40,11 +40,11 @@
                                             </div>
                                             <div class="col-lg-4 col-md-6 col-sm-12 column">
                                                 <div class="form-group">
-                                                    <label>State</label>
+                                                    <label>Area</label>
                                                     <div class="select-box">
                                                         <i class="far fa-compass"></i>
                                                         <select name="state" class="wide">
-                                                            <option data-display="Input State">Input State
+                                                            <option data-display="Input Area">Input Area
                                                             </option>
                                                             @foreach ($states as $state)
                                                                 <option value="{{ $state->state_name }}">
@@ -95,11 +95,11 @@
                                             </div>
                                             <div class="col-lg-4 col-md-6 col-sm-12 column">
                                                 <div class="form-group">
-                                                    <label>State</label>
+                                                    <label>Area</label>
                                                     <div class="select-box">
                                                         <i class="far fa-compass"></i>
                                                         <select name="state" class="wide">
-                                                            <option data-display="Input State">Input State
+                                                            <option data-display="Input Area">Input Area
                                                             </option>
                                                             @foreach ($states as $state)
                                                                 <option value="{{ $state->state_name }}">

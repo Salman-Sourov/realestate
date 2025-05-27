@@ -3,7 +3,7 @@
 @section('main')
 
 @section('title')
-    EMPO RealEstate - Buy, Sell & Rent Properties
+    EMPO RealEstate | Buy-Sell Properties
 @endsection
 <!-- banner-section -->
 @include('frontend.home.banner')
@@ -11,7 +11,7 @@
 
 
 <!-- category-section -->
-@include('frontend.home.category')
+{{-- @include('frontend.home.category') --}}
 <!-- category-section end -->
 
 

@@ -20,17 +20,10 @@
     <section class="sidebar-page-container blog-details sec-pad-2">
         <div class="auto-container">
             <div class="row clearfix">
-
-
-
-
                 @php
                     $id = Auth::user()->id;
                     $userData = App\Models\User::find($id);
                 @endphp
-
-
-
                 <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
                     <div class="blog-sidebar">
                         <div class="sidebar-widget post-widget">
@@ -39,10 +32,10 @@
                             </div>
                             <div class="post-inner">
                                 <div class="post">
-                                    <figure class="post-thumb"><a href="{{route ('dashboard')}}">
+                                    <figure class="post-thumb"><a href="{{ route('dashboard') }}">
                                             <img src="{{ !empty($userData->photo) ? url('upload/user_images/' . $userData->photo) : url('upload/no_image.jpg') }}"
                                                 alt=""></a></figure>
-                                    <h5><a href="{{route ('dashboard')}}">{{ $userData->name }} </a></h5>
+                                    <h5><a href="{{ route('dashboard') }}">{{ $userData->name }} </a></h5>
                                     <p>{{ $userData->email }} </p>
                                 </div>
                             </div>
@@ -53,28 +46,18 @@
                             </div>
 
                             @include('frontend.dashboard.dashboard_sidebar')
-
                         </div>
-
                     </div>
                 </div>
-
-
 
 
                 <div class="col-lg-8 col-md-12 col-sm-12 content-side">
                     <div class="blog-details-content">
                         <div class="news-block-one">
                             <div class="inner-box">
-
                                 <div class="lower-content">
                                     <h3>Including Animation In Your Design System.</h3>
-
-
-
-
-
-                                    <div class="row">
+                                 <div class="row">
                                         <div class="col-lg-4">
                                             <div class="card-body" style="background-color: #1baf65;">
                                                 <h1 class="card-title" style="color: white; font-weight: bold;">0</h1>
@@ -117,24 +100,10 @@
                                 <div class="lower-content">
                                     <h3>Activity Logs</h3>
                                     <hr>
-
-
-
-
-
-
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
-
-
-
-
-
-
                 </div>
 
 
@@ -142,30 +111,4 @@
         </div>
     </section>
     <!-- sidebar-page-container -->
-
-    <!-- subscribe-section -->
-    <section class="subscribe-section bg-color-3">
-        <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-2.png);"></div>
-        <div class="auto-container">
-            <div class="row clearfix">
-                <div class="col-lg-6 col-md-6 col-sm-12 text-column">
-                    <div class="text">
-                        <span>Subscribe</span>
-                        <h2>Sign Up To Our Newsletter To Get The Latest News And Offers.</h2>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 form-column">
-                    <div class="form-inner">
-                        <form action="contact.html" method="post" class="subscribe-form">
-                            <div class="form-group">
-                                <input type="email" name="email" placeholder="Enter your email" required="">
-                                <button type="submit">Subscribe Now</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- subscribe-section end -->
 @endsection
