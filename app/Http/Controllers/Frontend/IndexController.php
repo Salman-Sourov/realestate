@@ -229,8 +229,6 @@ class IndexController extends Controller
 
         return view('frontend.property.property_search', compact('property', 'rentproperty', 'buyproperty'));
     }
-
-
     public function RentPropertySearch(Request $request)
     {
         $request->validate(['search' => 'required']);

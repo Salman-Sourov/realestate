@@ -24,7 +24,8 @@
                             <div class="image-box">
                                 <a href="{{ url('property/details/' . $item->property_slug) }}">
                                     <figure class="image">
-                                        <img src="{{ asset($item->property_thambnail) }}" alt="empotechbd_property_image">
+                                        <img src="{{ asset($item->property_thambnail) }}"
+                                            alt="empotechbd_property_image">
                                     </figure>
                                 </a>
                                 <div class="batch"><i class="icon-11"></i></div>
@@ -56,6 +57,12 @@
                                 </div>
                                 <div class="price-box clearfix">
                                     <div class="price-info pull-left">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-map-marker-alt text-danger" style="margin-right: 5px;"></i>
+                                            <span class="text-truncate text-dark fw-medium">
+                                                {{ $item['pstate']['state_name'] ?? 'N/A' }}
+                                            </span>
+                                        </div>
                                         <h6>Start From</h6>
                                         <h4>৳ {{ $item->lowest_price }}</h4>
                                     </div>

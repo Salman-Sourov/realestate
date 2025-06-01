@@ -59,7 +59,7 @@
                                                     <label>Property Type</label>
                                                     <div class="select-box">
                                                         <select name="ptype_id" class="wide">
-                                                            <option data-display="All Type">All Type</option>
+                                                            <option data-display="All Type">Select Type</option>
                                                             @foreach ($ptypes as $ptype)
                                                                 <option value="{{ $ptype->type_name }}">
                                                                     {{ $ptype->type_name }}</option>
@@ -114,7 +114,7 @@
                                                     <label>Property Type</label>
                                                     <div class="select-box">
                                                         <select name="ptype_id" class="wide">
-                                                            <option data-display="All Type">All Type</option>
+                                                            <option data-display="All Type">Select Type</option>
                                                             @foreach ($ptypes as $ptype)
                                                                 <option value="{{ $ptype->type_name }}">
                                                                     {{ $ptype->type_name }}</option>

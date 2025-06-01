@@ -24,9 +24,7 @@ class AdminController extends Controller
     public function AdminLogout(Request $request)
     {
         Auth::guard('web')->logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         $notification = array(
@@ -180,7 +178,6 @@ class AdminController extends Controller
         return redirect()->route('all.agent')->with($notification);
     }
 
-
     public function EditAgent($id)
     {
         $allagent = User::findOrFail($id);
@@ -271,7 +268,6 @@ class AdminController extends Controller
 
         return back()->with($notification);
     }
-
 
     public function changeStatus(Request $request)
     {

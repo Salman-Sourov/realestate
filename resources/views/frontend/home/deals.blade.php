@@ -18,7 +18,8 @@
                             <div class="image-box">
                                 <a href="{{ url('property/details/' . $item->property_slug) }}">
                                     <figure class="image">
-                                        <img src="{{ asset($item->property_thambnail) }}" alt="empotechbd_property_image">
+                                        <img src="{{ asset($item->property_thambnail) }}"
+                                            alt="empotechbd_property_image">
                                     </figure>
                                 </a>
                                 <div class="batch"><i class="icon-11"></i></div>
@@ -40,18 +41,25 @@
                                         @endif
 
                                     </div>
-                                    <div class="buy-btn pull-right"><a href="{{ url('property/details/' . $item->property_slug) }}">For
+                                    <div class="buy-btn pull-right"><a
+                                            href="{{ url('property/details/' . $item->property_slug) }}">For
                                             {{ $item->property_status }}</a></div>
                                 </div>
 
                                 <div class="title-text">
                                     <h4><a
-                                            href="{{ url('property/details/'. $item->property_slug) }}">{{ $item->property_name }}</a>
+                                            href="{{ url('property/details/' . $item->property_slug) }}">{{ $item->property_name }}</a>
                                     </h4>
                                 </div>
 
                                 <div class="price-box clearfix">
                                     <div class="price-info pull-left">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-map-marker-alt text-danger" style="margin-right: 5px;"></i>
+                                            <span class="text-truncate text-dark fw-medium">
+                                                {{ $item['pstate']['state_name'] ?? 'N/A' }}
+                                            </span>
+                                        </div>
                                         <h6>Start From</h6>
                                         <h4>৳ {{ $item->lowest_price }}</h4>
                                     </div>
@@ -71,8 +79,7 @@
                                     <li><i class="icon-16"></i>{{ $item->property_size }} Sq Ft</li>
                                 </ul>
 
-                                <div class="btn-box"><a
-                                        href="{{ url('property/details/' . $item->property_slug) }}"
+                                <div class="btn-box"><a href="{{ url('property/details/' . $item->property_slug) }}"
                                         class="theme-btn btn-two">See Details</a></div>
                             </div>
                         </div>

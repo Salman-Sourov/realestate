@@ -64,7 +64,7 @@
                         <li><a href="">For {{ $property->property_status }}</a></li>
                     </ul>
                     <div class="price-box pull-right">
-                        <h3>${{ $property->lowest_price }}</h3>
+                        <h3>৳ {{ $property->lowest_price }}</h3>
                     </div>
                 </div>
                 <ul class="other-option pull-right clearfix">
@@ -130,7 +130,7 @@
                         <ul class="info clearfix">
                             <li><span>Address:</span> {{ $property->address }}</li>
                             <li>
-                                <span>State:</span>
+                                <span>Area:</span>
                                 {{ $property['pstate']['state_name'] ?? 'N/A' }}
                             </li>
 
