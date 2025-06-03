@@ -23,7 +23,8 @@
                                     </figure>
                                 </a>
                                 <div class="batch"><i class="icon-11"></i></div>
-                                <span class="category">Hot</span>
+                                {{-- <span class="category">Hot</span> --}}
+                                <span class="category">{{ $item->type->type_name }}</span>
                             </div>
                             <div class="lower-content">
                                 <div class="author-info clearfix">

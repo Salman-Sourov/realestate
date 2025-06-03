@@ -77,7 +77,7 @@ class IndexController extends Controller
         $agent = User::findOrFail($id);
         $property = Property::where('agent_id', $id)->get();
         $featured = Property::where('featured', '1')->orderBy('id', 'DESC')->limit(3)->get();
-        $rentproperty = Property::where('property_status', 'rent')->get();
+        $rentproperty = Property::where('property_status', 'sell')->get();
         $buyproperty = Property::where('property_status', 'buy')->get();
 
         return view('frontend.agent.agent_details', compact('agent', 'property', 'featured', 'rentproperty', 'buyproperty'));

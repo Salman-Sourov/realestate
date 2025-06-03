@@ -52,7 +52,7 @@
                             <li><i class="fab fa fa-envelope"></i><a
                                     href="mailto:{{ $agent->email }}">{{ $agent->email }}</a></li>
                             <li><i class="fab fa fa-phone"></i><a
-                                    href="tel:{{ $agent->phone }}">{{ $agent->phone }}</a></li>
+                                   href="tel:+8801733682541">+8801733682541</a></li>
                         </ul>
                     </div>
                 </div>
@@ -223,7 +223,7 @@
                                                                 <h6>Robert Niro</h6>
                                                             </div>
                                                             <div class="buy-btn pull-right"><a
-                                                                    href="property-details.html">For Rent</a></div>
+                                                                    href="property-details.html">For Sell</a></div>
                                                         </div>
                                                         <div class="title-text">
                                                             <h4><a href="property-details.html">Contemporary
@@ -533,7 +533,7 @@
                             <h5>Status Of Property</h5>
                         </div>
                         <ul class="category-list clearfix">
-                            <li><a href="{{ route('rent.property') }}">For Rent
+                            <li><a href="{{ route('rent.property') }}">For Sell
                                     <span>({{ count($rentproperty) }})</span></a></li>
                             <li><a href="{{ route('buy.property') }}">For Buy
                                     <span>({{ count($buyproperty) }})</span></a></li>

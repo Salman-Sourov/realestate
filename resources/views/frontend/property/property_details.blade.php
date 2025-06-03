@@ -186,8 +186,7 @@
                         </div>
 
                         <figure class="image-box">
-                            <iframe width="700" height="415"
-                                src="{{ $property->property_video }}"
+                            <iframe width="700" height="415" src="{{ $property->property_video }}"
                                 title="YouTube video player" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -251,11 +250,11 @@
                                         alt="">
                                 </figure>
                                 <div class="inner">
-                                    <h4>Admin</h4>
+                                    <h4>Mulkaan</h4>
                                     <ul class="info clearfix">
-                                        <li><i class="fas fa-map-marker-alt"></i>EMPO Tech BD Office, Dhanmondi,
-                                            Dhaka-1206</li>
-                                        <li><i class="fas fa-phone"></i><a href="tel:01521406205">01521 406205</a>
+                                        <li><i class="fas fa-map-marker-alt"></i>Banasree, Dhaka, Bangladesh</li>
+                                        <li><i class="fas fa-phone"></i><a
+                                                href="tel:+8801733682541">+8801733682541</a>
                                         </li>
                                     </ul>
                                     @if (!is_null($property->agent_id))
@@ -274,8 +273,8 @@
                                     <h4>{{ $property->user->name }}</h4>
                                     <ul class="info clearfix">
                                         <li><i class="fas fa-map-marker-alt"></i>{{ $property->user->address }}</li>
-                                        <li><i class="fas fa-phone"></i><a
-                                                href="tel:03030571965">{{ $property->user->phone }}</a>
+                                        <li><i class="fas fa-phone"></i><a {{-- href="tel:03030571965">{{ $property->user->phone }}</a> --}}
+                                                href="tel:+8801733682541">+8801733682541</a>
                                         </li>
                                     </ul>
                                     <div class="btn-box"><a
