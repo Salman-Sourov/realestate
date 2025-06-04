@@ -4,7 +4,7 @@
 
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
-                <a href="{{ route('add.state') }}" class="btn btn-inverse-info"> Add State </a>
+                <a href="{{ route('add.state') }}" class="btn btn-inverse-info"> Add State/Area </a>
             </ol>
         </nav>
 
@@ -12,15 +12,15 @@
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title">State All </h6>
+                        <h6 class="card-title">State/Area All </h6>
 
                         <div class="table-responsive">
                             <table id="dataTableExample" class="table">
                                 <thead>
                                     <tr>
                                         <th>Sl </th>
-                                        <th>State Name </th>
-                                        <th>State Image </th>
+                                        <th>Name </th>
+                                        <th>Image </th>
                                         <th>Action </th>
                                     </tr>
                                 </thead>

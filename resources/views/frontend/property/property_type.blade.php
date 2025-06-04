@@ -58,7 +58,6 @@
 <section class="property-page-section property-list">
     <div class="auto-container">
         <div class="row clearfix">
-
             <div class="col-lg-12 col-md-12 col-sm-12 content-side">
                 <div class="property-content-side">
                     <div class="item-shorting clearfix">
@@ -100,7 +99,7 @@
                                                         </span>
                                                     </div>
                                                     <h6>Start From</h6>
-                                                    <h4>{{ $item->lowest_price }}</h4>
+                                                    <h4>৳ {{ $item->lowest_price }}</h4>
                                                 </div>
 
                                                 @if ($item->agent_id == null)

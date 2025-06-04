@@ -19,10 +19,17 @@
 @include('frontend.home.feature')
 <!-- feature-section end -->
 
+{{-- <!-- chooseus-section -->
+@include('frontend.home.chooseus')
+<!-- chooseus-section end --> --}}
 
-<!-- video-section -->
+<!-- cta-section -->
+@include('frontend.home.cta')
+<!-- cta-section end -->
+
+{{-- <!-- video-section -->
 @include('frontend.home.video')
-<!-- video-section end -->
+<!-- video-section end --> --}}
 
 
 <!-- deals-section -->
@@ -30,34 +37,23 @@
 <!-- deals-section end -->
 
 
-<!-- testimonial-section end -->
+{{-- <!-- testimonial-section end -->
 @include('frontend.home.testimonial')
-<!-- testimonial-section end -->
-
-
-<!-- chooseus-section -->
-@include('frontend.home.chooseus')
-<!-- chooseus-section end -->
+<!-- testimonial-section end --> --}}
 
 
 <!-- place-section -->
 @include('frontend.home.place')
 <!-- place-section end -->
 
-
 <!-- team-section -->
 @include('frontend.home.team')
 <!-- team-section end -->
 
 
-<!-- cta-section -->
-@include('frontend.home.cta')
-<!-- cta-section end -->
-
-
-<!-- news-section -->
+{{-- <!-- news-section -->
 @include('frontend.home.news')
-<!-- news-section end -->
+<!-- news-section end --> --}}
 
 
 <!-- download-section -->

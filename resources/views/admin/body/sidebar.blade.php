@@ -1,7 +1,7 @@
 <nav class="sidebar">
     <div class="sidebar-header">
         <a href="{{ url('/') }}" target="_blank" class="sidebar-brand">
-            Empo<span>Real</span>
+            Mulk<span>aan</span>
         </a>
     </div>
 
@@ -47,16 +47,16 @@
                 <a class="nav-link" data-bs-toggle="collapse" href="#state" role="button" aria-expanded="false"
                     aria-controls="emails">
                     <i class="link-icon" data-feather="map"></i>
-                    <span class="link-title">Property State </span>
+                    <span class="link-title">Property State/Area </span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
                 <div class="collapse" id="state">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="{{ route('all.state') }}" class="nav-link">All State</a>
+                            <a href="{{ route('all.state') }}" class="nav-link">All State/Area</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('add.state') }}" class="nav-link">Add State</a>
+                            <a href="{{ route('add.state') }}" class="nav-link">Add State/Area</a>
                         </li>
 
                     </ul>

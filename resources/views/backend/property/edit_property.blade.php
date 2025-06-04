@@ -3,21 +3,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
     <div class="page-content">
-
-
         <div class="row profile-body">
-            <!-- left wrapper start -->
-
-            <!-- left wrapper end -->
             <!-- middle wrapper start -->
             <div class="col-md-12 col-xl-12 middle-wrapper">
                 <div class="row">
-
                     <div class="card">
                         <div class="card-body">
                             <h6 class="card-title">Edit Property </h6>
-
-
                             <form method="post" action="{{ route('update.property') }}" id="myForm"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -65,11 +57,7 @@
                                                 value="{{ $property->max_price }}">
                                         </div>
                                     </div><!-- Col -->
-
-
                                 </div><!-- Row -->
-
-
 
                                 <div class="row">
                                     <div class="col-sm-3">
@@ -174,8 +162,6 @@
                                 </div><!-- Row -->
 
 
-
-
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="mb-3">
@@ -246,28 +232,20 @@
                                             </select>
                                         </div>
                                     </div><!-- Col -->
-
-
                                 </div><!-- Row -->
 
 
                                 <div class="col-sm-12">
                                     <div class="mb-3">
                                         <label class="form-label">Short Description *</label>
-                                        <textarea name="short_descp" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $property->short_descp }} <textarea>
+                                        <textarea name="short_descp" class="form-control" id="exampleFormControlTextarea1" rows="5">{{ $property->short_descp }}</textarea>
                                     </div>
                                 </div><!-- Col -->
-
-
 
                                 <div class="col-sm-12">
                                     <div class="mb-3">
                                         <label class="form-label">Long Description</label>
-
-                                        <textarea name="long_descp" class="form-control" name="tinymce" id="tinymceExample" rows="10">
-           {!! $property->long_descp !!}
-                </textarea>
-
+                                        <textarea name="long_descp" class="form-control" id="tinymceExample" rows="10">{!! $property->long_descp !!}</textarea>
                                     </div>
                                 </div><!-- Col -->
 
@@ -299,13 +277,11 @@
 
 
                             </form>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
 

@@ -30,9 +30,9 @@
                                         <th>Name</th>
                                         <th>Agent</th>
                                         {{-- <th>P Type</th> --}}
-                                        <th>S Type</th>
-                                        <th>City</th>
-                                        <th>State</th>
+                                        <th>P_Type</th>
+                                        <th>P_Status</th>
+                                        <th>Area</th>
                                         <th>Status</th>
                                         {{-- <th>Update Details</th> --}}
                                         <th>Action</th>
@@ -52,7 +52,7 @@
                                             {{-- ['type is a function of Property MODEL']['type_name is property_types column name'] --}}
 
                                             <td>{{ $item->property_status }}</td>
-                                            <td>{{ $item->city ?? 'N/A' }}</td>
+                                            <td>{{ $item->type->type_name ?? 'N/A' }}</td>
                                             <td>{{ $item['pstate']['state_name'] ?? 'N/A' }}</td>
                                             <td>
                                                 @if ($item->status == 1)

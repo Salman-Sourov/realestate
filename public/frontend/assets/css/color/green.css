@@ -11,7 +11,7 @@
 }
 
 .mobile-menu .social-links li a:hover{
-  color:#2dbe6c;  
+  color:#2dbe6c;
 }
 
 .switcher .switch_btn button{
@@ -244,7 +244,7 @@
   background-color: #2dbe6c;
 }
 
-.header-style-three .header-lower .main-menu .navigation > li.current > a, 
+.header-style-three .header-lower .main-menu .navigation > li.current > a,
 .header-style-three .header-lower .main-menu .navigation > li:hover > a{
   background-color: #2dbe6c;
 }

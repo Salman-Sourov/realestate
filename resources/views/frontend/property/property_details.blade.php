@@ -252,7 +252,8 @@
                                 <div class="inner">
                                     <h4>Mulkaan</h4>
                                     <ul class="info clearfix">
-                                        <li><i class="fas fa-map-marker-alt"></i>Banasree, Dhaka, Bangladesh</li>
+                                        <li><i class="fas fa-map-marker-alt"></i>10-B, Jcx Business Tawar, 1136/A,
+                                            Japan Street, Bashundhara R/A, Dhaka, Bangladesh, 1219</li>
                                         <li><i class="fas fa-phone"></i><a
                                                 href="tel:+8801733682541">+8801733682541</a>
                                         </li>

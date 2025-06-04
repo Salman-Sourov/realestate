@@ -26,6 +26,7 @@ class PropertyController extends Controller
     public function AdminAllProperty()
     {
         $property = Property::latest()->get();
+        // dd($property);
         return view('backend.property.all_property', compact('property'));
     }
 
@@ -40,6 +41,16 @@ class PropertyController extends Controller
 
     public function StoreProperty(Request $request)
     {
+
+        function convertYoutubeToEmbed($url)
+        {
+            if (strpos($url, 'watch?v=') !== false) {
+                return str_replace('watch?v=', 'embed/', $url);
+            } elseif (strpos($url, 'youtu.be/') !== false) {
+                return str_replace('youtu.be/', 'youtube.com/embed/', $url);
+            }
+            return $url;
+        }
 
         $request->validate([
             'property_name' => 'required|string|max:255|unique:properties,property_name',
@@ -89,7 +100,8 @@ class PropertyController extends Controller
             'garage_size' => $request->garage_size,
 
             'property_size' => $request->property_size,
-            'property_video' => $request->property_video,
+            // 'property_video' => $request->property_video,
+            'property_video' => convertYoutubeToEmbed($request->property_video),
             'address' => $request->address,
             'city' => $request->city,
             'state' => $request->state,
@@ -167,6 +179,15 @@ class PropertyController extends Controller
 
     public function UpdateProperty(Request $request)
     {
+        function convertYoutubeToEmbed($url)
+        {
+            if (strpos($url, 'watch?v=') !== false) {
+                return str_replace('watch?v=', 'embed/', $url);
+            } elseif (strpos($url, 'youtu.be/') !== false) {
+                return str_replace('youtu.be/', 'youtube.com/embed/', $url);
+            }
+            return $url;
+        }
 
         $amen = $request->amenities_id;
         $amenites = implode(",", $amen);
@@ -191,7 +212,8 @@ class PropertyController extends Controller
             'garage_size' => $request->garage_size,
 
             'property_size' => $request->property_size,
-            'property_video' => $request->property_video,
+            // 'property_video' => $request->property_video,
+            'property_video' => convertYoutubeToEmbed($request->property_video),
             'address' => $request->address,
             'city' => $request->city,
             'state' => $request->state,
@@ -217,7 +239,6 @@ class PropertyController extends Controller
 
     public function UpdatePropertyThambnail(Request $request)
     {
-
         $pro_id = $request->id;
         $oldImage = $request->old_img;
 

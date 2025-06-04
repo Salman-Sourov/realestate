@@ -27,13 +27,13 @@
                             <a href="{{ route('dashboard') }}" target="_blank"><i class="fas fa-user"></i>Dashboard</a>
                             <a href="{{ route('user.logout') }}"><i class="fas fa-user"></i>Logout</a>
                         @elseif (auth()->user() && auth()->user()->hasRole('admin'))
-                            <a href="{{ route('admin.dashboard') }}" target="_blank"><i
-                                    class="fas fa-user"></i>Dashboard</a>
-                            <a href="{{ route('admin.logout') }}"><i class="fas fa-user"></i>Logout</a>
-                        @else
                             <a href="{{ route('agent.dashboard') }}" target="_blank"><i
                                     class="fas fa-user"></i>Dashboard</a>
                             <a href="{{ route('agent.logout') }}"><i class="fas fa-user"></i>Logout</a>
+                        @else
+                            <a href="{{ route('admin.dashboard') }}" target="_blank"><i
+                                    class="fas fa-user"></i>Dashboard</a>
+                            <a href="{{ route('admin.logout') }}"><i class="fas fa-user"></i>Logout</a>
                         @endif
                     </div>
                 @else
