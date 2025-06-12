@@ -38,12 +38,13 @@
                                         @if ($item->agent_id == null)
                                             <figure class="author-thumb"><img
                                                     src="{{ url('upload/salman_sourov.png') }}" alt=""></figure>
-                                            <h6>Admin </h6>
+                                            <p class="agent">Admin</p>
                                         @else
                                             <figure class="author-thumb"><img
                                                     src="{{ !empty($item->user->photo) ? url('upload/agent_images/' . $item->user->photo) : url('upload/no_image.jpg') }}"
                                                     alt=""></figure>
-                                            <h6>{{ $item->user->name }}</h6>
+                                            {{-- <h6>{{ $item->user->name }}</h6> --}}
+                                            <p class="agent">{{ $item->user->name }}</p>
                                         @endif
                                     </div>
                                     <div class="buy-btn pull-right"><a

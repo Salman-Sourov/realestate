@@ -10028,3 +10028,9 @@ div#mCSB_1_container {
     color: inherit;
     text-decoration: none;
 }
+
+.agent {
+    font-size: 12px;
+    font-weight: bold;
+    color: #000;
+}

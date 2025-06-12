@@ -186,14 +186,22 @@
                         </div>
 
                         <figure class="image-box">
-                            <iframe width="700" height="415" src="{{ $property->property_video }}"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            @if (!empty($property->property_video))
+                                <iframe width="700" height="415" src="{{ $property->property_video }}"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            @else
+                                <iframe width="944" height="531" src="https://www.youtube.com/embed/n8pysoUJ56c"
+                                    title="No Video" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            @endif
                     </div>
 
                     {{-- Schedule --}}
-                    <div class="schedule-box content-widget">
+                    <div class="schedule-box
+                                    content-widget">
                         <div class="title-box">
                             <h4>Schedule A Tour</h4>
                         </div>
@@ -229,7 +237,8 @@
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-12 column">
                                         <div class="form-group message-btn">
-                                            <button type="submit" class="theme-btn btn-one">Submit Now</button>
+                                            <button type="submit" class="theme-btn btn-one">Submit
+                                                Now</button>
                                         </div>
                                     </div>
                                 </div>
