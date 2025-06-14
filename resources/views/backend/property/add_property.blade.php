@@ -84,7 +84,7 @@
 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label class="form-label">Garage Size</label>
+                                            <label class="form-label">Garage Size (SqFt)</label>
                                             <input type="text" name="garage_size" class="form-control">
                                         </div>
                                     </div><!-- Col -->
@@ -140,7 +140,7 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="mb-3">
-                                            <label class="form-label">Property Size *</label>
+                                            <label class="form-label">Property Size (SqFt) *</label>
                                             <input type="text" name="property_size" class="form-control"
                                                 value="{{ old('property_size') }}">
                                             @error('property_size')

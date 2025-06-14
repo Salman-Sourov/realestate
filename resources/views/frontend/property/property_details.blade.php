@@ -48,12 +48,19 @@
                         @endif
                     </div>
 
-                    <ul class="rating clearfix pull-left">
-                        <li><i class="icon-39"></i></li>
-                        <li><i class="icon-39"></i></li>
-                        <li><i class="icon-39"></i></li>
-                        <li><i class="icon-39"></i></li>
-                        <li><i class="icon-40"></i></li>
+                    <ul class="other-option" style="display: flex; gap: 10px; list-style: none; padding: 0; margin: 0;">
+                        <li>
+                            <a aria-label="Compare" class="action-btn" id="{{ $property->id }}"
+                                onclick="addToCompare(this.id)">
+                                <i class="icon-12"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a aria-label="Add To Wishlist" class="action-btn" id="{{ $property->id }}"
+                                onclick="addToWishList(this.id)">
+                                <i class="icon-13"></i>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -67,13 +74,6 @@
                         <h3>৳ {{ $property->lowest_price }}</h3>
                     </div>
                 </div>
-                <ul class="other-option pull-right clearfix">
-                    <li><a aria-label="Compare" class="action-btn" id="{{ $property->id }}"
-                            onclick="addToCompare(this.id)"><i class="icon-12"></i></a></li>
-                    <li><a aria-label="Add To Wishlist" class="action-btn" id="{{ $property->id }}"
-                            onclick="addToWishList(this.id)"><i class="icon-13"></i></a></li>
-
-                </ul>
             </div>
         </div>
 
@@ -83,16 +83,33 @@
                 <div class="property-details-content">
                     <div class="carousel-inner">
                         <div class="single-item-carousel owl-carousel owl-theme owl-dots-none">
+                            <figure class="image-box">
+                                <img src="{{ asset($property->property_thambnail) }}" alt=""
+                                    class="carousel-image clickable-image">
+                            </figure>
                             @foreach ($multiImage as $img)
-                                <figure class="image-box"><img src="{{ asset($img->photo_name) }}" alt="">
+                                <figure class="image-box">
+                                    <img src="{{ asset($img->photo_name) }}" alt=""
+                                        class="carousel-image clickable-image">
                                 </figure>
                             @endforeach
                         </div>
                     </div>
+
+                    <!-- The Modal/Popup -->
+                    <div id="imageModal" class="modal">
+                        <span class="close-button">&times;</span>
+                        <img class="modal-content" id="modalImage">
+                    </div>
+
                     <div class="discription-box content-widget">
                         <div class="title-box">
                             <h4>Property Description</h4>
                         </div>
+                        <div class="text override-color">
+                            <p>{!! $property->short_descp !!}</p>
+                        </div>
+                        <hr>
                         <div class="text override-color">
                             <p>{!! $property->long_descp !!}</p>
                         </div>
@@ -192,7 +209,7 @@
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                             @else
-                                <iframe width="944" height="531" src="https://www.youtube.com/embed/n8pysoUJ56c"
+                                <iframe width="700" height="415" src="https://www.youtube.com/embed/n8pysoUJ56c"
                                     title="No Video" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -441,7 +458,7 @@
                                                 <figure class="author-thumb"><img
                                                         src="{{ !empty($item->user->photo) ? url('upload/agent_images/' . $item->user->photo) : url('upload/no_image.jpg') }}"
                                                         alt=""></figure>
-                                                <h6>{{ $item->user->name }}</h6>
+                                                <p class="agent">{{ $item->user->name }}</p>
                                             @endif
                                         </div>
                                         <div class="buy-btn pull-right"><a
@@ -483,32 +500,4 @@
     </div>
 </section>
 <!-- property-details end -->
-
-{{-- <!-- subscribe-section -->
-    <section class="subscribe-section bg-color-3">
-        <div class="pattern-layer"
-            style="background-image: url({{ asset('frontend') }}/assets/images/shape/shape-2.png);"></div>
-        <div class="auto-container">
-            <div class="row clearfix">
-                <div class="col-lg-6 col-md-6 col-sm-12 text-column">
-                    <div class="text">
-                        <span>Subscribe</span>
-                        <h2>Sign Up To Our Newsletter To Get The Latest News And Offers.</h2>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 form-column">
-                    <div class="form-inner">
-                        <form action="contact.html" method="post" class="subscribe-form">
-                            <div class="form-group">
-                                <input type="email" name="email" placeholder="Enter your email" required="">
-                                <button type="submit">Subscribe Now</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- subscribe-section end --> --}}
-
 @endsection

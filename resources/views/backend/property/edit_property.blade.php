@@ -49,12 +49,11 @@
                                         </div>
                                     </div><!-- Col -->
 
-
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
                                             <label class="form-label">Max Price </label>
                                             <input type="text" name="max_price" class="form-control"
-                                                value="{{ $property->max_price }}">
+                                                value="{{ $property->max_price}}">
                                         </div>
                                     </div><!-- Col -->
                                 </div><!-- Row -->
@@ -84,7 +83,7 @@
 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label class="form-label">Garage Size</label>
+                                            <label class="form-label">Garage Size (SqFt)</label>
                                             <input type="text" name="garage_size"
                                                 class="form-control"value="{{ $property->garage_size }}">
                                         </div>
@@ -138,7 +137,7 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="mb-3">
-                                            <label class="form-label">Property Size</label>
+                                            <label class="form-label">Property Size (SqFt)</label>
                                             <input type="text" name="property_size" class="form-control"
                                                 value="{{ $property->property_size }}">
                                         </div>
@@ -595,9 +594,6 @@
                     lowest_price: {
                         required: true,
                     },
-                    max_price: {
-                        required: true,
-                    },
                     ptype_id: {
                         required: true,
                     },
@@ -613,9 +609,6 @@
                     },
                     lowest_price: {
                         required: 'Please Enter Lowest Price',
-                    },
-                    max_price: {
-                        required: 'Please Enter Max Price',
                     },
                     ptype_id: {
                         required: 'Please Select Property Type',

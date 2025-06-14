@@ -41,7 +41,6 @@ class PropertyController extends Controller
 
     public function StoreProperty(Request $request)
     {
-
         function convertYoutubeToEmbed($url)
         {
             if (strpos($url, 'watch?v=') !== false) {
@@ -78,7 +77,7 @@ class PropertyController extends Controller
             $manager = new ImageManager(new Driver());
             $name_gen = hexdec(uniqid()) . '.' . $request->file('property_thambnail')->getClientOriginalExtension();
             $image = $manager->read($request->file('property_thambnail'));
-            $image = $image->resize(370, 250);
+            // $image = $image->resize(370, 250);
             $image->toJpeg(80)->Save(base_path(('public/upload/property/thambnail/' . $name_gen)));
             $save_url = 'upload/property/thambnail/' . $name_gen;
         }
@@ -127,7 +126,7 @@ class PropertyController extends Controller
                 $manager = new ImageManager(new Driver());
                 $make_name = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
                 $image = $manager->read($img);
-                $image = $image->resize(370, 250);
+                // $image = $image->resize(370, 250);
                 $image->toJpeg(80)->Save(base_path(('public/upload/property/multi-image/' . $make_name)));
                 $uploadPath = 'upload/property/multi-image/' . $make_name;
 
@@ -203,7 +202,7 @@ class PropertyController extends Controller
             'property_status' => $request->property_status,
 
             'lowest_price' => $request->lowest_price,
-            'max_price' => $request->max_price,
+            // 'max_price' => $request->max_price,
             'short_descp' => $request->short_descp,
             'long_descp' => $request->long_descp,
             'bedrooms' => $request->bedrooms,
@@ -245,7 +244,7 @@ class PropertyController extends Controller
         $manager = new ImageManager(new Driver());
         $name_gen = hexdec(uniqid()) . '.' . $request->file('property_thambnail')->getClientOriginalExtension();
         $image = $manager->read($request->file('property_thambnail'));
-        $image = $image->resize(370, 250);
+        // $image = $image->resize(370, 250);
         $image->toJpeg(80)->Save(base_path(('public/upload/property/thambnail/' . $name_gen)));
         $save_url = 'upload/property/thambnail/' . $name_gen;
 

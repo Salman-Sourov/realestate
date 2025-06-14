@@ -32,6 +32,7 @@ class IndexController extends Controller
             ->orderBy('id', 'DESC')
             ->limit(3)
             ->get();
+            // dd($property);
 
         return view('frontend.property.property_details', compact('property', 'multiImage', 'property_amen', 'facility', 'relatedProperty'));
     }
