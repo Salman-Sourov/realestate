@@ -28,21 +28,6 @@
                             <label class="tx-11 fw-bolder mb-0 text-uppercase">Phone:</label>
                             <p class="text-muted">{{ $profileData->phone }}</p>
                         </div>
-                        <div class="mt-3">
-                            <label class="tx-11 fw-bolder mb-0 text-uppercase">Address:</label>
-                            <p class="text-muted">{{ $profileData->address }}</p>
-                        </div>
-                        <div class="mt-3 d-flex social-links">
-                            <a href="javascript:;" class="btn btn-icon border btn-xs me-2">
-                                <i data-feather="github"></i>
-                            </a>
-                            <a href="javascript:;" class="btn btn-icon border btn-xs me-2">
-                                <i data-feather="twitter"></i>
-                            </a>
-                            <a href="javascript:;" class="btn btn-icon border btn-xs me-2">
-                                <i data-feather="instagram"></i>
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -83,7 +68,7 @@
                                         autocomplete="off" value="{{ $profileData->address }}">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleInputUsername1" class="form-label">Address</label>
+                                    <label for="exampleInputUsername1" class="form-label">Description</label>
                                     {{-- <input type="text" name="address" class="form-control" id="exampleInputUsername1"
                                         autocomplete="off" value="{{ $profileData->description }}"> --}}
                                     <textarea type="text" name="description" class="form-control"

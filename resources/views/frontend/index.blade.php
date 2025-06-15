@@ -3,7 +3,8 @@
 @section('main')
 
 @section('title')
-    EMPO RealEstate | Buy-Sell Properties
+    Mulkaan | Buy-Sell Properties
+    {{-- EMPO RealEstate | Buy-Sell Properties --}}
 @endsection
 <!-- banner-section -->
 @include('frontend.home.banner')

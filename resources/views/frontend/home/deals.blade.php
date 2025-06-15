@@ -19,7 +19,7 @@
                                 <a href="{{ url('property/details/' . $item->property_slug) }}">
                                     <figure class="image">
                                         <img src="{{ asset($item->property_thambnail) }}"
-                                            alt="empotechbd_property_image">
+                                            alt="empotechbd_property_image" style="width: 500px; height: 250px;">
                                     </figure>
                                 </a>
                                 <div class="batch"><i class="icon-11"></i></div>
@@ -77,7 +77,7 @@
                                 <ul class="more-details clearfix">
                                     <li><i class="icon-14"></i>{{ $item->bedrooms }} Beds</li>
                                     <li><i class="icon-15"></i>{{ $item->bathrooms }} Baths</li>
-                                    <li><i class="icon-16"></i>{{ $item->property_size }} Sq Ft</li>
+                                    <li><i class="icon-16"></i>{{ $item->property_size }} SqFt</li>
                                 </ul>
 
                                 <div class="btn-box"><a href="{{ url('property/details/' . $item->property_slug) }}"
