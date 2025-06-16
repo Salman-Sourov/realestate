@@ -1,5 +1,5 @@
-@extends('admin.admin_dashboard')
-@section('admin')
+@extends('agent.agent_dashboard')
+@section('agent')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
     <div class="page-content">
@@ -30,12 +30,12 @@
                                     </div><!-- Col -->
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
-                                            <label class="form-label">Property Status</label>
+                                            <label class="form-label">Property Status *</label>
                                             <select name="property_status" class="form-select"
                                                 id="exampleFormControlSelect1">
                                                 <option selected="" disabled="">Select Status</option>
-                                                <option value="rent"
-                                                    {{ $property->property_status == 'rent' ? 'selected' : '' }}>For Rent
+                                                <option value="sell"
+                                                    {{ $property->property_status == 'sell' ? 'selected' : '' }}>For Sell
                                                 </option>
                                                 <option value="buy"
                                                     {{ $property->property_status == 'buy' ? 'selected' : '' }}>For Buy
@@ -43,7 +43,6 @@
                                             </select>
                                         </div>
                                     </div><!-- Col -->
-
 
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">

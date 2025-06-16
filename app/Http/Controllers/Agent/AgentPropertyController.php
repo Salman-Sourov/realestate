@@ -61,6 +61,15 @@ class AgentPropertyController extends Controller
 
     public function AgentStoreProperty(Request $request)
     {
+        function convertYoutubeToEmbed($url)
+        {
+            if (strpos($url, 'watch?v=') !== false) {
+                return str_replace('watch?v=', 'embed/', $url);
+            } elseif (strpos($url, 'youtu.be/') !== false) {
+                return str_replace('youtu.be/', 'youtube.com/embed/', $url);
+            }
+            return $url;
+        }
 
         $id = Auth::User()->id;
         $uid = User::findOrFail($id);
@@ -75,7 +84,7 @@ class AgentPropertyController extends Controller
             $manager = new ImageManager(new Driver());
             $name_gen = hexdec(uniqid()) . '.' . $request->file('property_thambnail')->getClientOriginalExtension();
             $image = $manager->read($request->file('property_thambnail'));
-            $image = $image->resize(370, 250);
+            // $image = $image->resize(370, 250);
             $image->toJpeg(80)->Save(base_path(('public/upload/property/thambnail/' . $name_gen)));
             $save_url = 'upload/property/thambnail/' . $name_gen;
         }
@@ -98,7 +107,7 @@ class AgentPropertyController extends Controller
 
 
             'property_size' => $request->property_size,
-            'property_video' => $request->property_video,
+            'property_video' => convertYoutubeToEmbed($request->property_video),
             'address' => $request->address,
             'city' => $request->city,
             'state' => $request->state,
@@ -120,21 +129,22 @@ class AgentPropertyController extends Controller
         // Multiple Image Upload from here
         $images = $request->file('multi_img');
 
-        foreach ($images as $img) {
-            $manager = new ImageManager(new Driver());
-            $make_name = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
-            $image = $manager->read($img);
-            $image = $image->resize(370, 250);
-            $image->toJpeg(80)->Save(base_path(('public/upload/property/multi-image/' . $make_name)));
-            $uploadPath = 'upload/property/multi-image/' . $make_name;
+        if ($images) { // Check if files are uploaded
+            foreach ($images as $img) {
+                $manager = new ImageManager(new Driver());
+                $make_name = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
+                $image = $manager->read($img);
+                // $image = $image->resize(370, 250);
+                $image->toJpeg(80)->Save(base_path(('public/upload/property/multi-image/' . $make_name)));
+                $uploadPath = 'upload/property/multi-image/' . $make_name;
 
-            MultiImage::insert([
-                'property_id' => $property_id,
-                'photo_name' => $uploadPath,
-                'created_at' => Carbon::now(),
-
-            ]);
-        } //end foreach
+                MultiImage::insert([
+                    'property_id' => $property_id,
+                    'photo_name' => $uploadPath,
+                    'created_at' => Carbon::now(),
+                ]);
+            }
+        }
 
         // Facilities Add From Here
         $facilities = Count($request->facility_name);
@@ -182,6 +192,16 @@ class AgentPropertyController extends Controller
 
     public function AgentUpdateProperty(Request $request)
     {
+        function convertYoutubeToEmbed($url)
+        {
+            if (strpos($url, 'watch?v=') !== false) {
+                return str_replace('watch?v=', 'embed/', $url);
+            } elseif (strpos($url, 'youtu.be/') !== false) {
+                return str_replace('youtu.be/', 'youtube.com/embed/', $url);
+            }
+            return $url;
+        }
+
         $property_id = $request->id;
         $amen = $request->amenities_id;
         $amenites = implode(",", $amen);
@@ -203,7 +223,7 @@ class AgentPropertyController extends Controller
             'garage_size' => $request->garage_size,
 
             'property_size' => $request->property_size,
-            'property_video' => $request->property_video,
+            'property_video' => convertYoutubeToEmbed($request->property_video),
             'address' => $request->address,
             'city' => $request->city,
             'state' => $request->state,
@@ -583,13 +603,13 @@ class AgentPropertyController extends Controller
 
         //Start Email
 
-            $data = [
-                'tour_date' => $schedule->tour_date,
-                'tour_time' => $schedule->tour_time,
-            ];
+        $data = [
+            'tour_date' => $schedule->tour_date,
+            'tour_time' => $schedule->tour_time,
+        ];
 
-            $user_email = $request->email;
-            Mail::to($user_email)->send(new ScheduleMail($data));
+        $user_email = $request->email;
+        Mail::to($user_email)->send(new ScheduleMail($data));
 
         //End Email
 

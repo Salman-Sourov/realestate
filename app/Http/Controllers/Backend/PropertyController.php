@@ -136,7 +136,7 @@ class PropertyController extends Controller
                     'created_at' => Carbon::now(),
                 ]);
             }
-        } // end if
+        } 
 
         // Facilities Add From Here
         $facilities = Count($request->facility_name);

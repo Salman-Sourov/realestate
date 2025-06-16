@@ -15,67 +15,54 @@
                             <form method="post" action="{{ route('agent.store.property') }}" id="myForm"
                                 enctype="multipart/form-data">
                                 @csrf
-
                                 <div class="row">
-
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
-                                            <label class="form-label">Property Name </label>
-                                            <input type="text" name="property_name" class="form-control">
+                                            <label class="form-label">Property Name * </label>
+                                            <input type="text" name="property_name" class="form-control"
+                                                value="{{ old('property_name') }}">
+                                            @error('property_name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div><!-- Col -->
 
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
-                                            <label class="form-label">Property Status</label>
+                                            <label class="form-label">Property Status *</label>
                                             <select name="property_status" class="form-select"
                                                 id="exampleFormControlSelect1">
                                                 <option selected="" disabled="">Select Status</option>
-                                                <option value="rent">For Rent</option>
-                                                <option value="buy">For Buy</option>
+                                                <option value="sell"
+                                                    {{ old('property_status') == 'sell' ? 'selected' : '' }}>For Sell
+                                                </option>
+                                                <option value="buy"
+                                                    {{ old('property_status') == 'buy' ? 'selected' : '' }}>For Buy</option>
                                             </select>
+                                            @error('property_status')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div><!-- Col -->
 
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
-                                            <label class="form-label">Lowest Price </label>
-                                            <input type="text" name="lowest_price" class="form-control">
+                                            <label class="form-label">Lowest Price (৳) *</label>
+                                            <input type="text" name="lowest_price" class="form-control"
+                                                value="{{ old('lowest_price') }}">
+                                            @error('lowest_price')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div><!-- Col -->
 
-
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
-                                            <label class="form-label">Max Price </label>
+                                            <label class="form-label">Max Price (৳)</label>
                                             <input type="text" name="max_price" class="form-control">
                                         </div>
                                     </div><!-- Col -->
-
-
-                                    <div class="col-sm-6">
-                                        <div class="form-group mb-3">
-                                            <label class="form-label">Main Thambnail </label>
-                                            <input type="file" name="property_thambnail" class="form-control"
-                                                onChange="mainThamUrl(this)">
-                                            <img src="" id="mainThmb">
-                                        </div>
-                                    </div><!-- Col -->
-
-
-
-                                    <div class="col-sm-6">
-                                        <div class="form-group mb-3">
-                                            <label class="form-label">Multiple Image </label>
-                                            <input type="file" name="multi_img[]" class="form-control" id="multiImg"
-                                                multiple="">
-                                            <div class="row" id="preview_img"> </div>
-                                        </div>
-                                    </div><!-- Col -->
-
-
                                 </div><!-- Row -->
-
 
                                 <div class="row">
                                     <div class="col-sm-3">
@@ -84,14 +71,12 @@
                                             <input type="text" name="bedrooms" class="form-control">
                                         </div>
                                     </div><!-- Col -->
-
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">Bathrooms</label>
                                             <input type="text" name="bathrooms" class="form-control">
                                         </div>
                                     </div><!-- Col -->
-
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">Garage</label>
@@ -101,19 +86,40 @@
 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label class="form-label">Garage Size</label>
+                                            <label class="form-label">Garage Size (SqFt)</label>
                                             <input type="text" name="garage_size" class="form-control">
                                         </div>
                                     </div><!-- Col -->
 
                                 </div><!-- Row -->
 
-
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label class="form-label">Address</label>
-                                            <input type="text" name="address" class="form-control">
+                                            <label class="form-label">Address *</label>
+                                            <input type="text" name="address" class="form-control"
+                                                value="{{ old('address') }}">
+                                            @error('address')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div><!-- Col -->
+
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">Area/Division *</label>
+                                            <select name="state" class="form-select" id="exampleFormControlSelect1">
+                                                <option selected="" disabled="">Select Area</option>
+                                                @foreach ($pstate as $state)
+                                                    <option value="{{ $state->id }}"
+                                                        {{ old('state') == $state->id ? 'selected' : '' }}>
+                                                        {{ $state->state_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('state')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div><!-- Col -->
 
@@ -126,18 +132,6 @@
 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label class="form-label">State</label>
-                                            <select name="state" class="form-select" id="exampleFormControlSelect1">
-                                                <option selected="" disabled="">Select State</option>
-                                                @foreach ($pstate as $state)
-                                                    <option value="{{ $state->id }}">{{ $state->state_name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div><!-- Col -->
-
-                                    <div class="col-sm-3">
-                                        <div class="mb-3">
                                             <label class="form-label">Postal Code </label>
                                             <input type="text" name="postal_code" class="form-control">
                                         </div>
@@ -145,30 +139,32 @@
 
                                 </div><!-- Row -->
 
-
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="mb-3">
-                                            <label class="form-label">Property Size</label>
-                                            <input type="text" name="property_size" class="form-control">
+                                            <label class="form-label">Property Size (SqFt) *</label>
+                                            <input type="text" name="property_size" class="form-control"
+                                                value="{{ old('property_size') }}">
+                                            @error('property_size')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div><!-- Col -->
+
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label class="form-label">Property Video</label>
                                             <input type="text" name="property_video" class="form-control">
                                         </div>
                                     </div><!-- Col -->
+
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label class="form-label">Neighborhood</label>
                                             <input type="text" name="neighborhood" class="form-control">
                                         </div>
                                     </div><!-- Col -->
-
-
                                 </div><!-- Row -->
-
 
                                 <div class="row">
                                     <div class="col-sm-6">
@@ -179,7 +175,6 @@
                                                 target="_blank">Go here to get Latitude from address</a>
                                         </div>
                                     </div><!-- Col -->
-
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label class="form-label">Longitude</label>
@@ -193,53 +188,85 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="mb-3">
-                                            <label class="form-label">Property Type </label>
+                                            <label class="form-label">Property Type *</label>
                                             <select name="ptype_id" class="form-select" id="exampleFormControlSelect1">
-                                                <option selected="" disabled="">Select Type</option>
+                                                <option selected disabled>Select Type</option>
                                                 @foreach ($propertytype as $ptype)
-                                                    <option value="{{ $ptype->id }}">{{ $ptype->type_name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div><!-- Col -->
-
-                                    <div class="col-sm-8">
-                                        <div class="mb-3">
-                                            <label class="form-label">Property Amenities </label>
-                                            <select name="amenities_id[]" class="js-example-basic-multiple form-select"
-                                                multiple="multiple" data-width="100%">
-
-                                                @foreach ($amenities as $ameni)
-                                                    <option value="{{ $ameni->amenitis_name }}">{{ $ameni->amenitis_name }}
+                                                    <option value="{{ $ptype->id }}"
+                                                        {{ old('ptype_id') == $ptype->id ? 'selected' : '' }}>
+                                                        {{ $ptype->type_name }}
                                                     </option>
                                                 @endforeach
-
                                             </select>
+                                            @error('ptype_id')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div><!-- Col -->
+
+
+                                    <div class="col-sm-4">
+                                        <div class="mb-3">
+                                            <label class="form-label">Property Amenities * </label>
+                                            <select name="amenities_id[]" class="js-example-basic-multiple form-select"
+                                                multiple="multiple" data-width="100%">
+                                                @foreach ($amenities as $ameni)
+                                                    <option value="{{ $ameni->amenitis_name }}"
+                                                        @if (in_array($ameni->amenitis_name, old('amenities_id', []))) selected @endif>
+                                                        {{ $ameni->amenitis_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('amenities_id')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div><!-- Col -->
+
                                 </div><!-- Row -->
 
                                 <div class="col-sm-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Short Description</label>
-                                        <textarea name="short_descp" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-
+                                        <label class="form-label">Short Description *</label>
+                                        <textarea name="short_descp" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ old('short_descp') }}</textarea>
+                                        @error('short_descp')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div><!-- Col -->
-
 
                                 <div class="col-sm-12">
                                     <div class="mb-3">
                                         <label class="form-label">Long Description</label>
-
-                                        <textarea class="form-control" name="long_descp" id="tinymceExample" rows="10"></textarea>
-
+                                        <textarea name="long_descp" class="form-control" name="tinymce" id="tinymceExample" rows="10"></textarea>
                                     </div>
                                 </div><!-- Col -->
 
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">Main Thambnail *</label>
+                                            <input type="file" name="property_thambnail" class="form-control"
+                                                onChange="mainThamUrl(this)">
+                                            <img src="" id="mainThmb">
+                                            @error('property_thambnail')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div><!-- Col -->
 
+                                    <div class="col-sm-6">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">Multiple Image </label>
+                                            <input type="file" name="multi_img[]" class="form-control" id="multiImg"
+                                                multiple="">
+
+                                            <div class="row" id="preview_img"> </div>
+
+                                        </div>
+                                    </div><!-- Col -->
+                                </div>
                                 <hr>
-
                                 <div class="mb-3">
                                     <div class="form-check form-check-inline">
                                         <input type="checkbox" name="featured" value="1" class="form-check-input"
@@ -249,7 +276,6 @@
                                         </label>
                                     </div>
 
-
                                     <div class="form-check form-check-inline">
                                         <input type="checkbox" name="hot" value="1" class="form-check-input"
                                             id="checkInline">
@@ -257,12 +283,10 @@
                                             Hot Property
                                         </label>
                                     </div>
-
-
                                 </div>
 
-                                <!--   //////////// Facilities Option /////////////// -->
 
+                                <!--   //////////// Facilities Option /////////////// -->
                                 <div class="row add_item">
                                     <div class="col-md-4">
                                         <div class="mb-3">
@@ -296,8 +320,7 @@
                                     </div>
                                 </div> <!---end row-->
 
-                                <button type="submit" class="btn btn-primary submit">Save Changes </button>
-
+                                <button type="submit" class="btn btn-primary">Save Changes </button>
                             </form>
 
                         </div>
@@ -410,13 +433,9 @@
                     lowest_price: {
                         required: 'Please Enter Lowest Price',
                     },
-                    max_price: {
-                        required: 'Please Enter Max Price',
-                    },
                     ptype_id: {
                         required: 'Please Select Property Type',
                     },
-
 
                 },
                 errorElement: 'span',
