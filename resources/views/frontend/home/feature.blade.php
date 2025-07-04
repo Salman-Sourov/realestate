@@ -1,7 +1,6 @@
 @php
-
     $property = App\Models\Property::where('status', '1')->where('featured', '1')->latest()->limit(3)->get();
-
+    $count_property = $property->count();
 @endphp
 
 <section class="feature-section sec-pad bg-color-1">
@@ -81,8 +80,7 @@
                                     <li><i class="icon-15"></i>{{ $item->bathrooms }} Baths</li>
                                     <li><i class="icon-16"></i>{{ $item->property_size }} SqFt</li>
                                 </ul>
-                                <div class="btn-box"><a
-                                        href="{{ url('property/details/' . $item->property_slug) }}"
+                                <div class="btn-box"><a href="{{ url('property/details/' . $item->property_slug) }}"
                                         class="theme-btn btn-two">See Details</a>
                                 </div>
                             </div>
@@ -92,7 +90,10 @@
             @endforeach
 
         </div>
-        <div class="more-btn centred"><a href="{{ route('all.property') }}" class="theme-btn btn-one">View All
-                Listing</a></div>
+
+        @if ($count_property > 3)
+            <div class="more-btn centred"><a href="{{ route('all.property') }}" class="theme-btn btn-one">View All
+                    Listing</a></div>
+        @endif
     </div>
 </section>

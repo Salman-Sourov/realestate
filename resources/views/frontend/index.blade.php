@@ -24,10 +24,6 @@
 @include('frontend.home.chooseus')
 <!-- chooseus-section end --> --}}
 
-<!-- cta-section -->
-@include('frontend.home.cta')
-<!-- cta-section end -->
-
 {{-- <!-- video-section -->
 @include('frontend.home.video')
 <!-- video-section end --> --}}
@@ -46,6 +42,10 @@
 <!-- place-section -->
 @include('frontend.home.place')
 <!-- place-section end -->
+
+<!-- cta-section -->
+@include('frontend.home.cta')
+<!-- cta-section end -->
 
 <!-- team-section -->
 @include('frontend.home.team')
