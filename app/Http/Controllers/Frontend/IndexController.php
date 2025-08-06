@@ -32,7 +32,7 @@ class IndexController extends Controller
             ->orderBy('id', 'DESC')
             ->limit(3)
             ->get();
-            // dd($property);
+        // dd($property);
 
         return view('frontend.property.property_details', compact('property', 'multiImage', 'property_amen', 'facility', 'relatedProperty'));
     }
@@ -200,7 +200,7 @@ class IndexController extends Controller
 
     public function BuyPropertySearch(Request $request)
     {
-        $request->validate(['search' => 'required']);
+        // $request->validate(['search' => 'required']);
 
         $item = $request->search;
         $sstate = $request->state;
@@ -230,9 +230,10 @@ class IndexController extends Controller
 
         return view('frontend.property.property_search', compact('property', 'rentproperty', 'buyproperty'));
     }
+
     public function RentPropertySearch(Request $request)
     {
-        $request->validate(['search' => 'required']);
+        // $request->validate(['search' => 'required']);
         $item = $request->search;
         $sstate = $request->state;
         $stype = $request->ptype_id;
@@ -253,7 +254,6 @@ class IndexController extends Controller
 
         return view('frontend.property.property_search', compact('property', 'rentproperty', 'buyproperty'));
     }
-
     public function AllPropertySearch(Request $request)
     {
         $property_status = $request->property_status;

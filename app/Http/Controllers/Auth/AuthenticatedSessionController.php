@@ -36,18 +36,16 @@ class AuthenticatedSessionController extends Controller
         $username = $adminData->name;
 
         $notification = array(
-            'message' => ''.$username.' Login Successfully',
+            'message' => '' . $username . ' Login Successfully',
             'alert-type' => 'success'
         );
 
         $url = '';
-        if($request->user()->role === 'admin'){
+        if ($request->user()->role === 'admin') {
             $url = 'admin/dashboard';
-        }
-        elseif($request->user()->role === 'agent'){
+        } elseif ($request->user()->role === 'agent') {
             $url = 'agent/dashboard';
-        }
-        elseif($request->user()->role === 'user'){
+        } elseif ($request->user()->role === 'user') {
             $url = '/dashboard';
         }
 
@@ -60,11 +58,8 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
         return redirect('/');
     }
 }

@@ -23,10 +23,10 @@
                 {{-- Laravel default login logout method --}}
                 @auth
                     <div class="sign-box ">
-                        @if (auth()->user() && auth()->user()->hasRole('user'))
+                        @if (auth()->user() && auth()->user()->role === 'user')
                             <a href="{{ route('dashboard') }}" target="_blank"><i class="fas fa-user"></i>Dashboard</a>
                             <a href="{{ route('user.logout') }}"><i class="fas fa-user"></i>Logout</a>
-                        @elseif (auth()->user() && auth()->user()->hasRole('admin'))
+                        @elseif (auth()->user() && auth()->user()->role === 'agent')
                             <a href="{{ route('agent.dashboard') }}" target="_blank"><i
                                     class="fas fa-user"></i>Dashboard</a>
                             <a href="{{ route('agent.logout') }}"><i class="fas fa-user"></i>Logout</a>

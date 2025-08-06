@@ -34,7 +34,7 @@
                                                     <div class="field-input">
                                                         <i class="fas fa-search"></i>
                                                         <input type="search" name="search"
-                                                            placeholder="Search by Property Name" required="">
+                                                            placeholder="Search by Property Name">
                                                     </div>
                                                 </div>
                                             </div>
@@ -89,7 +89,7 @@
                                                     <div class="field-input">
                                                         <i class="fas fa-search"></i>
                                                         <input type="search" name="search"
-                                                            placeholder="Search by Property Name" required="">
+                                                            placeholder="Search by Property Name">
                                                     </div>
                                                 </div>
                                             </div>

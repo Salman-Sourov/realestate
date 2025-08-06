@@ -181,7 +181,6 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 
     // Agent All Route from admin
     Route::controller(AdminController::class)->group(function () {
-
         Route::get('/all/agent', 'AllAgent')->name('all.agent');
         Route::get('/add/agent', 'AddAgent')->name('add.agent');
         Route::post('/store/agent', 'StoreAgent')->name('store.agent');
@@ -193,7 +192,6 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 
     // State  All Route
     Route::controller(StateController::class)->group(function () {
-
         Route::get('/all/state', 'AllState')->name('all.state');
         Route::get('/add/state', 'Addstate')->name('add.state');
         Route::post('/store/state', 'StoreState')->name('store.state');
@@ -204,7 +202,6 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 
     // Testimonials  All Route
     Route::controller(TestimonialController::class)->group(function () {
-
         Route::get('/all/testimonials', 'AllTestimonials')->name('all.testimonials');
         Route::get('/add/testimonials', 'AddTestimonials')->name('add.testimonials');
         Route::post('/store/testimonials', 'StoreTestimonials')->name('store.testimonials');
@@ -215,7 +212,6 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 
     //Blog Post All Route
     Route::controller(BlogController::class)->group(function () {
-
         Route::get('/all/post', 'AllPost')->name('all.post');
         Route::get('/add/post', 'AddPost')->name('add.post');
         Route::post('/store/post', 'StorePost')->name('store.post');
